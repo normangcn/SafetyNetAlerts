@@ -46,7 +46,6 @@ public class ApiController {
      */
     	@GetMapping()
 	public void test() {
-    	    
 	}
 	/*
 	 * @GetMapping(value = "/phoneAlert")
