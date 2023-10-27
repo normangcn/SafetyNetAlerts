@@ -39,7 +39,7 @@ public class FireStationController {
     @GetMapping(value= "/{station_number}")
     @ResponseBody
     public FireStation fireStationStationNumber(@PathVariable("station_number") int station) {
-	FireStation getFireStation = null;
+	FireStation getFireStation = new FireStation();
 	return getFireStation;
     }
     
