@@ -38,8 +38,9 @@ public class FireStationController {
     
     @GetMapping(value= "/{station_number}")
     @ResponseBody
-    public int fireStationStationNumber(@PathVariable("station_number") int station) {
-	return station;
+    public FireStation fireStationStationNumber(@PathVariable("station_number") int station) {
+	FireStation getFireStation = null;
+	return getFireStation;
     }
     
     @PostMapping
@@ -50,8 +51,8 @@ public class FireStationController {
     
     @PutMapping(value= "/{station_number}")
     @ResponseStatus(HttpStatus.OK)
-    public String updateFireStation(@PathVariable("station_number") int station, @RequestBody FireStation updateFireStation) {
-	return "Station"+ station + " information updated.";
+    public String updateFireStation(@PathVariable int station_number, @RequestBody FireStation updateFireStation) {
+	return "Station "+ station_number + " information updated.";
     }
     @DeleteMapping(value = "/{station_number}")
     @ResponseStatus(HttpStatus.OK)
