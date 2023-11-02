@@ -5,6 +5,8 @@ package com.oc.safetynetalerts.controller;
 
 
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.model.FireStation;
+import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +45,18 @@ public class FireStationController {
     @ResponseBody
     public FireStation fireStationStationNumber(@PathVariable("station_number") int station) {
 	FireStation getFireStation = new FireStation();
+	try {
+	    getFireStation = JsonReaderRepository.extractFireStationsDataFromJsonNode();
+	} catch (JsonParseException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (JsonMappingException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 	return getFireStation;
     }
     

@@ -13,11 +13,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oc.safetynetalerts.model.FireStation;
+import com.oc.safetynetalerts.model.MedicalRecord;
+import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.service.ObjectMapperService;
 
-import DTOs.FireStationsInDTO;
-import DTOs.MedicalRecordsInDTO;
-import DTOs.PersonInDTO;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -42,28 +43,29 @@ import lombok.extern.slf4j.Slf4j;
     }
     
     
-    public static PersonInDTO extractPersonDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public static Person extractPersonDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
     	final JsonNode personFromJasonFileJsonNode = StarterJsonFileReader().get("person");
-    	PersonInDTO personFromJsonNodeToDTO = mapper.treeToValue(personFromJasonFileJsonNode, PersonInDTO.class);
-		return personFromJsonNodeToDTO;
+    	Person personFromJsonNode = mapper.treeToValue(personFromJasonFileJsonNode, Person.class);
+		return personFromJsonNode;
     }
     
-    public FireStationsInDTO extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public static FireStation extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
     	JsonNode fireStationsFromJasonFileJsonNode = StarterJsonFileReader().get("firestations");
-    	FireStationsInDTO fireStationsFromJsonNodeToDTO = mapper.treeToValue(fireStationsFromJasonFileJsonNode, FireStationsInDTO.class);
-		return fireStationsFromJsonNodeToDTO;
+    	FireStation fireStationsFromJsonNode = mapper.treeToValue(fireStationsFromJasonFileJsonNode, FireStation.class);
+    	System.out.println("Stop here.");
+    	return fireStationsFromJsonNode;
     }
     
-    public MedicalRecordsInDTO extractMedicalRecordsDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public MedicalRecord extractMedicalRecordsDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
     	final JsonNode medicalRecordsFromJasonFileJsonNode = StarterJsonFileReader().get("medicalrecords");
-    	MedicalRecordsInDTO medicalRecordsFromJsonNodeToDTO = mapper.treeToValue(medicalRecordsFromJasonFileJsonNode, MedicalRecordsInDTO.class);
-		return medicalRecordsFromJsonNodeToDTO;
+    	MedicalRecord medicalRecordsFromJsonNode = mapper.treeToValue(medicalRecordsFromJasonFileJsonNode, MedicalRecord.class);
+		return medicalRecordsFromJsonNode;
     }
     
 }

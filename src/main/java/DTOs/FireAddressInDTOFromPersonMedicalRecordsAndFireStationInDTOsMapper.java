@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 
 
 /**
- * @author gareth
+ * @author NORMAN Gareth
  *
  */
 
