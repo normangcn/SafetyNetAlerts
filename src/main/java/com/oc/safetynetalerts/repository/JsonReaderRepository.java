@@ -56,7 +56,6 @@ import lombok.extern.slf4j.Slf4j;
     	ObjectMapper mapper = ObjectMapperService.getInstance();
     	JsonNode fireStationsFromJasonFileJsonNode = StarterJsonFileReader().get("firestations");
     	FireStation fireStationsFromJsonNode = mapper.treeToValue(fireStationsFromJasonFileJsonNode, FireStation.class);
-    	System.out.println("Stop here.");
     	return fireStationsFromJsonNode;
     }
     
