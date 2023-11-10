@@ -51,7 +51,7 @@ import lombok.extern.slf4j.Slf4j;
 		return personFromJsonNode;
     }
     
-    public static FireStation extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public FireStation extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
     	JsonNode fireStationsFromJasonFileJsonNode = StarterJsonFileReader().get("firestations");
