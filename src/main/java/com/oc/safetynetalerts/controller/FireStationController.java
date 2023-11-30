@@ -6,6 +6,7 @@ package com.oc.safetynetalerts.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class FireStationController {
-    
+	JsonReaderRepository repository = new JsonReaderRepository();
     @GetMapping("/test")
     public String test() {
 	String test = "test";
@@ -43,10 +44,11 @@ public class FireStationController {
     
     @GetMapping(value= "/{station_number}")
     @ResponseBody
-    public FireStation fireStationStationNumber(@PathVariable("station_number") int station) {
-	FireStation getFireStation = new FireStation();
+    public List<FireStation> fireStationStationNumber(@PathVariable("station_number") int station) {
+    	List<FireStation> getFireStation = new FireStation(null, station);
+    	
 	try {
-	    getFireStation = JsonReaderRepository.extractFireStationsDataFromJsonNode();
+	    getFireStation = repository.extractFireStationsDataFromJsonNode();
 	} catch (JsonParseException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();

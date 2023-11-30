@@ -5,11 +5,13 @@ package com.oc.safetynetalerts.repository;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,11 +53,11 @@ import lombok.extern.slf4j.Slf4j;
 		return personFromJsonNode;
     }
     
-    public FireStation extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public List<FireStation> extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
     	JsonNode fireStationsFromJasonFileJsonNode = StarterJsonFileReader().get("firestations");
-    	FireStation fireStationsFromJsonNode = mapper.treeToValue(fireStationsFromJasonFileJsonNode, FireStation.class);
+    	List<FireStation> fireStationsFromJsonNode = mapper.reader().forType(new TypeReference<List<FireStation>>() {}).readValue(fireStationsFromJasonFileJsonNode);
     	return fireStationsFromJsonNode;
     }
     
