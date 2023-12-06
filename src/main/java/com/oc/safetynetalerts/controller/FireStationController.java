@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.model.FireStation;
@@ -34,6 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/firestation")
 @RestController
 @Slf4j
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FireStationController {
 	JsonReaderRepository repository = new JsonReaderRepository();
     @GetMapping("/test")

@@ -1,164 +1,136 @@
-/**
- * 
- */
-
 package com.oc.safetynetalerts.model;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import lombok.AllArgsConstructor;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+"address",
+"station"
+})
+@Generated("jsonschema2pojo")
+public class FireStation {
+
+@JsonProperty("address")
+private String address;
+@JsonProperty("station")
+private String station;
+@JsonIgnore
+private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
 /**
- * @author NORMAN Gareth
- *
- */
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true) 
-public class FireStation implements List<FireStation> {
-    
+* No args constructor for use in serialization
+*
+*/
+public FireStation() {
+}
 
-    @JsonProperty("address")
-    String address;
-    @JsonProperty("station")
-    int station;
-    public FireStation() {
-		super();
-    }
-    public FireStation(String address, int station) {
-		this.address = address;
-		this.station = station;
-	}
-	public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public int getStation() {
-        return station;
-    }
-    public void setStation(int station) {
-        this.station = station;
-    }
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Iterator<FireStation> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public boolean add(FireStation e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean addAll(Collection<? extends FireStation> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean addAll(int index, Collection<? extends FireStation> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public FireStation get(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public FireStation set(int index, FireStation element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void add(int index, FireStation element) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public FireStation remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
-	public ListIterator<FireStation> listIterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public ListIterator<FireStation> listIterator(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<FireStation> subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+/**
+*
+* @param address
+* @param station
+*/
+public FireStation(String address, String station) {
+super();
+this.address = address;
+this.station = station;
+}
+
+@JsonProperty("address")
+public String getAddress() {
+return address;
+}
+
+@JsonProperty("address")
+public void setAddress(String address) {
+this.address = address;
+}
+
+public FireStation withAddress(String address) {
+this.address = address;
+return this;
+}
+
+@JsonProperty("station")
+public String getStation() {
+return station;
+}
+
+@JsonProperty("station")
+public void setStation(String station) {
+this.station = station;
+}
+
+public FireStation withStation(String station) {
+this.station = station;
+return this;
+}
+
+@JsonAnyGetter
+public Map<String, Object> getAdditionalProperties() {
+return this.additionalProperties;
+}
+
+@JsonAnySetter
+public void setAdditionalProperty(String name, Object value) {
+this.additionalProperties.put(name, value);
+}
+
+public FireStation withAdditionalProperty(String name, Object value) {
+this.additionalProperties.put(name, value);
+return this;
+}
+
+@Override
+public String toString() {
+StringBuilder sb = new StringBuilder();
+sb.append(FireStation.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+sb.append("address");
+sb.append('=');
+sb.append(((this.address == null)?"<null>":this.address));
+sb.append(',');
+sb.append("station");
+sb.append('=');
+sb.append(((this.station == null)?"<null>":this.station));
+sb.append(',');
+sb.append("additionalProperties");
+sb.append('=');
+sb.append(((this.additionalProperties == null)?"<null>":this.additionalProperties));
+sb.append(',');
+if (sb.charAt((sb.length()- 1)) == ',') {
+sb.setCharAt((sb.length()- 1), ']');
+} else {
+sb.append(']');
+}
+return sb.toString();
+}
+
+@Override
+public int hashCode() {
+int result = 1;
+result = ((result* 31)+((this.station == null)? 0 :this.station.hashCode()));
+result = ((result* 31)+((this.address == null)? 0 :this.address.hashCode()));
+result = ((result* 31)+((this.additionalProperties == null)? 0 :this.additionalProperties.hashCode()));
+return result;
+}
+
+@Override
+public boolean equals(Object other) {
+if (other == this) {
+return true;
+}
+if ((other instanceof FireStation) == false) {
+return false;
+}
+FireStation rhs = ((FireStation) other);
+return ((((this.station == rhs.station)||((this.station!= null)&&this.station.equals(rhs.station)))&&((this.address == rhs.address)||((this.address!= null)&&this.address.equals(rhs.address))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))));
+}
+
 }

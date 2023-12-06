@@ -6,6 +6,7 @@ package com.oc.safetynetalerts;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +42,7 @@ public class JsonReaderRepositoryTest{
     @Test
     public void extractFireStationsDataFromJsonNodeTest() throws JsonParseException, JsonMappingException, IOException {
 	JsonReaderRepository newInstance = new JsonReaderRepository();
-	FireStation testFSFromJson = newInstance.extractFireStationsDataFromJsonNode();
+	List<FireStation> testFSFromJson = newInstance.extractFireStationsDataFromJsonNode();
 	assertThat(testFSFromJson).isNotNull();
 	
     }
