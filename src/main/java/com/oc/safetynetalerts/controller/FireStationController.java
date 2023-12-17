@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.model.FireStation;
@@ -35,7 +34,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/firestation")
 @RestController
 @Slf4j
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class FireStationController {
 	JsonReaderRepository repository = new JsonReaderRepository();
     @GetMapping("/test")
@@ -47,10 +45,10 @@ public class FireStationController {
     @GetMapping(value= "/{station_number}")
     @ResponseBody
     public List<FireStation> fireStationStationNumber(@PathVariable("station_number") int station) {
-    	List<FireStation> getFireStation = new FireStation(null, station);
+    	List<FireStation> fireStationByStationNumber = null;
     	
 	try {
-	    getFireStation = repository.extractFireStationsDataFromJsonNode();
+		fireStationByStationNumber = repository.extractFireStationsDataFromJsonNode();
 	} catch (JsonParseException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -61,7 +59,7 @@ public class FireStationController {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	return getFireStation;
+	return fireStationByStationNumber;
     }
     
     @PostMapping

@@ -5,22 +5,14 @@ package com.oc.safetynetalerts.repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jsonschema2pojo.DefaultGenerationConfig;
-import org.jsonschema2pojo.GenerationConfig;
-import org.jsonschema2pojo.Jackson2Annotator;
-import org.jsonschema2pojo.SchemaGenerator;
-import org.jsonschema2pojo.SchemaMapper;
-import org.jsonschema2pojo.SchemaStore;
-import org.jsonschema2pojo.SourceType;
-import org.jsonschema2pojo.rules.RuleFactory;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
   @RequestMapping
   @Slf4j
   public class JsonReaderRepository {
-    public static JsonNode StarterJsonFileReader() {
+    public static JsonNode starterJsonFileReader() {
     ObjectMapper mapper = ObjectMapperService.getInstance();
     JsonNode JsonFileContent = null;
 	try {
@@ -54,48 +46,58 @@ import lombok.extern.slf4j.Slf4j;
     }
     
     
-    public static Person extractPersonDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public List<Person> extractPersonDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
-    	final JsonNode personFromJasonFileJsonNode = StarterJsonFileReader().get("person");
-    	Person personFromJsonNode = mapper.treeToValue(personFromJasonFileJsonNode, Person.class);
-		return personFromJsonNode;
+    	JsonNode personFromJasonFileJsonNode = starterJsonFileReader().get("person");
+    	List<Person> personFromJsonNode = new ArrayList<>();
+    	for(JsonNode o : personFromJasonFileJsonNode) {
+    		String str= mapper.writeValueAsString(o);
+    		personFromJsonNode.add(mapper.readValue(str, Person.class));
+    	}
+    	
+    	return personFromJsonNode;
     }
     
     public List<FireStation> extractFireStationsDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
-    	JsonNode fireStationsFromJasonFileJsonNode = StarterJsonFileReader().get("firestations");
-    	List<FireStation> fireStationsFromJsonNode = mapper.reader().forType(new TypeReference<List<FireStation>>() {}).readValue(fireStationsFromJasonFileJsonNode);
+    	JsonNode fireStationsFromJasonFileJsonNode = starterJsonFileReader().get("firestations");
+    	List<FireStation> fireStationsFromJsonNode = new ArrayList<>();
+        for(JsonNode o : fireStationsFromJasonFileJsonNode) {
+    		String str= mapper.writeValueAsString(o);
+    		fireStationsFromJsonNode.add(mapper.readValue(str, FireStation.class));
+    	}    	
     	return fireStationsFromJsonNode;
     }
     
-    public MedicalRecord extractMedicalRecordsDataFromJsonNode() throws JsonParseException, JsonMappingException,
+    public List<MedicalRecord> extractMedicalRecordsDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
-    	final JsonNode medicalRecordsFromJasonFileJsonNode = StarterJsonFileReader().get("medicalrecords");
-    	MedicalRecord medicalRecordsFromJsonNode = mapper.treeToValue(medicalRecordsFromJasonFileJsonNode, MedicalRecord.class);
-		return medicalRecordsFromJsonNode;
+    	JsonNode medicalRecordsFromJasonFileJsonNode = starterJsonFileReader().get("medicalrecords");
+    	List<MedicalRecord> medicalRecordsFromJsonNode = new ArrayList<>();
+        for(JsonNode o : medicalRecordsFromJasonFileJsonNode) {
+    		String str= mapper.writeValueAsString(o);
+    		medicalRecordsFromJsonNode.add(mapper.readValue(str, MedicalRecord.class));
+    	}
+    	
+    	return medicalRecordsFromJsonNode;
     }
-    public void convertJsonToJavaClass(URL inputJsonUrl, File outputJavaClassDirectory, String packageName, String javaClassName) 
-    		  throws IOException {
-    		    JCodeModel jcodeModel = new JCodeModel();
-
-    		    GenerationConfig config = new DefaultGenerationConfig() {
-    		        @Override
-    		        public boolean isGenerateBuilders() {
-    		            return true;
-    		        }
-
-    		        @Override
-    		        public SourceType getSourceType() {
-    		            return SourceType.JSON;
-    		        }
-    		    };
-
-    		    SchemaMapper mapper = new SchemaMapper(new RuleFactory(config, new Jackson2Annotator(config), new SchemaStore()), new SchemaGenerator());
-    		    mapper.generate(jcodeModel, javaClassName, packageName, inputJsonUrl);
-
-    		    jcodeModel.build(outputJavaClassDirectory);
-    		}
+	/*
+	 * public void convertJsonToJavaClass(URL inputJsonUrl, File
+	 * outputJavaClassDirectory, String packageName, String javaClassName) throws
+	 * IOException { JCodeModel jcodeModel = new JCodeModel();
+	 * 
+	 * GenerationConfig config = new DefaultGenerationConfig() {
+	 * 
+	 * @Override public boolean isGenerateBuilders() { return true; }
+	 * 
+	 * @Override public SourceType getSourceType() { return SourceType.JSON; } };
+	 * 
+	 * SchemaMapper mapper = new SchemaMapper(new RuleFactory(config, new
+	 * Jackson2Annotator(config), new SchemaStore()), new SchemaGenerator());
+	 * mapper.generate(jcodeModel, javaClassName, packageName, inputJsonUrl);
+	 * 
+	 * jcodeModel.build(outputJavaClassDirectory); }
+	 */
 }
