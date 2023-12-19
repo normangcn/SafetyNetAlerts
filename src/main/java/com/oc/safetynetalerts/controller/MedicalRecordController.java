@@ -69,4 +69,5 @@ public class MedicalRecordController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteMedicalRecord(@PathVariable("firstName lastName") String medicalRecord) {
     }
+
 }

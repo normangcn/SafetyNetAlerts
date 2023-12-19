@@ -210,4 +210,8 @@ MedicalRecord rhs = ((MedicalRecord) other);
 return (((((((this.allergies == rhs.allergies)||((this.allergies!= null)&&this.allergies.equals(rhs.allergies)))&&((this.firstName == rhs.firstName)||((this.firstName!= null)&&this.firstName.equals(rhs.firstName))))&&((this.lastName == rhs.lastName)||((this.lastName!= null)&&this.lastName.equals(rhs.lastName))))&&((this.birthdate == rhs.birthdate)||((this.birthdate!= null)&&this.birthdate.equals(rhs.birthdate))))&&((this.medications == rhs.medications)||((this.medications!= null)&&this.medications.equals(rhs.medications))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))));
 }
 
+public Object medicalRecordConcatNames() {
+	MedicalRecord medicalRecordNameConcat = new MedicalRecord();
+	return medicalRecordNameConcat;
+}
 }
