@@ -259,6 +259,7 @@ return (((((((((this.zip == rhs.zip)||((this.zip!= null)&&this.zip.equals(rhs.zi
 }
 public Object personRecordConcatNames() {
 	Person personRecordNameConcat = new Person();
+	
 	return personRecordNameConcat;
 }
 }

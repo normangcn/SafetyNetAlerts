@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
@@ -38,9 +39,12 @@ public class PersonController {
     @ResponseBody
     public List<Person> singleMedicalRecord(@PathVariable("first_name + last_name") String fullName) {
     	List<Person> singlePersonRecordByFullName = null;
-    	
 	try {
 		singlePersonRecordByFullName = repository.extractPersonDataFromJsonNode();
+		for(Person o : singlePersonRecordByFullName) {
+			
+		}
+				
 	} catch (JsonParseException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
