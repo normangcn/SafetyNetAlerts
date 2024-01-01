@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +53,8 @@ import lombok.extern.slf4j.Slf4j;
     	List<Person> personFromJsonNode = new ArrayList<>();
     	for(JsonNode o : personFromJasonFileJsonNode) {
     		String str= mapper.writeValueAsString(o);
+    		Person personID = mapper.readValue(str,  Person.class);
+    		personID.setId(UUID.randomUUID());
     		personFromJsonNode.add(mapper.readValue(str, Person.class));
     	}
     	
@@ -66,7 +68,10 @@ import lombok.extern.slf4j.Slf4j;
     	List<FireStation> fireStationsFromJsonNode = new ArrayList<>();
         for(JsonNode o : fireStationsFromJasonFileJsonNode) {
     		String str= mapper.writeValueAsString(o);
+    		FireStation stationID = mapper.readValue(str, FireStation.class);
+    		stationID.setId(UUID.randomUUID());
     		fireStationsFromJsonNode.add(mapper.readValue(str, FireStation.class));
+    		System.out.println();
     	}    	
     	return fireStationsFromJsonNode;
     }
@@ -78,7 +83,11 @@ import lombok.extern.slf4j.Slf4j;
     	List<MedicalRecord> medicalRecordsFromJsonNode = new ArrayList<>();
         for(JsonNode o : medicalRecordsFromJasonFileJsonNode) {
     		String str= mapper.writeValueAsString(o);
+    		MedicalRecord recordID = mapper.readValue(str, MedicalRecord.class);
+    		recordID.setId(UUID.randomUUID());
     		medicalRecordsFromJsonNode.add(mapper.readValue(str, MedicalRecord.class));
+    		System.out.println();
+    		
     	}
     	
     	return medicalRecordsFromJsonNode;

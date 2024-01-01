@@ -35,14 +35,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PersonController {
 	JsonReaderRepository repository = new JsonReaderRepository();
-	@GetMapping(value= "/{first_name + last_name}")
+	@GetMapping(value= "/{name}")
     @ResponseBody
-    public List<Person> singleMedicalRecord(@PathVariable("first_name + last_name") String fullName) {
+    public List<Person> singleMedicalRecord(@PathVariable("name") String fullName) {
     	List<Person> singlePersonRecordByFullName = null;
 	try {
 		singlePersonRecordByFullName = repository.extractPersonDataFromJsonNode();
 		for(Person o : singlePersonRecordByFullName) {
-			
+			//String fullName = firstName + lastName;
 		}
 				
 	} catch (JsonParseException e) {

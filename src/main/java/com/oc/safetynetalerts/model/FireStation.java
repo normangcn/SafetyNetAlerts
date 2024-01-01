@@ -2,6 +2,8 @@ package com.oc.safetynetalerts.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -17,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 @Generated("jsonschema2pojo")
 public class FireStation {
-
+	private UUID id;
 @JsonProperty("address")
 private String address;
 @JsonProperty("station")
@@ -31,7 +33,13 @@ private Map<String, Object> additionalProperties = new LinkedHashMap<String, Obj
 */
 public FireStation() {
 }
+public UUID getId() {
+	return id;
+}
 
+public void setId(UUID id) {
+	this.id = id;
+}
 /**
 *
 * @param address

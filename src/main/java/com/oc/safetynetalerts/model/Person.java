@@ -2,6 +2,8 @@ package com.oc.safetynetalerts.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -22,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 @Generated("jsonschema2pojo")
 public class Person {
-
+	private UUID id;
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
@@ -46,7 +48,13 @@ private Map<String, Object> additionalProperties = new LinkedHashMap<String, Obj
 */
 public Person() {
 }
+public UUID getId() {
+	return id;
+}
 
+public void setId(UUID id) {
+	this.id = id;
+}
 /**
 *
 * @param zip

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class MedicalRecord {
 
+	private UUID id;
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
@@ -41,6 +44,14 @@ private Map<String, Object> additionalProperties = new LinkedHashMap<String, Obj
 *
 */
 public MedicalRecord() {
+}
+
+public UUID getId() {
+	return id;
+}
+
+public void setId(UUID id) {
+	this.id = id;
 }
 
 /**
@@ -210,8 +221,4 @@ MedicalRecord rhs = ((MedicalRecord) other);
 return (((((((this.allergies == rhs.allergies)||((this.allergies!= null)&&this.allergies.equals(rhs.allergies)))&&((this.firstName == rhs.firstName)||((this.firstName!= null)&&this.firstName.equals(rhs.firstName))))&&((this.lastName == rhs.lastName)||((this.lastName!= null)&&this.lastName.equals(rhs.lastName))))&&((this.birthdate == rhs.birthdate)||((this.birthdate!= null)&&this.birthdate.equals(rhs.birthdate))))&&((this.medications == rhs.medications)||((this.medications!= null)&&this.medications.equals(rhs.medications))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))));
 }
 
-public Object medicalRecordConcatNames() {
-	MedicalRecord medicalRecordNameConcat = new MedicalRecord();
-	return medicalRecordNameConcat;
-}
 }
