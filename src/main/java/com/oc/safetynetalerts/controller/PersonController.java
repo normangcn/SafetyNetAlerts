@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.oc.safetynetalerts.model.Person;
+import com.oc.safetynetalerts.repository.GlobalRepo;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +44,7 @@ public class PersonController {
 		for(Person o : singlePersonRecordByFullName) {
 			//String fullName = firstName + lastName;
 		}
+		
 				
 	} catch (JsonParseException e) {
 	    // TODO Auto-generated catch block
@@ -57,6 +58,13 @@ public class PersonController {
 	}
 	return singlePersonRecordByFullName;
     }
+	
+	@GetMapping(value="/childAlert")
+	public List<Person> kidsAndAdultsListAtAddress(@PathVariable("Address") String address)
+	{
+		return GlobalRepo.person;//TODO link to the actual list in PersonService
+	}
+	
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String addPerson(@RequestBody Person newPerson) {
