@@ -62,7 +62,7 @@ public class PersonController {
 	@GetMapping(value="/childAlert")
 	public List<Person> kidsAndAdultsListAtAddress(@PathVariable("Address") String address)
 	{
-		return GlobalRepo.person;//TODO link to the actual list in PersonService
+		return GlobalRepo.person;//TODO return the actual data. Not the generic basic List
 	}
 	
     @PostMapping

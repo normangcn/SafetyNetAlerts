@@ -25,7 +25,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class MedicalRecord {
 
-	private UUID id;
+private UUID id;
+private int age;	
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
@@ -151,6 +152,13 @@ public Map<String, Object> getAdditionalProperties() {
 return this.additionalProperties;
 }
 
+public int getAge() {
+	return age;
+}
+
+public void setAge(int age) {
+	this.age = age;
+}
 @JsonAnySetter
 public void setAdditionalProperty(String name, Object value) {
 this.additionalProperties.put(name, value);

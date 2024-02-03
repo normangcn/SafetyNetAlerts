@@ -13,17 +13,17 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring")
 public interface ChildAlertAddressInDTOFromPersonAndMedicalRecordsInDTOsMapper {
-	List<ChildAlertAddressInDTO> personInDTOToChildAlertAddressInDTO (List<PersonInDTO> sourcePerson);
-	default ChildAlertAddressInDTO map(PersonInDTO person) {
-		ChildAlertAddressInDTO personInfoDTO = new ChildAlertAddressInDTO();
+	List<ChildAlertAddressOutDTO> personInDTOToChildAlertAddressInDTO (List<PersonInDTO> sourcePerson);
+	default ChildAlertAddressOutDTO map(PersonInDTO person) {
+		ChildAlertAddressOutDTO personInfoDTO = new ChildAlertAddressOutDTO();
 		personInfoDTO.setPersonFirstName(person.getFirstName());
 		personInfoDTO.setPersonLastName(person.getLastName());
 		personInfoDTO.setPersonAddress(person.getAddress());
         return personInfoDTO;
     }
-	List<ChildAlertAddressInDTO> medicalRecordsInDTOToChildAlertAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
-	default ChildAlertAddressInDTO map(MedicalRecordsInDTO medicalRecords) {
-		ChildAlertAddressInDTO medicalRecordsInfoDTO = new ChildAlertAddressInDTO();
+	List<ChildAlertAddressOutDTO> medicalRecordsInDTOToChildAlertAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
+	default ChildAlertAddressOutDTO map(MedicalRecordsInDTO medicalRecords) {
+		ChildAlertAddressOutDTO medicalRecordsInfoDTO = new ChildAlertAddressOutDTO();
 		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
 		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
 		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());
