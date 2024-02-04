@@ -3,7 +3,6 @@
  */
 package DTOs;
 
-import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -13,18 +12,16 @@ import lombok.Data;
  *
  */
 @Data
-public class PersonInfoFirstNameAndLastNameInDTO {
+public class FireAddressOutDTO {
+	
 	private String personFirstName;
 	private String personLastName;
 	private String personAddress;
-	private String personEmail;
-	
-	private Date medicalRecDOB;
-	private String medicalRecFirstName;
-	private String medicalRecLastName;
+	private String personPhoneNumber;
 	private List <String> medicalRecMedication;
 	private List <String> medicalRecAllergies;
 	
+
 	public String getPersonFirstName() {
 		return personFirstName;
 	}
@@ -43,44 +40,24 @@ public class PersonInfoFirstNameAndLastNameInDTO {
 	public void setPersonAddress(String personAddress) {
 		this.personAddress = personAddress;
 	}
-	public String getPersonEmail() {
-		return personEmail;
+	public String getPersonPhoneNumber() {
+		return personPhoneNumber;
 	}
-	public void setPersonEmail(String personEmail) {
-		this.personEmail = personEmail;
+	public void setPersonPhoneNumber(String personPhoneNumber) {
+		this.personPhoneNumber = personPhoneNumber;
 	}
-	public Date getMedicalRecDOB() {
-		return medicalRecDOB;
-	}
-	public void setMedicalRecDOB(Date medicalRecDOB) {
-		this.medicalRecDOB = medicalRecDOB;
-	}
-	public String getMedicalRecFirstName() {
-		return medicalRecFirstName;
-	}
-	public void setMedicalRecFirstName(String medicalRecFirstName) {
-		this.medicalRecFirstName = medicalRecFirstName;
-	}
-	public String getMedicalRecLastName() {
-		return medicalRecLastName;
-	}
-	public void setMedicalRecLastName(String medicalRecLastName) {
-		this.medicalRecLastName = medicalRecLastName;
-	}
-
 	public List<String> getMedicalRecAllergies() {
 		return medicalRecAllergies;
 	}
 	public void setMedicalRecAllergies(List<String> medicalRecAllergies) {
 		this.medicalRecAllergies = medicalRecAllergies;
 	}
+
 	public List <String> getMedicalRecMedication() {
 		return medicalRecMedication;
 	}
 	public void setMedicalRecMedication(List <String> medicalRecMedication) {
 		this.medicalRecMedication = medicalRecMedication;
 	}
-	
-	
 	
 }

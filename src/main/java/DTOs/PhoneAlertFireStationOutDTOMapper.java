@@ -12,7 +12,7 @@ import org.mapstruct.Mapper;
  *
  */
 @Mapper(componentModel="spring")
-public interface PhoneAlertFireStationInDTOFromFireStationsAndPersonInDTOsMapper {
+public interface PhoneAlertFireStationOutDTOMapper {
 	List<PhoneAlertFireStationInDTO> fireStationsInDTOToPhoneAlertFireStationInDTO (List<FireStationsInDTO> sourceFireStations);
 	default PhoneAlertFireStationInDTO map(FireStationsInDTO fireStation) {
 		PhoneAlertFireStationInDTO fireStationInfoDTO = new PhoneAlertFireStationInDTO();

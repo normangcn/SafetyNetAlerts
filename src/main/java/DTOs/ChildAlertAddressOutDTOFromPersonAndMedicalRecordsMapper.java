@@ -12,7 +12,7 @@ import org.mapstruct.Mapper;
  *
  */
 @Mapper(componentModel = "spring")
-public interface ChildAlertAddressInDTOFromPersonAndMedicalRecordsInDTOsMapper {
+public interface ChildAlertAddressOutDTOFromPersonAndMedicalRecordsMapper {
 	List<ChildAlertAddressOutDTO> personInDTOToChildAlertAddressInDTO (List<PersonInDTO> sourcePerson);
 	default ChildAlertAddressOutDTO map(PersonInDTO person) {
 		ChildAlertAddressOutDTO personInfoDTO = new ChildAlertAddressOutDTO();

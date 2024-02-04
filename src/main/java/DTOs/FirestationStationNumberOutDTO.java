@@ -3,7 +3,6 @@
  */
 package DTOs;
 
-import java.util.Date;
 
 import lombok.Data;
 
@@ -12,8 +11,7 @@ import lombok.Data;
  *
  */
 @Data
-public class FirestationStationNumberInDTO {
-	private String addressFirestation;
+public class FirestationStationNumberOutDTO {
 	private int stationNumberFirestation;
 	
 	private String personFirstName;
@@ -21,16 +19,10 @@ public class FirestationStationNumberInDTO {
 	private String personAddress;
 	private String personPhoneNumber;
 	
-	private Date medicalRecDOB;
-	private String medicalRecFirstName;
-	private String medicalRecLastName;
+	private int kidsCount;
+	private int adultsCount;
 	
-	public String getAddressFirestation() {
-		return addressFirestation;
-	}
-	public void setAddressFirestation(String addressFirestation) {
-		this.addressFirestation = addressFirestation;
-	}
+	
 	public int getStationNumberFirestation() {
 		return stationNumberFirestation;
 	}
@@ -61,24 +53,16 @@ public class FirestationStationNumberInDTO {
 	public void setPersonPhoneNumber(String personPhoneNumber) {
 		this.personPhoneNumber = personPhoneNumber;
 	}
-	public Date getMedicalRecDOB() {
-		return medicalRecDOB;
+	public int getKidsCount() {
+		return kidsCount;
 	}
-	public void setMedicalRecDOB(Date date) {
-		this.medicalRecDOB = date;
+	public void setKidsCount(int kidsCount) {
+		this.kidsCount = kidsCount;
 	}
-	public String getMedicalRecFirstName() {
-		return medicalRecFirstName;
+	public int getAdultsCount() {
+		return adultsCount;
 	}
-	public void setMedicalRecFirstName(String medicalRecFirstName) {
-		this.medicalRecFirstName = medicalRecFirstName;
+	public void setAdultsCount(int adultsCount) {
+		this.adultsCount = adultsCount;
 	}
-	public String getMedicalRecLastName() {
-		return medicalRecLastName;
-	}
-	public void setMedicalRecLastName(String medicalRecLastName) {
-		this.medicalRecLastName = medicalRecLastName;
-	}
-	
-	
 }

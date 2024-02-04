@@ -4,7 +4,6 @@
 package DTOs;
 
 
-import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -14,18 +13,16 @@ import lombok.Data;
  *
  */
 @Data
-public class FloodStationsStationsInDTO {
-	private String personFirstName;
-	private String personLastName;
-	private String personAddress;
-	private String personPhoneNumber;
+public class FloodStationsStationsOutDTO {
+
 	
-	private String addressFirestation;
 	private int stationNumberFirestation;
 	
-	private Date medicalRecDOB;
-	private String medicalRecFirstName;
-	private String medicalRecLastName;
+	private String personAddress;
+	private String personPhoneNumber;
+	private String personFirstName;
+	private String personLastName;
+	private int age;
 	private List <String> medicalRecMedication;
 	private List <String> medicalRecAllergies;
 	
@@ -53,36 +50,14 @@ public class FloodStationsStationsInDTO {
 	public void setPersonPhoneNumber(String personPhoneNumber) {
 		this.personPhoneNumber = personPhoneNumber;
 	}
-	public String getAddressFirestation() {
-		return addressFirestation;
-	}
-	public void setAddressFirestation(String addressFirestation) {
-		this.addressFirestation = addressFirestation;
-	}
+	
 	public int getStationNumberFirestation() {
 		return stationNumberFirestation;
 	}
 	public void setStationNumberFirestation(int stationNumberFirestation) {
 		this.stationNumberFirestation = stationNumberFirestation;
 	}
-	public Date getMedicalRecDOB() {
-		return medicalRecDOB;
-	}
-	public void setMedicalRecDOB(Date medicalRecDOB) {
-		this.medicalRecDOB = medicalRecDOB;
-	}
-	public String getMedicalRecFirstName() {
-		return medicalRecFirstName;
-	}
-	public void setMedicalRecFirstName(String medicalRecFirstName) {
-		this.medicalRecFirstName = medicalRecFirstName;
-	}
-	public String getMedicalRecLastName() {
-		return medicalRecLastName;
-	}
-	public void setMedicalRecLastName(String medicalRecLastName) {
-		this.medicalRecLastName = medicalRecLastName;
-	}
+	
 
 	public List<String> getMedicalRecAllergies() {
 		return medicalRecAllergies;
@@ -97,6 +72,12 @@ public class FloodStationsStationsInDTO {
 
 	public void setMedicalRecMedication(List <String> medicalRecMedication) {
 		this.medicalRecMedication = medicalRecMedication;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 	

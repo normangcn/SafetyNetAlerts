@@ -10,26 +10,26 @@ import java.util.List;
  *
  */
 public interface FloodStationsStationsInDTOFromPersonFireStationsAndMedicalRecordsInDTOsMapper {
-	List<FloodStationsStationsInDTO> fireStationsInDTOToFloodStationsStationsInDTO (List<FireStationsInDTO> sourceFireStations);
-	default FloodStationsStationsInDTO map(FireStationsInDTO fireStation) {
-		FloodStationsStationsInDTO fireStationInfoDTO = new FloodStationsStationsInDTO();
+	List<FloodStationsStationsOutDTO> fireStationsInDTOToFloodStationsStationsInDTO (List<FireStationsInDTO> sourceFireStations);
+	default FloodStationsStationsOutDTO map(FireStationsInDTO fireStation) {
+		FloodStationsStationsOutDTO fireStationInfoDTO = new FloodStationsStationsOutDTO();
 		fireStationInfoDTO.setAddressFirestation(fireStation.getAddress());
 		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
 	
-	List<FloodStationsStationsInDTO> personInDTOToFloodStationsStationsInDTO (List<PersonInDTO> sourcePerson);
-	default FloodStationsStationsInDTO map(PersonInDTO person) {
-		FloodStationsStationsInDTO personInfoDTO = new FloodStationsStationsInDTO();
+	List<FloodStationsStationsOutDTO> personInDTOToFloodStationsStationsInDTO (List<PersonInDTO> sourcePerson);
+	default FloodStationsStationsOutDTO map(PersonInDTO person) {
+		FloodStationsStationsOutDTO personInfoDTO = new FloodStationsStationsOutDTO();
 		personInfoDTO.setPersonFirstName(person.getFirstName());
 		personInfoDTO.setPersonLastName(person.getLastName());
 		personInfoDTO.setPersonAddress(person.getAddress());
 		personInfoDTO.setPersonPhoneNumber(person.getPhone());
         return personInfoDTO;
     }
-	List<FloodStationsStationsInDTO> medicalRecordsInDTOToFloodStationsStationsInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
-	default FloodStationsStationsInDTO map(MedicalRecordsInDTO medicalRecords) {
-		FloodStationsStationsInDTO medicalRecordsInfoDTO = new FloodStationsStationsInDTO();
+	List<FloodStationsStationsOutDTO> medicalRecordsInDTOToFloodStationsStationsInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
+	default FloodStationsStationsOutDTO map(MedicalRecordsInDTO medicalRecords) {
+		FloodStationsStationsOutDTO medicalRecordsInfoDTO = new FloodStationsStationsOutDTO();
 		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
 		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
 		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());

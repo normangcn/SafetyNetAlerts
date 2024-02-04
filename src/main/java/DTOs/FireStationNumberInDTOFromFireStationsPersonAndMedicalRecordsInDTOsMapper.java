@@ -13,26 +13,26 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel= "spring")
 public interface FireStationNumberInDTOFromFireStationsPersonAndMedicalRecordsInDTOsMapper {
-	List<FirestationStationNumberInDTO> fireStationsInDTOToFirestationStationNumberInDTO (List<FireStationsInDTO> sourceFireStations);
-	default FirestationStationNumberInDTO map(FireStationsInDTO fireStation) {
-		FirestationStationNumberInDTO fireStationInfoDTO = new FirestationStationNumberInDTO();
+	List<FirestationStationNumberOutDTO> fireStationsInDTOToFirestationStationNumberInDTO (List<FireStationsInDTO> sourceFireStations);
+	default FirestationStationNumberOutDTO map(FireStationsInDTO fireStation) {
+		FirestationStationNumberOutDTO fireStationInfoDTO = new FirestationStationNumberOutDTO();
 		fireStationInfoDTO.setAddressFirestation(fireStation.getAddress());
 		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
 	
-	List<FirestationStationNumberInDTO> personInDTOToFirestationStationNumberInDTO (List<PersonInDTO> sourcePerson);
-	default FirestationStationNumberInDTO map(PersonInDTO person) {
-		FirestationStationNumberInDTO personInfoDTO = new FirestationStationNumberInDTO();
+	List<FirestationStationNumberOutDTO> personInDTOToFirestationStationNumberInDTO (List<PersonInDTO> sourcePerson);
+	default FirestationStationNumberOutDTO map(PersonInDTO person) {
+		FirestationStationNumberOutDTO personInfoDTO = new FirestationStationNumberOutDTO();
 		personInfoDTO.setPersonFirstName(person.getFirstName());
 		personInfoDTO.setPersonLastName(person.getLastName());
 		personInfoDTO.setPersonAddress(person.getAddress());
 		personInfoDTO.setPersonPhoneNumber(person.getPhone());
         return personInfoDTO;
     }
-	List<FirestationStationNumberInDTO> medicalRecordsInDTOToFirestationStationNumberInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
-	default FirestationStationNumberInDTO map(MedicalRecordsInDTO medicalRecords) {
-		FirestationStationNumberInDTO medicalRecordsInfoDTO = new FirestationStationNumberInDTO();
+	List<FirestationStationNumberOutDTO> medicalRecordsInDTOToFirestationStationNumberInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
+	default FirestationStationNumberOutDTO map(MedicalRecordsInDTO medicalRecords) {
+		FirestationStationNumberOutDTO medicalRecordsInfoDTO = new FirestationStationNumberOutDTO();
 		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
 		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
 		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());

@@ -12,19 +12,19 @@ import org.mapstruct.Mapper;
  *
  */
 @Mapper(componentModel="spring")
-public interface PersonInfoFirstNameAndLastNameInDTOFromPersonAndMedicalRecordsInDTOsMapper {
-	List<PersonInfoFirstNameAndLastNameInDTO> personInDTOToPersonInfoFirstNameAndLastNameInDTO (List<PersonInDTO> sourcePerson);
-	default PersonInfoFirstNameAndLastNameInDTO map(PersonInDTO person) {
-		PersonInfoFirstNameAndLastNameInDTO personInfoDTO = new PersonInfoFirstNameAndLastNameInDTO();
+public interface PersonInfoFirstNameAndLastNameOutDTOMapper {
+	List<PersonInfoFirstNameAndLastNameOutDTO> personInDTOToPersonInfoFirstNameAndLastNameInDTO (List<PersonInDTO> sourcePerson);
+	default PersonInfoFirstNameAndLastNameOutDTO map(PersonInDTO person) {
+		PersonInfoFirstNameAndLastNameOutDTO personInfoDTO = new PersonInfoFirstNameAndLastNameOutDTO();
 		personInfoDTO.setPersonFirstName(person.getFirstName());
 		personInfoDTO.setPersonLastName(person.getLastName());
 		personInfoDTO.setPersonAddress(person.getAddress());
 		personInfoDTO.setPersonEmail(person.getEmail());
         return personInfoDTO;
     }
-	List<PersonInfoFirstNameAndLastNameInDTO> medicalRecordsInDTOToPersonInfoFirstNameAndLastNameInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
-	default PersonInfoFirstNameAndLastNameInDTO map(MedicalRecordsInDTO medicalRecords) {
-		PersonInfoFirstNameAndLastNameInDTO medicalRecordsInfoDTO = new PersonInfoFirstNameAndLastNameInDTO();
+	List<PersonInfoFirstNameAndLastNameOutDTO> medicalRecordsInDTOToPersonInfoFirstNameAndLastNameInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
+	default PersonInfoFirstNameAndLastNameOutDTO map(MedicalRecordsInDTO medicalRecords) {
+		PersonInfoFirstNameAndLastNameOutDTO medicalRecordsInfoDTO = new PersonInfoFirstNameAndLastNameOutDTO();
 		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
 		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
 		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());

@@ -14,29 +14,29 @@ import org.mapstruct.Mapper;
  */
 
 @Mapper(componentModel = "spring")
-public interface FireAddressInDTOFromPersonMedicalRecordsAndFireStationInDTOsMapper {
+public interface FireAddressOutDTOMapper {
 	
 
-	List<FireAddressInDTO> fireStationsInDTOToFireAddressInDTO (List<FireStationsInDTO> sourceFireStations);
-	default FireAddressInDTO map(FireStationsInDTO fireStation) {
-		FireAddressInDTO fireStationInfoDTO = new FireAddressInDTO();
+	List<FireAddressOutDTO> fireStationsInDTOToFireAddressInDTO (List<FireStationsInDTO> sourceFireStations);
+	default FireAddressOutDTO map(FireStationsInDTO fireStation) {
+		FireAddressOutDTO fireStationInfoDTO = new FireAddressOutDTO();
 		fireStationInfoDTO.setAddressFirestation(fireStation.getAddress());
 		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
 	
-	List<FireAddressInDTO> personInDTOToFireAddressInDTO (List<PersonInDTO> sourcePerson);
-	default FireAddressInDTO map(PersonInDTO person) {
-		FireAddressInDTO personInfoDTO = new FireAddressInDTO();
+	List<FireAddressOutDTO> personInDTOToFireAddressInDTO (List<PersonInDTO> sourcePerson);
+	default FireAddressOutDTO map(PersonInDTO person) {
+		FireAddressOutDTO personInfoDTO = new FireAddressOutDTO();
 		personInfoDTO.setPersonFirstName(person.getFirstName());
 		personInfoDTO.setPersonLastName(person.getLastName());
 		personInfoDTO.setPersonAddress(person.getAddress());
 		personInfoDTO.setPersonPhoneNumber(person.getPhone());
         return personInfoDTO;
     }
-	List<FireAddressInDTO> medicalRecordsInDTOToFireAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
-	default FireAddressInDTO map(MedicalRecordsInDTO medicalRecords) {
-		FireAddressInDTO medicalRecordsInfoDTO = new FireAddressInDTO();
+	List<FireAddressOutDTO> medicalRecordsInDTOToFireAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
+	default FireAddressOutDTO map(MedicalRecordsInDTO medicalRecords) {
+		FireAddressOutDTO medicalRecordsInfoDTO = new FireAddressOutDTO();
 		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
 		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
 		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());
