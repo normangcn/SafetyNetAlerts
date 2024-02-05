@@ -13,7 +13,6 @@ public interface FloodStationsStationsInDTOFromPersonFireStationsAndMedicalRecor
 	List<FloodStationsStationsOutDTO> fireStationsInDTOToFloodStationsStationsInDTO (List<FireStationsInDTO> sourceFireStations);
 	default FloodStationsStationsOutDTO map(FireStationsInDTO fireStation) {
 		FloodStationsStationsOutDTO fireStationInfoDTO = new FloodStationsStationsOutDTO();
-		fireStationInfoDTO.setAddressFirestation(fireStation.getAddress());
 		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
@@ -30,9 +29,6 @@ public interface FloodStationsStationsInDTOFromPersonFireStationsAndMedicalRecor
 	List<FloodStationsStationsOutDTO> medicalRecordsInDTOToFloodStationsStationsInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
 	default FloodStationsStationsOutDTO map(MedicalRecordsInDTO medicalRecords) {
 		FloodStationsStationsOutDTO medicalRecordsInfoDTO = new FloodStationsStationsOutDTO();
-		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
-		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
-		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());
 		medicalRecordsInfoDTO.setMedicalRecMedication(medicalRecords.getMedications());
 		medicalRecordsInfoDTO.setMedicalRecAllergies(medicalRecords.getAllergies());
         return medicalRecordsInfoDTO;

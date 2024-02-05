@@ -12,11 +12,10 @@ import org.mapstruct.Mapper;
  *
  */
 @Mapper(componentModel= "spring")
-public interface FireStationNumberInDTOFromFireStationsPersonAndMedicalRecordsInDTOsMapper {
+public interface FireStationNumberOutDTOMapper {
 	List<FirestationStationNumberOutDTO> fireStationsInDTOToFirestationStationNumberInDTO (List<FireStationsInDTO> sourceFireStations);
 	default FirestationStationNumberOutDTO map(FireStationsInDTO fireStation) {
 		FirestationStationNumberOutDTO fireStationInfoDTO = new FirestationStationNumberOutDTO();
-		fireStationInfoDTO.setAddressFirestation(fireStation.getAddress());
 		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
@@ -33,9 +32,6 @@ public interface FireStationNumberInDTOFromFireStationsPersonAndMedicalRecordsIn
 	List<FirestationStationNumberOutDTO> medicalRecordsInDTOToFirestationStationNumberInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
 	default FirestationStationNumberOutDTO map(MedicalRecordsInDTO medicalRecords) {
 		FirestationStationNumberOutDTO medicalRecordsInfoDTO = new FirestationStationNumberOutDTO();
-		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
-		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
-		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());
         return medicalRecordsInfoDTO;
     }
 }

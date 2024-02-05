@@ -20,8 +20,6 @@ public interface FireAddressOutDTOMapper {
 	List<FireAddressOutDTO> fireStationsInDTOToFireAddressInDTO (List<FireStationsInDTO> sourceFireStations);
 	default FireAddressOutDTO map(FireStationsInDTO fireStation) {
 		FireAddressOutDTO fireStationInfoDTO = new FireAddressOutDTO();
-		fireStationInfoDTO.setAddressFirestation(fireStation.getAddress());
-		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
 	
@@ -37,9 +35,6 @@ public interface FireAddressOutDTOMapper {
 	List<FireAddressOutDTO> medicalRecordsInDTOToFireAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
 	default FireAddressOutDTO map(MedicalRecordsInDTO medicalRecords) {
 		FireAddressOutDTO medicalRecordsInfoDTO = new FireAddressOutDTO();
-		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
-		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
-		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());
 		medicalRecordsInfoDTO.setMedicalRecMedication(medicalRecords.getMedications());
 		medicalRecordsInfoDTO.setMedicalRecAllergies(medicalRecords.getAllergies());
         return medicalRecordsInfoDTO;

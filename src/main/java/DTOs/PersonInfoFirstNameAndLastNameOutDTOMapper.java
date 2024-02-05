@@ -25,9 +25,6 @@ public interface PersonInfoFirstNameAndLastNameOutDTOMapper {
 	List<PersonInfoFirstNameAndLastNameOutDTO> medicalRecordsInDTOToPersonInfoFirstNameAndLastNameInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
 	default PersonInfoFirstNameAndLastNameOutDTO map(MedicalRecordsInDTO medicalRecords) {
 		PersonInfoFirstNameAndLastNameOutDTO medicalRecordsInfoDTO = new PersonInfoFirstNameAndLastNameOutDTO();
-		medicalRecordsInfoDTO.setMedicalRecFirstName(medicalRecords.getFirstName());
-		medicalRecordsInfoDTO.setMedicalRecLastName(medicalRecords.getLastName());
-		medicalRecordsInfoDTO.setMedicalRecDOB(medicalRecords.getBirthdate());
 		medicalRecordsInfoDTO.setMedicalRecMedication(medicalRecords.getMedications());
 		medicalRecordsInfoDTO.setMedicalRecAllergies(medicalRecords.getAllergies());
         return medicalRecordsInfoDTO;
