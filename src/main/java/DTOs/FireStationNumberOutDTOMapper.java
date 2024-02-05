@@ -7,30 +7,29 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
+import com.oc.safetynetalerts.model.FireStation;
+import com.oc.safetynetalerts.model.MedicalRecord;
+import com.oc.safetynetalerts.model.Person;
+
 /**
  * @author gareth
  *
  */
 @Mapper(componentModel= "spring")
 public interface FireStationNumberOutDTOMapper {
-	List<FirestationStationNumberOutDTO> fireStationsInDTOToFirestationStationNumberInDTO (List<FireStationsInDTO> sourceFireStations);
-	default FirestationStationNumberOutDTO map(FireStationsInDTO fireStation) {
+	List<FirestationStationNumberOutDTO> fireStationsInDTOToFirestationStationNumberInDTO (List<FireStation> sourceFireStations);
+	default FirestationStationNumberOutDTO map(FireStation fireStation) {
 		FirestationStationNumberOutDTO fireStationInfoDTO = new FirestationStationNumberOutDTO();
-		fireStationInfoDTO.setStationNumberFirestation(fireStation.getStation());
         return fireStationInfoDTO;
     }
 	
-	List<FirestationStationNumberOutDTO> personInDTOToFirestationStationNumberInDTO (List<PersonInDTO> sourcePerson);
-	default FirestationStationNumberOutDTO map(PersonInDTO person) {
+	List<FirestationStationNumberOutDTO> personToFirestationStationNumberOutDTO (List<Person> sourcePerson);
+	default FirestationStationNumberOutDTO map(Person person) {
 		FirestationStationNumberOutDTO personInfoDTO = new FirestationStationNumberOutDTO();
-		personInfoDTO.setPersonFirstName(person.getFirstName());
-		personInfoDTO.setPersonLastName(person.getLastName());
-		personInfoDTO.setPersonAddress(person.getAddress());
-		personInfoDTO.setPersonPhoneNumber(person.getPhone());
         return personInfoDTO;
     }
-	List<FirestationStationNumberOutDTO> medicalRecordsInDTOToFirestationStationNumberInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
-	default FirestationStationNumberOutDTO map(MedicalRecordsInDTO medicalRecords) {
+	List<FirestationStationNumberOutDTO> medicalRecordsToFirestationStationNumberOutDTO (List<MedicalRecord> sourceMedicalRecord);
+	default FirestationStationNumberOutDTO map(MedicalRecordsInDTO medicalRecord) {
 		FirestationStationNumberOutDTO medicalRecordsInfoDTO = new FirestationStationNumberOutDTO();
         return medicalRecordsInfoDTO;
     }

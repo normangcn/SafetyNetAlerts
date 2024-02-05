@@ -4,6 +4,8 @@
 package DTOs;
 
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -14,21 +16,43 @@ import lombok.Data;
 public class FirestationStationNumberOutDTO {
 	private int stationNumberFirestation;
 	
-	private String personFirstName;
-	private String personLastName;
-	private String personAddress;
-	private String personPhoneNumber;
+	private List<FirestationStationNumberPeople> people;
 	
 	private int kidsCount;
 	private int adultsCount;
 	
 	
+	public List<FirestationStationNumberPeople> getPeople() {
+		return people;
+	}
+	public void setPeople(List<FirestationStationNumberPeople> people) {
+		this.people = people;
+	}
 	public int getStationNumberFirestation() {
 		return stationNumberFirestation;
 	}
 	public void setStationNumberFirestation(int stationNumberFirestation) {
 		this.stationNumberFirestation = stationNumberFirestation;
 	}
+
+	public int getKidsCount() {
+		return kidsCount;
+	}
+	public void setKidsCount(int kidsCount) {
+		this.kidsCount = kidsCount;
+	}
+	public int getAdultsCount() {
+		return adultsCount;
+	}
+	public void setAdultsCount(int adultsCount) {
+		this.adultsCount = adultsCount;
+	}
+}
+class FirestationStationNumberPeople {
+	private String personFirstName;
+	private String personLastName;
+	private String personAddress;
+	
 	public String getPersonFirstName() {
 		return personFirstName;
 	}
@@ -53,16 +77,5 @@ public class FirestationStationNumberOutDTO {
 	public void setPersonPhoneNumber(String personPhoneNumber) {
 		this.personPhoneNumber = personPhoneNumber;
 	}
-	public int getKidsCount() {
-		return kidsCount;
-	}
-	public void setKidsCount(int kidsCount) {
-		this.kidsCount = kidsCount;
-	}
-	public int getAdultsCount() {
-		return adultsCount;
-	}
-	public void setAdultsCount(int adultsCount) {
-		this.adultsCount = adultsCount;
-	}
+	private String personPhoneNumber;
 }
