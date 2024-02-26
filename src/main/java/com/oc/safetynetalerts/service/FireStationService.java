@@ -9,4 +9,5 @@ package com.oc.safetynetalerts.service;
  */
 public class FireStationService {
 
+	
 }

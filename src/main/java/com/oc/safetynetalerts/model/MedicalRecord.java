@@ -26,7 +26,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class MedicalRecord {
 
 private UUID id;
-private int age;	
+private int age;
+private int kidsCount;
+private int adultsCount;
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
@@ -70,6 +72,23 @@ this.lastName = lastName;
 this.birthdate = birthdate;
 this.medications = medications;
 this.allergies = allergies;
+}
+
+
+public int getKidsCount() {
+	return kidsCount;
+}
+
+public void setKidsCount(int kidsCount) {
+	this.kidsCount = kidsCount;
+}
+
+public int getAdultsCount() {
+	return adultsCount;
+}
+
+public void setAdultsCount(int adultsCount) {
+	this.adultsCount = adultsCount;
 }
 
 @JsonProperty("firstName")

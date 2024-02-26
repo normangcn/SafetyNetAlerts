@@ -25,9 +25,8 @@ public class SafetyNetAlertsApplication {
 		List<MedicalRecord> tempMedicalRec = repo.extractMedicalRecordsDataFromJsonNode();
 		medicalRecords = tempMedicalRec;
 		System.out.println(medicalRecords);
-		LocalDate potato = LocalDate.of(1985, 1, 1);
+		LocalDate potato = LocalDate.of(1983, 10, 19);
 		int potatoAge = DateUtils.calculateAge(potato);
 		System.out.println(potatoAge);
 	}
-
 }
