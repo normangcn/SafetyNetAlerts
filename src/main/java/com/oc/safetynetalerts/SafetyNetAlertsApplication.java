@@ -22,9 +22,7 @@ public class SafetyNetAlertsApplication {
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 		SpringApplication.run(SafetyNetAlertsApplication.class, args);
 		JsonReaderRepository repo = new JsonReaderRepository();
-		List<MedicalRecord> tempMedicalRec = repo.extractMedicalRecordsDataFromJsonNode();
-		medicalRecords = tempMedicalRec;
-		System.out.println(medicalRecords);
+		medicalRecords = repo.extractMedicalRecordsDataFromJsonNode();
 		LocalDate potato = LocalDate.of(1983, 10, 19);
 		int potatoAge = DateUtils.calculateAge(potato);
 		System.out.println(potatoAge);

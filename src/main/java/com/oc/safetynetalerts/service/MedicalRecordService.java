@@ -4,7 +4,8 @@
 package com.oc.safetynetalerts.service;
 
 
-import com.oc.safetynetalerts.model.MedicalRecord;
+import java.time.LocalDate;
+
 import com.oc.safetynetalerts.utils.DateUtils;
 
 
@@ -26,27 +27,23 @@ public class MedicalRecordService {
 	 * (currentDate != null)) { return Period.between(bithDateConverted,
 	 * currentDate).getYears(); } else { return 0; } }
 	 */
-	public static int countKids(MedicalRecord birthDate) {
-		int kidsCount= 0;
+	
+	public static int kidsCount = 0;
+	public static int countKids(LocalDate birthDate) {
 		int personAge = 0;
-		personAge = DateUtils.calculateAge(birthDate);//option 1
-		if(personAge < 18) {
+		personAge = DateUtils.calculateAge(birthDate);
+		if(personAge <= 18) {
 			kidsCount ++;
 		}
 		return kidsCount;
 	}
-	public static int countAdults(MedicalRecord birthDate) {
+	public static int countAdults(LocalDate birthDate) {
 		int adultsCount= 0;
 		int personAge = 0;
-		personAge = countAge(birthDate);//option 2
+		personAge = DateUtils.calculateAge(birthDate);
 		if(personAge > 18) {
 			adultsCount ++;
 		}
 		return adultsCount;
-	}
-	public static int countAge(MedicalRecord birthDate) {
-		int age = 0;
-		age = DateUtils.calculateAge(birthDate);
-		return age;
 	}
 }

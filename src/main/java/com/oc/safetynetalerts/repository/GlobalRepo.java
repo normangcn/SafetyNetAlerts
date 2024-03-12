@@ -18,5 +18,6 @@ public class GlobalRepo {
  public static List<MedicalRecord> medicalRecords = new ArrayList<>();
  public static List<Person> person = new ArrayList<>();
  public static List<FireStation> fireStation = new ArrayList<>();
+
 }
 
