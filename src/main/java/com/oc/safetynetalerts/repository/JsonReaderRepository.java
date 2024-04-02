@@ -85,9 +85,7 @@ import lombok.extern.slf4j.Slf4j;
     		String str= mapper.writeValueAsString(o);
     		MedicalRecord recordID = mapper.readValue(str, MedicalRecord.class);
     		recordID.setId(UUID.randomUUID());
-    		medicalRecordsFromJsonNode.add(mapper.readValue(str, MedicalRecord.class));
-    		System.out.println();
-    		
+    		medicalRecordsFromJsonNode.add(mapper.readValue(str, MedicalRecord.class));    		
     	}
     	
     	return medicalRecordsFromJsonNode;
