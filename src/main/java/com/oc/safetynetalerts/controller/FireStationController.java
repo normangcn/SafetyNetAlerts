@@ -3,8 +3,6 @@
  */
 package com.oc.safetynetalerts.controller;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,63 +39,70 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FireStationController {
 	JsonReaderRepository repository = new JsonReaderRepository();
-    @GetMapping("/test")
-    public String test() {
-	String test = "test";
-	return test;
-    }
-    
-    @GetMapping(value= "/{station_number}")
-    @ResponseBody
-    public List<FireStation> fireStationStationNumber(@PathVariable("station_number") int station) {
-    	List<FireStation> allFireStations = null;
-    	List<FireStation> filteredFireStations = new ArrayList<>();
-		/*
-		 * List<Person> allPeople = null; List<Person> filteredPeople = new
-		 * ArrayList<>(); List<MedicalRecord> allMedicalRecords = null;
-		 * List<MedicalRecord> filteredMedicalRecords = new ArrayList<>(); List<String>
-		 * resultForFireStationNumber = new ArrayList<>();
-		 */
-	try {
-		
-		  allFireStations = repository.extractFireStationsDataFromJsonNode(); 
-			/*
-			 * allPeople = repository.extractPersonDataFromJsonNode(); allMedicalRecords =
-			 * repository.extractMedicalRecordsDataFromJsonNode();
-			 */
-		 
-		for(FireStation stationElement:allFireStations) {
-			if(stationElement.getStation().equals(String.valueOf(station))) {
-				filteredFireStations.add(stationElement);
-			}
-		}
-	} catch (JsonParseException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (JsonMappingException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+
+	@GetMapping("/test")
+	public String test() {
+		String test = "test";
+		return test;
 	}
-	filteredPeople = allPeople.stream().filter(item -> filteredFireStation.contains(item.address)).collect(Collectors.toList());
-	return filteredFireStations;
-    }
-    
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String addFireStation(@RequestBody FireStation newFireStation) {
-	return "Station added as:" + newFireStation;
-    }
-    
-    @PutMapping(value= "/{station_number}")
-    @ResponseStatus(HttpStatus.OK)
-    public String updateFireStation(@PathVariable int station_number, @RequestBody FireStation updateFireStation) {
-	return "Station "+ station_number + " information updated.";
-    }
-    @DeleteMapping(value = "/{station_number}")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteFireStation(@PathVariable("station_number") int station) {
-    }
+
+	@GetMapping(value = "/{station_number}")
+	@ResponseBody
+	public List<String> fireStationStationNumber(@PathVariable("station_number") int station) {
+		List<FireStation> allFireStations = null;
+		List<FireStation> filteredFireStations = new ArrayList<>();
+
+		List<Person> allPeople = null;
+		List<Person> filteredPeople = new ArrayList<>();
+		List<MedicalRecord> allMedicalRecords = null;
+		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
+		List<String> resultForFireStationNumber = new ArrayList<>();
+
+		try {
+
+			allFireStations = repository.extractFireStationsDataFromJsonNode();
+			allPeople = repository.extractPersonDataFromJsonNode();
+			allMedicalRecords = repository.extractMedicalRecordsDataFromJsonNode();
+
+			for (FireStation stationElement : allFireStations) {
+				if (stationElement.getStation().equals(String.valueOf(station))) {
+					filteredFireStations.add(stationElement);
+				}
+			}
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Set<String> fireStationsAddressesOnly = filteredFireStations.stream().map(FireStation::getAddress)
+				.collect(Collectors.toSet());
+
+		filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
+				.collect(Collectors.toList());
+
+		System.out.println(filteredPeople);
+		return resultForFireStationNumber;
+	}
+
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public String addFireStation(@RequestBody FireStation newFireStation) {
+		return "Station added as:" + newFireStation;
+	}
+
+	@PutMapping(value = "/{station_number}")
+	@ResponseStatus(HttpStatus.OK)
+	public String updateFireStation(@PathVariable int station_number, @RequestBody FireStation updateFireStation) {
+		return "Station " + station_number + " information updated.";
+	}
+
+	@DeleteMapping(value = "/{station_number}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteFireStation(@PathVariable("station_number") int station) {
+	}
 }

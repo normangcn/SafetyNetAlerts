@@ -49,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
     public List<Person> extractPersonDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
     	ObjectMapper mapper = ObjectMapperService.getInstance();
-    	JsonNode personFromJasonFileJsonNode = starterJsonFileReader().get("person");
+    	JsonNode personFromJasonFileJsonNode = starterJsonFileReader().get("persons");
     	List<Person> personFromJsonNode = new ArrayList<>();
     	for(JsonNode o : personFromJasonFileJsonNode) {
     		String str= mapper.writeValueAsString(o);
