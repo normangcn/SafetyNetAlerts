@@ -27,6 +27,7 @@ import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
+import com.oc.safetynetalerts.service.MedicalRecordService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,7 +52,6 @@ public class FireStationController {
 	public List<String> fireStationStationNumber(@PathVariable("station_number") int station) {
 		List<FireStation> allFireStations = null;
 		List<FireStation> filteredFireStations = new ArrayList<>();
-
 		List<Person> allPeople = null;
 		List<Person> filteredPeople = new ArrayList<>();
 		List<MedicalRecord> allMedicalRecords = null;
@@ -63,6 +63,7 @@ public class FireStationController {
 			allFireStations = repository.extractFireStationsDataFromJsonNode();
 			allPeople = repository.extractPersonDataFromJsonNode();
 			allMedicalRecords = repository.extractMedicalRecordsDataFromJsonNode();
+			allMedicalRecords = MedicalRecordService.fullNameCreation();
 
 			for (FireStation stationElement : allFireStations) {
 				if (stationElement.getStation().equals(String.valueOf(station))) {
@@ -81,11 +82,13 @@ public class FireStationController {
 		}
 		Set<String> fireStationsAddressesOnly = filteredFireStations.stream().map(FireStation::getAddress)
 				.collect(Collectors.toSet());
-
 		filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
 				.collect(Collectors.toList());
-
-		System.out.println(filteredPeople);
+		Set<String> peopleFullNames = filteredPeople.stream().map(Person::getFullName)
+				.collect(Collectors.toSet());
+		filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
+				.collect(Collectors.toList());
+		System.out.println(allMedicalRecords);
 		return resultForFireStationNumber;
 	}
 

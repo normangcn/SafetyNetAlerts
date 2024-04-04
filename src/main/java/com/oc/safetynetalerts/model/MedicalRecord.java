@@ -32,6 +32,7 @@ private int age;
 private String firstName;
 @JsonProperty("lastName")
 private String lastName;
+private String fullName;
 @JsonProperty("birthdate")
 private String birthdate;
 @JsonProperty("medications")
@@ -104,6 +105,17 @@ this.lastName = lastName;
 return this;
 }
 
+public String getFullName() {
+	return fullName;
+}
+
+public void setFullName(String fullName) {
+	this.fullName = fullName;
+}
+public MedicalRecord withFullName(String fullName) {
+this.fullName = fullName;
+return this;
+}
 @JsonProperty("birthdate")
 public String getBirthdate() {
 return birthdate;

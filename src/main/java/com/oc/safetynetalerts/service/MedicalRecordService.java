@@ -4,31 +4,53 @@
 package com.oc.safetynetalerts.service;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.oc.safetynetalerts.model.MedicalRecord;
+import com.oc.safetynetalerts.repository.JsonReaderRepository;
 import com.oc.safetynetalerts.utils.DateUtils;
+import com.oc.safetynetalerts.utils.StringUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
  * @author gareth
  *
  */
+@Slf4j
 public class MedicalRecordService {
-	/*
-	 * public static LocalDate convertDateStringToLocalDate(MedicalRecord birthDate)
-	 * { LocalDate bdToLocalDate= null; DateFormat DFormat =
-	 * DateFormat.getDateInstance(); bdToLocalDate = DFormat.format(birthDate);
-	 * return bdToLocalDate; }
-	 */
-	/*
-	 * public static int calculateAge(MedicalRecord birthDate, LocalDate
-	 * currentDate) { LocalDate bithDateConverted = LocalDate.parse((CharSequence)
-	 * birthDate);//CharSequence? Not String? if ((birthDate != null) &&
-	 * (currentDate != null)) { return Period.between(bithDateConverted,
-	 * currentDate).getYears(); } else { return 0; } }
-	 */
 	
 	public static int kidsCount = 0;
+	public static int adultsCount = 0;
+
+	public static List<MedicalRecord> fullNameCreation() throws IOException {
+		List<MedicalRecord> allMedicalRecords = new ArrayList<>();
+		try {
+			JsonReaderRepository repository = new JsonReaderRepository();
+					allMedicalRecords = repository.extractMedicalRecordsDataFromJsonNode();
+			for (MedicalRecord recordElement : allMedicalRecords) {
+				String firstNameTemp = null;
+				String lastNameTemp = null;
+				firstNameTemp = recordElement.getFirstName();
+				lastNameTemp = recordElement.getLastName();
+				String nameConcated = StringUtils.concatNames(firstNameTemp, lastNameTemp);
+				recordElement.setFullName(nameConcated);
+			}
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return allMedicalRecords;
+	}
 	public static int countKids(LocalDate birthDate) {
 		int personAge = 0;
 		personAge = DateUtils.calculateAge(birthDate);
@@ -38,7 +60,6 @@ public class MedicalRecordService {
 		return kidsCount;
 	}
 	public static int countAdults(LocalDate birthDate) {
-		int adultsCount= 0;
 		int personAge = 0;
 		personAge = DateUtils.calculateAge(birthDate);
 		if(personAge > 18) {

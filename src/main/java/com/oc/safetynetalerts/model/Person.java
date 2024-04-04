@@ -25,10 +25,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class Person {
 	private UUID id;
+	
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
 private String lastName;
+private String fullName;
 @JsonProperty("address")
 private String address;
 @JsonProperty("city")
@@ -106,6 +108,16 @@ this.lastName = lastName;
 return this;
 }
 
+public String getFullName() {
+	return fullName;
+}
+public void setFullName(String fullName) {
+	this.fullName = fullName;
+}
+public Person withFullName(String fullName) {
+this.fullName = fullName;
+return this;
+}
 @JsonProperty("address")
 public String getAddress() {
 return address;
