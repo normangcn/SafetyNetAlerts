@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,8 +30,9 @@ public class MedicalRecordService {
 	
 	public static int kidsCount = 0;
 	public static int adultsCount = 0;
+	private static List<LocalDate> birthDateListConvertedToLocalDate;
 
-	public static List<MedicalRecord> fullNameCreation() throws IOException {
+	public static List<MedicalRecord> fullNameCreationMedicalRecord() throws IOException {
 		List<MedicalRecord> allMedicalRecords = new ArrayList<>();
 		try {
 			JsonReaderRepository repository = new JsonReaderRepository();
@@ -51,20 +54,36 @@ public class MedicalRecordService {
 		}
 		return allMedicalRecords;
 	}
-	public static int countKids(LocalDate birthDate) {
-		int personAge = 0;
-		personAge = DateUtils.calculateAge(birthDate);
-		if(personAge <= 18) {
-			kidsCount ++;
+	public static List<LocalDate> convertBithdateStringToLocalDate(List<MedicalRecord> onlyBirthDatesAsStrings){
+		birthDateListConvertedToLocalDate = null;
+		Set<String> onlyBirthDatesAsStringsStreamed = onlyBirthDatesAsStrings.stream().map(MedicalRecord::getBirthdate)
+				.collect(Collectors.toSet());
+		for(String medicalRecordDateElement : onlyBirthDatesAsStringsStreamed) {
+			birthDateListConvertedToLocalDate.add(DateUtils.stringToLocalDateFormatter(medicalRecordDateElement));
 		}
+		return birthDateListConvertedToLocalDate;
+	}
+	public static int countKids(List<LocalDate> birthDatesOnly) {
+		for (LocalDate dateElement : birthDatesOnly) {		
+				LocalDate birthDate = dateElement;
+				int personAge = 0;
+				personAge = DateUtils.calculateAge(birthDate);				
+				if(personAge <= 18) {
+					kidsCount ++;
+				}
+	}
 		return kidsCount;
 	}
-	public static int countAdults(LocalDate birthDate) {
-		int personAge = 0;
-		personAge = DateUtils.calculateAge(birthDate);
-		if(personAge > 18) {
-			adultsCount ++;
+	public static int countAdults(List<LocalDate> birthDatesOnly) {
+		for (LocalDate dateElement : birthDatesOnly) {		
+			LocalDate birthDate = dateElement;
+			int personAge = 0;
+			personAge = DateUtils.calculateAge(birthDate);				
+			if(personAge >= 18) {
+				adultsCount ++;
+			}
+		
 		}
-		return adultsCount;
+	return adultsCount;
 	}
 }

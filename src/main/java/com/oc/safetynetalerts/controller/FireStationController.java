@@ -4,6 +4,7 @@
 package com.oc.safetynetalerts.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,7 @@ import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 import com.oc.safetynetalerts.service.MedicalRecordService;
+import com.oc.safetynetalerts.service.PersonService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,13 +59,17 @@ public class FireStationController {
 		List<MedicalRecord> allMedicalRecords = null;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
 		List<String> resultForFireStationNumber = new ArrayList<>();
+		int kids = 0;
+		int adults = 0;
+		List<LocalDate> birthDatesOnly = null;
+		
 
 		try {
 
 			allFireStations = repository.extractFireStationsDataFromJsonNode();
-			allPeople = repository.extractPersonDataFromJsonNode();
+			allPeople = PersonService.fullNameCreationPerson();
 			allMedicalRecords = repository.extractMedicalRecordsDataFromJsonNode();
-			allMedicalRecords = MedicalRecordService.fullNameCreation();
+			allMedicalRecords = MedicalRecordService.fullNameCreationMedicalRecord();
 
 			for (FireStation stationElement : allFireStations) {
 				if (stationElement.getStation().equals(String.valueOf(station))) {
@@ -88,7 +94,11 @@ public class FireStationController {
 				.collect(Collectors.toSet());
 		filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
 				.collect(Collectors.toList());
-		System.out.println(allMedicalRecords);
+		
+		birthDatesOnly = filteredMedicalRecords;
+		kids = MedicalRecordService.countKids(birthDatesOnly);
+		adults = MedicalRecordService.countAdults(birthDatesOnly);
+		
 		return resultForFireStationNumber;
 	}
 

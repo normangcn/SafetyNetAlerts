@@ -5,6 +5,7 @@ package com.oc.safetynetalerts.utils;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author gareth
@@ -18,5 +19,10 @@ public class DateUtils {
 		} else {
 			return 0;
 		}
+	}
+	public static LocalDate stringToLocalDateFormatter(String dateAsString) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate formattedDateToLocalDate = LocalDate.parse(dateAsString, formatter);
+		return formattedDateToLocalDate;		
 	}
 }
