@@ -100,6 +100,8 @@ public class FireStationController {
 		kids = MedicalRecordService.countKids(birthDatesOnly);
 		adults = MedicalRecordService.countAdults(birthDatesOnly);
 		
+		resultForFireStationNumber.addAll(peopleFullNames);
+		System.out.println(resultForFireStationNumber);		
 		return resultForFireStationNumber;
 	}
 
