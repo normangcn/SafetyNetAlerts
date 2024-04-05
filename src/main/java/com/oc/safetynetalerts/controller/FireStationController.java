@@ -58,6 +58,7 @@ public class FireStationController {
 		List<Person> filteredPeople = new ArrayList<>();
 		List<MedicalRecord> allMedicalRecords = null;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
+		Set<String> filteredMedicalRecordsDatesOnly = null;
 		List<String> resultForFireStationNumber = new ArrayList<>();
 		int kids = 0;
 		int adults = 0;
@@ -94,8 +95,8 @@ public class FireStationController {
 				.collect(Collectors.toSet());
 		filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
 				.collect(Collectors.toList());
-		
-		birthDatesOnly = filteredMedicalRecords;
+		filteredMedicalRecordsDatesOnly = filteredMedicalRecords.stream().map(MedicalRecord::getBirthdate).collect(Collectors.toSet());
+		birthDatesOnly = MedicalRecordService.convertBithdateStringToLocalDate(filteredMedicalRecordsDatesOnly);
 		kids = MedicalRecordService.countKids(birthDatesOnly);
 		adults = MedicalRecordService.countAdults(birthDatesOnly);
 		

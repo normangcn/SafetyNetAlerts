@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -54,11 +53,9 @@ public class MedicalRecordService {
 		}
 		return allMedicalRecords;
 	}
-	public static List<LocalDate> convertBithdateStringToLocalDate(List<MedicalRecord> onlyBirthDatesAsStrings){
+	public static List<LocalDate> convertBithdateStringToLocalDate(Set<String> filteredMedicalRecordsDatesOnly){
 		birthDateListConvertedToLocalDate = null;
-		Set<String> onlyBirthDatesAsStringsStreamed = onlyBirthDatesAsStrings.stream().map(MedicalRecord::getBirthdate)
-				.collect(Collectors.toSet());
-		for(String medicalRecordDateElement : onlyBirthDatesAsStringsStreamed) {
+		for(String medicalRecordDateElement : filteredMedicalRecordsDatesOnly) {
 			birthDateListConvertedToLocalDate.add(DateUtils.stringToLocalDateFormatter(medicalRecordDateElement));
 		}
 		return birthDateListConvertedToLocalDate;
