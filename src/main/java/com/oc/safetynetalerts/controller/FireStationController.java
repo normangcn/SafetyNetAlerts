@@ -59,10 +59,10 @@ public class FireStationController {
 		List<MedicalRecord> allMedicalRecords = null;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
 		Set<String> filteredMedicalRecordsDatesOnly = null;
-		List<String> resultForFireStationNumber = new ArrayList<>();
 		int kids = 0;
 		int adults = 0;
 		List<LocalDate> birthDatesOnly = null;
+		List<String>resultForFireStationNumber = new ArrayList<>();
 		
 
 		try {
@@ -99,9 +99,10 @@ public class FireStationController {
 		birthDatesOnly = MedicalRecordService.convertBithdateStringToLocalDate(filteredMedicalRecordsDatesOnly);
 		kids = MedicalRecordService.countKids(birthDatesOnly);
 		adults = MedicalRecordService.countAdults(birthDatesOnly);
-		
-		resultForFireStationNumber.addAll(peopleFullNames);
-		System.out.println(resultForFireStationNumber);		
+		String resultForFireStationNumberAsString = filteredPeople.toString();
+		resultForFireStationNumberAsString += " Kids: " + kids + " Adults: " + adults;
+		System.out.println(resultForFireStationNumberAsString);
+		resultForFireStationNumber.add(resultForFireStationNumberAsString);
 		return resultForFireStationNumber;
 	}
 

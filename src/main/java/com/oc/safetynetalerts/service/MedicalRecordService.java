@@ -29,7 +29,7 @@ public class MedicalRecordService {
 	
 	public static int kidsCount = 0;
 	public static int adultsCount = 0;
-	public static List<LocalDate> birthDateListConvertedToLocalDate;
+	public static List<LocalDate> birthDateListConvertedToLocalDate = new ArrayList<LocalDate>();
 
 	public static List<MedicalRecord> fullNameCreationMedicalRecord() throws IOException {
 		List<MedicalRecord> allMedicalRecords = new ArrayList<>();
@@ -54,11 +54,10 @@ public class MedicalRecordService {
 		return allMedicalRecords;
 	}
 	public static List<LocalDate> convertBithdateStringToLocalDate(Set<String> filteredMedicalRecordsDatesOnly){
-		birthDateListConvertedToLocalDate = null;
 		LocalDate convertedDateToAdd = null;
 		for(String medicalRecordDateElement : filteredMedicalRecordsDatesOnly) {
 			convertedDateToAdd = DateUtils.stringToLocalDateFormatter(medicalRecordDateElement);
-			birthDateListConvertedToLocalDate.add(convertedDateToAdd);//to fix
+			birthDateListConvertedToLocalDate.add(convertedDateToAdd);
 		}
 		return birthDateListConvertedToLocalDate;
 	}
