@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 public class FirestationStationNumberOutDTO {
-	private int stationNumberFirestation;
+	
 	
 	private List<FirestationStationNumberPeople> people;
 	
@@ -28,12 +28,7 @@ public class FirestationStationNumberOutDTO {
 	public void setPeople(List<FirestationStationNumberPeople> people) {
 		this.people = people;
 	}
-	public int getStationNumberFirestation() {
-		return stationNumberFirestation;
-	}
-	public void setStationNumberFirestation(int stationNumberFirestation) {
-		this.stationNumberFirestation = stationNumberFirestation;
-	}
+
 
 	public int getKidsCount() {
 		return kidsCount;
