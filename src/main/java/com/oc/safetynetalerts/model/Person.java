@@ -2,6 +2,8 @@ package com.oc.safetynetalerts.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -22,11 +24,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 @Generated("jsonschema2pojo")
 public class Person {
-
+	private UUID id;
+	private int kids;
+	private int adults;
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
 private String lastName;
+private String fullName;
 @JsonProperty("address")
 private String address;
 @JsonProperty("city")
@@ -46,7 +51,13 @@ private Map<String, Object> additionalProperties = new LinkedHashMap<String, Obj
 */
 public Person() {
 }
+public UUID getId() {
+	return id;
+}
 
+public void setId(UUID id) {
+	this.id = id;
+}
 /**
 *
 * @param zip
@@ -98,6 +109,16 @@ this.lastName = lastName;
 return this;
 }
 
+public String getFullName() {
+	return fullName;
+}
+public void setFullName(String fullName) {
+	this.fullName = fullName;
+}
+public Person withFullName(String fullName) {
+this.fullName = fullName;
+return this;
+}
 @JsonProperty("address")
 public String getAddress() {
 return address;
@@ -173,6 +194,18 @@ this.email = email;
 return this;
 }
 
+public int getKids() {
+	return kids;
+}
+public void setKids(int kids) {
+	this.kids = kids;
+}
+public int getAdults() {
+	return adults;
+}
+public void setAdults(int adults) {
+	this.adults = adults;
+}
 @JsonAnyGetter
 public Map<String, Object> getAdditionalProperties() {
 return this.additionalProperties;
@@ -257,6 +290,10 @@ return false;
 Person rhs = ((Person) other);
 return (((((((((this.zip == rhs.zip)||((this.zip!= null)&&this.zip.equals(rhs.zip)))&&((this.firstName == rhs.firstName)||((this.firstName!= null)&&this.firstName.equals(rhs.firstName))))&&((this.lastName == rhs.lastName)||((this.lastName!= null)&&this.lastName.equals(rhs.lastName))))&&((this.address == rhs.address)||((this.address!= null)&&this.address.equals(rhs.address))))&&((this.city == rhs.city)||((this.city!= null)&&this.city.equals(rhs.city))))&&((this.phone == rhs.phone)||((this.phone!= null)&&this.phone.equals(rhs.phone))))&&((this.additionalProperties == rhs.additionalProperties)||((this.additionalProperties!= null)&&this.additionalProperties.equals(rhs.additionalProperties))))&&((this.email == rhs.email)||((this.email!= null)&&this.email.equals(rhs.email))));
 }
-
+public Object personRecordConcatNames() {
+	Person personRecordNameConcat = new Person();
+	
+	return personRecordNameConcat;
+}
 }
  

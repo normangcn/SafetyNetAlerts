@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CommunityEmailCityInDTO {
+public class CommunityEmailCityOutDTO {
 	private String personCity;
 	private String personZipCode;
 	private String personEmail;

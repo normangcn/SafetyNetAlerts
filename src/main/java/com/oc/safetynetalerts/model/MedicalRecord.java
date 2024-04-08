@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -23,10 +25,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class MedicalRecord {
 
+private UUID id;
+private int age;
+
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
 private String lastName;
+private String fullName;
 @JsonProperty("birthdate")
 private String birthdate;
 @JsonProperty("medications")
@@ -41,6 +47,14 @@ private Map<String, Object> additionalProperties = new LinkedHashMap<String, Obj
 *
 */
 public MedicalRecord() {
+}
+
+public UUID getId() {
+	return id;
+}
+
+public void setId(UUID id) {
+	this.id = id;
 }
 
 /**
@@ -59,6 +73,7 @@ this.birthdate = birthdate;
 this.medications = medications;
 this.allergies = allergies;
 }
+
 
 @JsonProperty("firstName")
 public String getFirstName() {
@@ -90,6 +105,17 @@ this.lastName = lastName;
 return this;
 }
 
+public String getFullName() {
+	return fullName;
+}
+
+public void setFullName(String fullName) {
+	this.fullName = fullName;
+}
+public MedicalRecord withFullName(String fullName) {
+this.fullName = fullName;
+return this;
+}
 @JsonProperty("birthdate")
 public String getBirthdate() {
 return birthdate;
@@ -140,6 +166,13 @@ public Map<String, Object> getAdditionalProperties() {
 return this.additionalProperties;
 }
 
+public int getAge() {
+	return age;
+}
+
+public void setAge(int age) {
+	this.age = age;
+}
 @JsonAnySetter
 public void setAdditionalProperty(String name, Object value) {
 this.additionalProperties.put(name, value);

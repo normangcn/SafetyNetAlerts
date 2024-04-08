@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.model.Person;
+import com.oc.safetynetalerts.repository.GlobalRepo;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +35,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PersonController {
 	JsonReaderRepository repository = new JsonReaderRepository();
-	@GetMapping(value= "/{first_name + last_name}")
+	@GetMapping(value= "/{name}")
     @ResponseBody
-    public List<Person> singleMedicalRecord(@PathVariable("first_name + last_name") String fullName) {
+    public List<Person> singleMedicalRecord(@PathVariable("name") String fullName) {
     	List<Person> singlePersonRecordByFullName = null;
-    	
 	try {
 		singlePersonRecordByFullName = repository.extractPersonDataFromJsonNode();
+		for(Person o : singlePersonRecordByFullName) {
+			//String fullName = firstName + lastName;
+		}
+		
+				
 	} catch (JsonParseException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -53,6 +58,13 @@ public class PersonController {
 	}
 	return singlePersonRecordByFullName;
     }
+	
+	@GetMapping(value="/childAlert")
+	public List<Person> kidsAndAdultsListAtAddress(@PathVariable("Address") String address)
+	{
+		return GlobalRepo.person;//TODO return the actual data. Not the generic basic List
+	}
+	
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String addPerson(@RequestBody Person newPerson) {
