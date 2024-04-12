@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +34,7 @@ import lombok.extern.slf4j.Slf4j;
   @Component
   @RequestMapping
   @Slf4j
-  public class JsonReaderRepository {
-    private PeopleAndTheirMedicalRecords peopleAndTheirMedicalRecords;
+  public class JsonReaderRepository {    
 	public static JsonNode starterJsonFileReader() {
     ObjectMapper mapper = ObjectMapperService.getInstance();
     JsonNode JsonFileContent = null;
@@ -72,7 +73,6 @@ import lombok.extern.slf4j.Slf4j;
     		FireStation stationID = mapper.readValue(str, FireStation.class);
     		stationID.setId(UUID.randomUUID());
     		fireStationsFromJsonNode.add(mapper.readValue(str, FireStation.class));
-    		System.out.println();
     	}    	
     	return fireStationsFromJsonNode;
     }
@@ -91,36 +91,11 @@ import lombok.extern.slf4j.Slf4j;
     	
     	return medicalRecordsFromJsonNode;
     }
-    public PeopleAndTheirMedicalRecords combinePeopleAndMedicalRecords(){
-    	peopleAndTheirMedicalRecords = null;
-    	List<Person> person = null;
-		try {
-			person = extractPersonDataFromJsonNode();
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	List<MedicalRecord> medicalRecord = null;
-		try {
-			medicalRecord = extractMedicalRecordsDataFromJsonNode();
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public List<PeopleAndTheirMedicalRecords> combinePeopleAndMedicalRecords(List<Person> person, List<MedicalRecord> medicalRecords){
+    	ArrayList<PeopleAndTheirMedicalRecords[]>  peopleAndTheirMedicalRecords = new ArrayList<PeopleAndTheirMedicalRecords[]>( );
     	peopleAndTheirMedicalRecords.setPerson(person);
-    	peopleAndTheirMedicalRecords.setMedicalRecord(medicalRecord);
+    	
+    	peopleAndTheirMedicalRecords.setMedicalRecord(medicalRecords);
     	
     	return peopleAndTheirMedicalRecords;
     }
