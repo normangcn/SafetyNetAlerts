@@ -33,7 +33,8 @@ import lombok.extern.slf4j.Slf4j;
   @RequestMapping
   @Slf4j
   public class JsonReaderRepository {
-    public static JsonNode starterJsonFileReader() {
+    private PeopleAndTheirMedicalRecords peopleAndTheirMedicalRecords;
+	public static JsonNode starterJsonFileReader() {
     ObjectMapper mapper = ObjectMapperService.getInstance();
     JsonNode JsonFileContent = null;
 	try {
@@ -90,9 +91,9 @@ import lombok.extern.slf4j.Slf4j;
     	
     	return medicalRecordsFromJsonNode;
     }
-    public List<PeopleAndTheirMedicalRecords> combinePeopleAndMedicalRecords(){
-    	List<PeopleAndTheirMedicalRecords> peopleAndTheirMedicalRecords = new ArrayList<>();
-    	List<Person> person;
+    public PeopleAndTheirMedicalRecords combinePeopleAndMedicalRecords(){
+    	peopleAndTheirMedicalRecords = null;
+    	List<Person> person = null;
 		try {
 			person = extractPersonDataFromJsonNode();
 		} catch (JsonParseException e) {
@@ -105,7 +106,7 @@ import lombok.extern.slf4j.Slf4j;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	List<MedicalRecord> medicalRecord;
+    	List<MedicalRecord> medicalRecord = null;
 		try {
 			medicalRecord = extractMedicalRecordsDataFromJsonNode();
 		} catch (JsonParseException e) {
