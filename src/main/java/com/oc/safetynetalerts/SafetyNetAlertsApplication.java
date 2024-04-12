@@ -1,7 +1,8 @@
 package com.oc.safetynetalerts;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
-
+import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
 import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
@@ -17,7 +18,12 @@ public class SafetyNetAlertsApplication {
 
 	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
 		SpringApplication.run(SafetyNetAlertsApplication.class, args);
-		JsonReaderRepository repo = new JsonReaderRepository();
-		medicalRecords = repo.extractMedicalRecordsDataFromJsonNode();
+		JsonReaderRepository personRepo = new JsonReaderRepository();
+		JsonReaderRepository medicalRecordRepo = new JsonReaderRepository();
+		JsonReaderRepository fireStationRepo = new JsonReaderRepository();
+		medicalRecords = medicalRecordRepo.extractMedicalRecordsDataFromJsonNode();
+		person = personRepo.extractPersonDataFromJsonNode();
+		fireStation = fireStationRepo.extractFireStationsDataFromJsonNode();
+		
 	}
 }
