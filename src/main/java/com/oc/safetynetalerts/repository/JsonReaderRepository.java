@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.MedicalRecord;
+import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecords;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.service.ObjectMapperService;
 
@@ -88,6 +89,39 @@ import lombok.extern.slf4j.Slf4j;
     	}
     	
     	return medicalRecordsFromJsonNode;
+    }
+    public List<PeopleAndTheirMedicalRecords> combinePeopleAndMedicalRecords(){
+    	List<PeopleAndTheirMedicalRecords> peopleAndTheirMedicalRecords = new ArrayList<>();
+    	List<Person> person;
+		try {
+			person = extractPersonDataFromJsonNode();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	List<MedicalRecord> medicalRecord;
+		try {
+			medicalRecord = extractMedicalRecordsDataFromJsonNode();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	peopleAndTheirMedicalRecords.setPerson(person);
+    	peopleAndTheirMedicalRecords.setMedicalRecord(medicalRecord);
+    	
+    	return peopleAndTheirMedicalRecords;
     }
 	/*
 	 * public void convertJsonToJavaClass(URL inputJsonUrl, File
