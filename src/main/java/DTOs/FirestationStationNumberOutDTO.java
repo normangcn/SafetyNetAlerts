@@ -6,7 +6,6 @@ package DTOs;
 
 import java.util.List;
 
-import com.oc.safetynetalerts.model.Person;
 
 import lombok.Data;
 
@@ -18,15 +17,15 @@ import lombok.Data;
 public class FirestationStationNumberOutDTO {
 	
 	
-	private List<Person> people;
+	private List<FirestationStationNumberPeople> people;
 	private int kidsCount;
 	private int adultsCount;
 	
 	
-	public List<Person> getPeople() {
+	public List<FirestationStationNumberPeople> getPeople() {
 		return people;
 	}
-	public void setPeople(List<Person> people) {
+	public void setPeople(List<FirestationStationNumberPeople> people) {
 		this.people = people;
 	}
 
