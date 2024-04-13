@@ -26,7 +26,7 @@ public class SafetyNetAlertsApplication {
 		medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
 		person = personRepoFromJson.extractPersonDataFromJsonNode();
 		fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
-		peopleAndTheirMedicalRecords = JsonReaderRepository.combinePeopleAndMedicalRecords(person, medicalRecords);
+		peopleAndTheirMedicalRecords = peopleAndTheirMedicalRecordsFromJson.combinePeopleAndMedicalRecords(person, medicalRecords);
 		
 	}
 }

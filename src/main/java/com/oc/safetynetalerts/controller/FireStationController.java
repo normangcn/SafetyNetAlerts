@@ -146,7 +146,8 @@ public class FireStationController {
 		birthDatesOnly = MedicalRecordService.convertBithdateStringToLocalDate(filteredMedicalRecordsDatesOnly);
 		
 		kids = MedicalRecordService.countKids(birthDatesOnly);//Adding kids and adults counter at end of endpoint
-		adults = MedicalRecordService.countAdults(birthDatesOnly);		
+		adults = MedicalRecordService.countAdults(birthDatesOnly);
+		responseDTO.setPeople(filteredPeople);
 		responseDTO.setKidsCount(kids);
 		responseDTO.setAdultsCount(adults);
 		

@@ -25,8 +25,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class Person {
 	private UUID id;
-	private int kids;
-	private int adults;
 @JsonProperty("firstName")
 private String firstName;
 @JsonProperty("lastName")
@@ -194,18 +192,7 @@ this.email = email;
 return this;
 }
 
-public int getKids() {
-	return kids;
-}
-public void setKids(int kids) {
-	this.kids = kids;
-}
-public int getAdults() {
-	return adults;
-}
-public void setAdults(int adults) {
-	this.adults = adults;
-}
+
 @JsonAnyGetter
 public Map<String, Object> getAdditionalProperties() {
 return this.additionalProperties;
