@@ -91,12 +91,10 @@ import lombok.extern.slf4j.Slf4j;
     	
     	return medicalRecordsFromJsonNode;
     }
-    public List<PeopleAndTheirMedicalRecords> combinePeopleAndMedicalRecords(List<Person> person, List<MedicalRecord> medicalRecords){
-    	ArrayList<PeopleAndTheirMedicalRecords[]>  peopleAndTheirMedicalRecords = new ArrayList<PeopleAndTheirMedicalRecords[]>( );
-    	peopleAndTheirMedicalRecords.setPerson(person);
-    	
-    	peopleAndTheirMedicalRecords.setMedicalRecord(medicalRecords);
-    	
+    public PeopleAndTheirMedicalRecords combinePeopleAndMedicalRecords(List<Person> person, List<MedicalRecord> medicalRecords){
+    	PeopleAndTheirMedicalRecords peopleAndTheirMedicalRecords = new PeopleAndTheirMedicalRecords();
+    	peopleAndTheirMedicalRecords.setPerson(person); 	
+    	peopleAndTheirMedicalRecords.setMedicalRecord(medicalRecords);	
     	return peopleAndTheirMedicalRecords;
     }
 	/*

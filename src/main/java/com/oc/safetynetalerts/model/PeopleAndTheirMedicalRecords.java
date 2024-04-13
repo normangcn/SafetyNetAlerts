@@ -15,9 +15,9 @@ public class PeopleAndTheirMedicalRecords {
 	private  List<Person> person = new ArrayList<Person>();
 	private  List<MedicalRecord> medicalRecord = new ArrayList<MedicalRecord>();
 	 
-	 public PeopleAndTheirMedicalRecords () {
-		 
+	 public PeopleAndTheirMedicalRecords () {		 
 	 }
+	 
 	public List<Person> getPerson() {
 		return person;
 	}
