@@ -16,7 +16,8 @@ import com.oc.safetynetalerts.model.Person;
 public interface FireStationNumberOutDTOMapper {
 
 	List<FirestationStationNumberPeople> personToFirestationStationNumberOutDTO (List<Person> sourcePerson);
-	default FirestationStationNumberPeople map(Person person) {
+	
+	default FirestationStationNumberPeople personToFirestationStationNumberOutDTO(Person person) {
 		FirestationStationNumberPeople personInfoDTO = new FirestationStationNumberPeople();
         return personInfoDTO;
     }
