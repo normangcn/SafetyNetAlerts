@@ -17,12 +17,12 @@ public interface FireStationNumberOutDTOMapper {
 
 	List<FirestationStationNumberPeople> personToFirestationStationNumberOutDTO (List<Person> sourcePerson);
 	
-	default FirestationStationNumberPeople map(Person person) {
+	default FirestationStationNumberPeople map(List<Person> filteredPeople) {
 		FirestationStationNumberPeople firestationStationNumberPeople = new FirestationStationNumberPeople();
-		firestationStationNumberPeople.setFirstName(person.getFirstName());
-		firestationStationNumberPeople.setLastName(person.getLastName());
-		firestationStationNumberPeople.setAddress(person.getAddress());
-		firestationStationNumberPeople.setPhone(person.getPhone());
+		firestationStationNumberPeople.setFirstName(filteredPeople.getFirstName());
+		firestationStationNumberPeople.setLastName(filteredPeople.getLastName());
+		firestationStationNumberPeople.setAddress(filteredPeople.getAddress());
+		firestationStationNumberPeople.setPhone(filteredPeople.getPhone());
         return firestationStationNumberPeople;
     }
 

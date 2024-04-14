@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,11 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
 import com.oc.safetynetalerts.service.MedicalRecordService;
 import com.oc.safetynetalerts.service.PersonService;
 
+import DTOs.FireStationNumberOutDTOMapper;
 import DTOs.FirestationStationNumberOutDTO;
+import DTOs.FirestationStationNumberPeople;
+import DTOs.PersonToFirestationStationNumberPeople;
+import DTOs.PersonToFirestationStationNumberPeopleImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -40,6 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FireStationController {
 	JsonReaderRepository repository = new JsonReaderRepository();
+	private PersonToFirestationStationNumberPeopleImpl personToFirestationStationNumberOutDTOMapper;
 
 	@GetMapping("/test")
 	public String test() {
@@ -147,9 +153,11 @@ public class FireStationController {
 		
 		kids = MedicalRecordService.countKids(birthDatesOnly);//Adding kids and adults counter at end of endpoint
 		adults = MedicalRecordService.countAdults(birthDatesOnly);
-		for(Person personElement : filteredPeople) {
-		responseDTO.setPeople(filteredPeople);
-		}
+		List<FirestationStationNumberPeople> personToFirestationStationNumberList = new ArrayList<>();
+		
+		personToFirestationStationNumberOutDTOMapper = new PersonToFirestationStationNumberPeopleImpl();
+		personToFirestationStationNumberList = personToFirestationStationNumberOutDTOMapper.map(filteredPeople);
+		responseDTO.setPeople(personToFirestationStationNumberList);
 		responseDTO.setKidsCount(kids);
 		responseDTO.setAdultsCount(adults);
 		
