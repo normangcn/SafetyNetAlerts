@@ -160,12 +160,7 @@ public class FireStationController {
 		
 		return responseDTO;
 	}
-	@GetMapping(value = "/{station_address}")
-	@ResponseBody
-	public FirestationStationNumberOutDTO fireStationStationNumber(@PathVariable("station_address") String address) {
-		
-		return null;
-	}
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addFireStation(@RequestBody FireStation newFireStation) {
@@ -182,4 +177,5 @@ public class FireStationController {
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteFireStation(@PathVariable("station_number") int station) {
 	}
+	
 }
