@@ -18,8 +18,8 @@ public class FireAddressOutDTO {
 	private String personPhoneNumber;
 	private int stationNumber;
 	private int age;
-	private List <String> medicalRecMedication;
-	private List <String> medicalRecAllergies;
+	private List <MedicalRecMedicationAndAllergies> medicalRecMedicationAndAllergies;
+	
 	public String getPersonAddress() {
 		return personAddress;
 	}
@@ -50,17 +50,13 @@ public class FireAddressOutDTO {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public List<String> getMedicalRecMedication() {
-		return medicalRecMedication;
+	public List<MedicalRecMedicationAndAllergies> getMedicalRecMedicationAndAllergies() {
+		return medicalRecMedicationAndAllergies;
 	}
-	public void setMedicalRecMedication(List<String> medicalRecMedication) {
-		this.medicalRecMedication = medicalRecMedication;
+	public void setMedicalRecMedicationAndAllergies(
+			List<MedicalRecMedicationAndAllergies> medicalRecMedicationAndAllergies) {
+		this.medicalRecMedicationAndAllergies = medicalRecMedicationAndAllergies;
 	}
-	public List<String> getMedicalRecAllergies() {
-		return medicalRecAllergies;
-	}
-	public void setMedicalRecAllergies(List<String> medicalRecAllergies) {
-		this.medicalRecAllergies = medicalRecAllergies;
-	}
+
 	
 }
