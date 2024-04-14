@@ -6,6 +6,7 @@ package DTOs;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+
 import com.oc.safetynetalerts.model.Person;
 
 /**
@@ -13,10 +14,8 @@ import com.oc.safetynetalerts.model.Person;
  *
  */
 @Mapper(componentModel= "spring")
-public interface FireStationNumberOutDTOMapper {
-
-	List<FirestationStationNumberPeople> personToFirestationStationNumberOutDTO (List<Person> sourcePerson);
-	
+public interface PersonToFirestationStationNumberPeople {
+	List<FirestationStationNumberPeople> map(List<Person> person);
 	default FirestationStationNumberPeople map(Person person) {
 		FirestationStationNumberPeople firestationStationNumberPeople = new FirestationStationNumberPeople();
 		firestationStationNumberPeople.setFirstName(person.getFirstName());
@@ -25,5 +24,4 @@ public interface FireStationNumberOutDTOMapper {
 		firestationStationNumberPeople.setPhone(person.getPhone());
         return firestationStationNumberPeople;
     }
-
 }
