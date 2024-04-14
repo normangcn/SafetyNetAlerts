@@ -147,7 +147,9 @@ public class FireStationController {
 		
 		kids = MedicalRecordService.countKids(birthDatesOnly);//Adding kids and adults counter at end of endpoint
 		adults = MedicalRecordService.countAdults(birthDatesOnly);
+		for(Person personElement : filteredPeople) {
 		responseDTO.setPeople(filteredPeople);
+		}
 		responseDTO.setKidsCount(kids);
 		responseDTO.setAdultsCount(adults);
 		
