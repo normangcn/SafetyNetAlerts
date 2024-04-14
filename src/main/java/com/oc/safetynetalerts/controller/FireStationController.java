@@ -99,7 +99,7 @@ public class FireStationController {
 	 */
 	@GetMapping(value = "/{station_number}")
 	@ResponseBody
-	public FirestationStationNumberOutDTO fireStationStationNumber2(@PathVariable("station_number") int station) {
+	public FirestationStationNumberOutDTO fireStationStationNumber(@PathVariable("station_number") int station) {
 		FirestationStationNumberOutDTO responseDTO = new FirestationStationNumberOutDTO();
 		List<FireStation> allFireStations = null;
 		List<FireStation> filteredFireStations = new ArrayList<>();
@@ -160,7 +160,12 @@ public class FireStationController {
 		
 		return responseDTO;
 	}
-	
+	@GetMapping(value = "/{station_address}")
+	@ResponseBody
+	public FirestationStationNumberOutDTO fireStationStationNumber(@PathVariable("station_address") String address) {
+		
+		return null;
+	}
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addFireStation(@RequestBody FireStation newFireStation) {
