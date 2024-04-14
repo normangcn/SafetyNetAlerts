@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,10 +28,8 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
 import com.oc.safetynetalerts.service.MedicalRecordService;
 import com.oc.safetynetalerts.service.PersonService;
 
-import DTOs.FireStationNumberOutDTOMapper;
 import DTOs.FirestationStationNumberOutDTO;
 import DTOs.FirestationStationNumberPeople;
-import DTOs.PersonToFirestationStationNumberPeople;
 import DTOs.PersonToFirestationStationNumberPeopleImpl;
 import lombok.extern.slf4j.Slf4j;
 
