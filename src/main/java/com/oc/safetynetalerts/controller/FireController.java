@@ -56,7 +56,7 @@ public class FireController {
 		List<Person> filteredPeople = new ArrayList<>();
 		List<MedicalRecord> allMedicalRecords = medicalRecords;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
-
+		List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> peopleByStation = new ArrayList<>();
 			for (FireStation stationElement : allFireStations) {
 				if (stationElement.getStation().equals(String.valueOf(address))) {
 					filteredFireStations.add(stationElement);
@@ -67,8 +67,8 @@ public class FireController {
 							filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
 									.collect(Collectors.toList());//Matching people to their firestation's address
 							for(Person personElement : filteredPeople) {
-								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setFullName(personElement.getFullName());
-								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setPhone(personElement.getPhone());
+								((Person) peopleByStation).setFullName(personElement.getFullName());
+								((Person) peopleByStation).setPhone(personElement.getPhone());
 								// Need medi for age PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setAge(personElement.getFullName());
 							}
 							
