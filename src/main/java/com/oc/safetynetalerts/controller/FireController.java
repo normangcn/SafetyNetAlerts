@@ -27,6 +27,7 @@ import com.oc.safetynetalerts.service.MedicalRecordService;
 import DTOs.FireAddressOutDTO;
 import DTOs.FirestationStationNumberOutDTO;
 import DTOs.FirestationStationNumberPeople;
+import DTOs.PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies;
 import DTOs.PersonToFirestationStationNumberPeopleImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,35 +56,35 @@ public class FireController {
 		List<Person> filteredPeople = new ArrayList<>();
 		List<MedicalRecord> allMedicalRecords = medicalRecords;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
-		Set<String> filteredMedicalRecordsDatesOnly = null;
-		List<LocalDate> birthDatesOnly = null;
 
 			for (FireStation stationElement : allFireStations) {
 				if (stationElement.getStation().equals(String.valueOf(address))) {
 					filteredFireStations.add(stationElement);
-					responseDTO.setStationNumber(stationElement);
+					responseDTO.setStationNumber(stationElement.getStation());//Setting the station number for the reply
+					for(FireStation filteredFireStationsElement : filteredFireStations) {//Loop by firestation number
+						if(filteredFireStationsElement.getStation().equals(String.valueOf(responseDTO.getStationNumber()))) {
+							String fireStationsAddressesOnly = filteredFireStationsElement.getAddress();					
+							filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
+									.collect(Collectors.toList());//Matching people to their firestation's address
+							for(Person personElement : filteredPeople) {
+								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setFullName(personElement.getFullName());
+								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setPhone(personElement.getPhone());
+								// Need medi for age PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setAge(personElement.getFullName());
+							}
+							
+							Set<String> peopleFullNames = filteredPeople.stream().map(Person::getFullName)
+									.collect(Collectors.toSet());
+							filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
+									.collect(Collectors.toList());//Matching people to their medical record
+							
+				
+						
+						}
+					}
 				}
 			}
 			
-		
-		Set<String> fireStationsAddressesOnly = filteredFireStations.stream().map(FireStation::getAddress)
-				.collect(Collectors.toSet());
-		Set<String> fireStationsNumberOnly = filteredFireStations.stream().map(FireStation::getStation)
-				.collect(Collectors.toSet());
-		filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
-				.collect(Collectors.toList());
-		Set<String> peopleFullNames = filteredPeople.stream().map(Person::getFullName)
-				.collect(Collectors.toSet());
-		filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
-				.collect(Collectors.toList());
-		
-		filteredMedicalRecordsDatesOnly = filteredMedicalRecords.stream().map(MedicalRecord::getBirthdate).collect(Collectors.toSet());
-		birthDatesOnly = MedicalRecordService.convertBithdateStringToLocalDate(filteredMedicalRecordsDatesOnly);
-		
-
-
 		responseDTO.setPeople(null);
-		responseDTO.setStationNumber(fireStationsNumberOnly);
 		return responseDTO;
 	}
 		
