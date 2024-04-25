@@ -56,9 +56,9 @@ public class FireController {
 		List<Person> filteredPeople = new ArrayList<>();
 		List<MedicalRecord> allMedicalRecords = medicalRecords;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
-		List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> peopleByStation = new ArrayList<>();
+		
 			for (FireStation stationElement : allFireStations) {
-				if (stationElement.getStation().equals(String.valueOf(address))) {
+				if (stationElement.getAddress().equals(String.valueOf(address))) {
 					filteredFireStations.add(stationElement);
 					responseDTO.setStationNumber(stationElement.getStation());//Setting the station number for the reply
 					for(FireStation filteredFireStationsElement : filteredFireStations) {//Loop by firestation number
@@ -66,9 +66,12 @@ public class FireController {
 							String fireStationsAddressesOnly = filteredFireStationsElement.getAddress();					
 							filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
 									.collect(Collectors.toList());//Matching people to their firestation's address
+							List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> peopleAtAdresss = new ArrayList<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies>();
 							for(Person personElement : filteredPeople) {
-								((Person) peopleByStation).setFullName(personElement.getFullName());
-								((Person) peopleByStation).setPhone(personElement.getPhone());
+								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies peopleByStationListFeeder = new PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies();
+								peopleByStationListFeeder.setFullName(personElement.getFullName());
+								peopleByStationListFeeder.setPhone(personElement.getPhone());
+								peopleAtAdresss.add(peopleByStationListFeeder);
 								// Need medi for age PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setAge(personElement.getFullName());
 							}
 							
