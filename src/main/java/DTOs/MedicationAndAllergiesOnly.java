@@ -12,26 +12,20 @@ import java.util.List;
  */
 public class MedicationAndAllergiesOnly {
 
-	public class Allergies {
-
-	}
-	
-	public class Medication {
-
-	}
-	private List<Medication> medications;
-	private List<Allergies> allergies;
-	public List<Medication> getMedications() {
+	private List<MedicationOnly> medications;
+	private List<AllergiesOnly> allergies;
+	public List<MedicationOnly> getMedications() {
 		return medications;
 	}
-	public void setMedications(List<Medication> medications) {
+	public void setMedications(List<MedicationOnly> medications) {
 		this.medications = medications;
 	}
-	public List<Allergies> getAllergies() {
+	public List<AllergiesOnly> getAllergies() {
 		return allergies;
 	}
-	public void setAllergies(List<Allergies> allergies) {
+	public void setAllergies(List<AllergiesOnly> allergies) {
 		this.allergies = allergies;
 	}
+
 	
 }

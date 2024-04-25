@@ -54,11 +54,6 @@ public class FireStationController {
 	JsonReaderRepository repository = new JsonReaderRepository();
 	private PersonToFirestationStationNumberPeopleImpl personToFirestationStationNumberOutDTOMapper;
 
-	@GetMapping("/test")
-	public String test() {
-		String test = "test";
-		return test;
-	}
 
 	@GetMapping(value = "/{station_number}")
 	@ResponseBody

@@ -13,14 +13,14 @@ import lombok.Data;
  */
 @Data
 public class FireAddressOutDTO {
-	private int stationNumber;
+	private String stationNumber;
 	private List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> people;/*La liste doit inclure le nom, le numéro de
 	 * téléphone, l'âge et les antécédents médicaux (médicaments, posologie et
 	 * allergies) de chaque personne.*/
-	public int getStationNumber() {
+	public String getStationNumber() {
 		return stationNumber;
 	}
-	public void setStationNumber(int stationNumber) {
+	public void setStationNumber(String stationNumber) {
 		this.stationNumber = stationNumber;
 	}
 	public List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> getPeople() {

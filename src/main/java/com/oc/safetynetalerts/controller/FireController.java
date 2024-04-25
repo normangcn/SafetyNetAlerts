@@ -24,6 +24,7 @@ import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.service.MedicalRecordService;
 
+import DTOs.FireAddressOutDTO;
 import DTOs.FirestationStationNumberOutDTO;
 import DTOs.FirestationStationNumberPeople;
 import DTOs.PersonToFirestationStationNumberPeopleImpl;
@@ -46,8 +47,8 @@ public class FireController {
 	 */
 	@GetMapping(value = "/{station_address}")
 	@ResponseBody
-	public FirestationStationNumberOutDTO fireStationStationAddress(@PathVariable("station_address") String address) {
-		FirestationStationNumberOutDTO responseDTO = new FirestationStationNumberOutDTO();
+	public FireAddressOutDTO fireStationStationAddress(@PathVariable("station_address") String address) {
+		FireAddressOutDTO responseDTO = new FireAddressOutDTO();
 		List<FireStation> allFireStations = fireStation;
 		List<FireStation> filteredFireStations = new ArrayList<>();
 		List<Person> allPeople = person;
@@ -55,18 +56,19 @@ public class FireController {
 		List<MedicalRecord> allMedicalRecords = medicalRecords;
 		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
 		Set<String> filteredMedicalRecordsDatesOnly = null;
-		int kids = 0;
-		int adults = 0;
 		List<LocalDate> birthDatesOnly = null;
 
 			for (FireStation stationElement : allFireStations) {
-				if (stationElement.getStation().equals(String.valueOf(station))) {
+				if (stationElement.getStation().equals(String.valueOf(address))) {
 					filteredFireStations.add(stationElement);
+					responseDTO.setStationNumber(stationElement);
 				}
 			}
-
+			
 		
 		Set<String> fireStationsAddressesOnly = filteredFireStations.stream().map(FireStation::getAddress)
+				.collect(Collectors.toSet());
+		Set<String> fireStationsNumberOnly = filteredFireStations.stream().map(FireStation::getStation)
 				.collect(Collectors.toSet());
 		filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
 				.collect(Collectors.toList());
@@ -78,16 +80,10 @@ public class FireController {
 		filteredMedicalRecordsDatesOnly = filteredMedicalRecords.stream().map(MedicalRecord::getBirthdate).collect(Collectors.toSet());
 		birthDatesOnly = MedicalRecordService.convertBithdateStringToLocalDate(filteredMedicalRecordsDatesOnly);
 		
-		kids = MedicalRecordService.countKids(birthDatesOnly);//Adding kids and adults counter at end of endpoint result
-		adults = MedicalRecordService.countAdults(birthDatesOnly);
-		List<FirestationStationNumberPeople> personToFirestationStationNumberList = new ArrayList<>();
-		
-		personToFirestationStationNumberOutDTOMapper = new PersonToFirestationStationNumberPeopleImpl();
-		personToFirestationStationNumberList = personToFirestationStationNumberOutDTOMapper.map(filteredPeople);
-		responseDTO.setPeople(personToFirestationStationNumberList);
-		responseDTO.setKidsCount(kids);
-		responseDTO.setAdultsCount(adults);
-		
+
+
+		responseDTO.setPeople(null);
+		responseDTO.setStationNumber(fireStationsNumberOnly);
 		return responseDTO;
 	}
 		
