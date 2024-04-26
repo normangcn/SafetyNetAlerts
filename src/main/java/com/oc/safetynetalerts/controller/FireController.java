@@ -58,7 +58,6 @@ public class FireController {
 		List<Person> allPeople = person;
 		List<Person> filteredPeople = new ArrayList<>();
 		List<MedicalRecord> allMedicalRecords = medicalRecords;
-		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
 		
 			for (FireStation stationElement : allFireStations) {
 				if (stationElement.getAddress().equals(String.valueOf(address))) {
@@ -74,8 +73,9 @@ public class FireController {
 								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies peopleByStationListFeeder = new PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies();		
 								peopleByStationListFeeder.setFullName(StringUtils.concatNames(personElement.getFirstName(), personElement.getLastName()));
 								peopleByStationListFeeder.setPhone(personElement.getPhone());							
-								peopleAtAdresss.add(peopleByStationListFeeder);//add people's full name and phone number to the list of people
+								
 								MedicalRecord medicalRecordForPeopleByStation = new MedicalRecord();
+								int age = 0;
 								for(MedicalRecord medicalRecordElement:allMedicalRecords) {
 									medicalRecordForPeopleByStation.setFullName(StringUtils.concatNames(medicalRecordElement.getFirstName(), medicalRecordElement.getLastName()));
 									if(medicalRecordForPeopleByStation.getFullName().equals(String.valueOf(peopleByStationListFeeder.getFullName()))){
@@ -83,28 +83,20 @@ public class FireController {
 										MedicationAndAllergiesOnly medicationAndAllergiesOnly = new MedicationAndAllergiesOnly();		
 										medicationAndAllergiesOnly.setMedications(medicalRecordForPeopleByStation.getMedications());
 										medicationAndAllergiesOnly.setAllergies(medicalRecordForPeopleByStation.getAllergies());
-										medicationAndAllergiesOnlys.add(medicationAndAllergiesOnly);
+										medicationAndAllergiesOnlys.add(medicationAndAllergiesOnly);//add alergies and medication to medication list
 										LocalDate dateForAgeCalculation = DateUtils.stringToLocalDateFormatter(medicalRecordElement.getBirthdate());
-										int age = DateUtils.calculateAge(dateForAgeCalculation);
-									}
-											
+										age = DateUtils.calculateAge(dateForAgeCalculation);
+										peopleByStationListFeeder.setMedicationAndAllergies(medicationAndAllergiesOnlys);
+									}				
 								}
-								// Need medi for age PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setAge(personElement.getFullName());
+								peopleByStationListFeeder.setAge(age);
+								peopleAtAdresss.add(peopleByStationListFeeder);//add people's full name and phone number to the list of people
 							}
-							
-							Set<String> peopleFullNames = filteredPeople.stream().map(Person::getFullName)
-									.collect(Collectors.toSet());
-							filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
-									.collect(Collectors.toList());//Matching people to their medical record
-							
-				
-						
+							responseDTO.setPeople(peopleAtAdresss);											
 						}
 					}
 				}
 			}
-			
-		responseDTO.setPeople(null);
 		return responseDTO;
 	}
 		
