@@ -11,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
+import com.oc.safetynetalerts.utils.StringUtils;
 
 
 @SpringBootApplication
@@ -24,6 +26,9 @@ public class SafetyNetAlertsApplication {
 		JsonReaderRepository fireStationRepoFromJson = new JsonReaderRepository();
 		JsonReaderRepository peopleAndTheirMedicalRecordsFromJson = new JsonReaderRepository();
 		medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
+		for(MedicalRecord medicalRecordElement: medicalRecords) {
+			medicalRecords.setFullName(StringUtils.concatNames(medicalRecordElement.getFirstName(), medicalRecordElement.getLastName()));
+		}
 		person = personRepoFromJson.extractPersonDataFromJsonNode();
 		fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
 		peopleAndTheirMedicalRecords = peopleAndTheirMedicalRecordsFromJson.combinePeopleAndMedicalRecords(person, medicalRecords);

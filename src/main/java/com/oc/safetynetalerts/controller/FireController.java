@@ -23,10 +23,13 @@ import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.service.MedicalRecordService;
+import com.oc.safetynetalerts.utils.DateUtils;
+import com.oc.safetynetalerts.utils.StringUtils;
 
 import DTOs.FireAddressOutDTO;
 import DTOs.FirestationStationNumberOutDTO;
 import DTOs.FirestationStationNumberPeople;
+import DTOs.MedicationAndAllergiesOnly;
 import DTOs.PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies;
 import DTOs.PersonToFirestationStationNumberPeopleImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -68,10 +71,24 @@ public class FireController {
 									.collect(Collectors.toList());//Matching people to their firestation's address
 							List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> peopleAtAdresss = new ArrayList<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies>();
 							for(Person personElement : filteredPeople) {
-								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies peopleByStationListFeeder = new PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies();
-								peopleByStationListFeeder.setFullName(personElement.getFullName());
-								peopleByStationListFeeder.setPhone(personElement.getPhone());
-								peopleAtAdresss.add(peopleByStationListFeeder);
+								PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies peopleByStationListFeeder = new PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies();		
+								peopleByStationListFeeder.setFullName(StringUtils.concatNames(personElement.getFirstName(), personElement.getLastName()));
+								peopleByStationListFeeder.setPhone(personElement.getPhone());							
+								peopleAtAdresss.add(peopleByStationListFeeder);//add people's full name and phone number to the list of people
+								MedicalRecord medicalRecordForPeopleByStation = new MedicalRecord();
+								for(MedicalRecord medicalRecordElement:allMedicalRecords) {
+									medicalRecordForPeopleByStation.setFullName(StringUtils.concatNames(medicalRecordElement.getFirstName(), medicalRecordElement.getLastName()));
+									if(medicalRecordForPeopleByStation.getFullName().equals(String.valueOf(peopleByStationListFeeder.getFullName()))){
+										List<MedicationAndAllergiesOnly> medicationAndAllergiesOnlys = new ArrayList<>();
+										MedicationAndAllergiesOnly medicationAndAllergiesOnly = new MedicationAndAllergiesOnly();		
+										medicationAndAllergiesOnly.setMedications(medicalRecordForPeopleByStation.getMedications());
+										medicationAndAllergiesOnly.setAllergies(medicalRecordForPeopleByStation.getAllergies());
+										medicationAndAllergiesOnlys.add(medicationAndAllergiesOnly);
+										LocalDate dateForAgeCalculation = DateUtils.stringToLocalDateFormatter(medicalRecordElement.getBirthdate());
+										int age = DateUtils.calculateAge(dateForAgeCalculation);
+									}
+											
+								}
 								// Need medi for age PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies.setAge(personElement.getFullName());
 							}
 							

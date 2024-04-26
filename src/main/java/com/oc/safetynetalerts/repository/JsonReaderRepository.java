@@ -21,6 +21,7 @@ import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecords;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.service.ObjectMapperService;
+import com.oc.safetynetalerts.utils.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
