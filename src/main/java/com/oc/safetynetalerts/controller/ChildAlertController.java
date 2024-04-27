@@ -14,4 +14,7 @@ public class ChildAlertController {
 	 * adresse. La liste doit comprendre le prénom et le nom de famille de chaque
 	 * enfant, son âge et une liste des autres membres du foyer. S'il n'y a pas
 	 * d'enfant, cette url peut renvoyer une chaîne vide.
-	 */}
+	 */
+	
+
+}

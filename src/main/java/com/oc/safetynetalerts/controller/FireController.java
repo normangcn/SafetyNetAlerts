@@ -10,7 +10,6 @@ import static com.oc.safetynetalerts.repository.GlobalRepo.person;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,16 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.MedicalRecord;
 import com.oc.safetynetalerts.model.Person;
-import com.oc.safetynetalerts.service.MedicalRecordService;
 import com.oc.safetynetalerts.utils.DateUtils;
 import com.oc.safetynetalerts.utils.StringUtils;
 
 import DTOs.FireAddressOutDTO;
-import DTOs.FirestationStationNumberOutDTO;
-import DTOs.FirestationStationNumberPeople;
 import DTOs.MedicationAndAllergiesOnly;
 import DTOs.PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies;
-import DTOs.PersonToFirestationStationNumberPeopleImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**
