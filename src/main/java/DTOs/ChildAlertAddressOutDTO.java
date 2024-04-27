@@ -6,17 +6,21 @@ package DTOs;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 
 /**
  * @author gareth
  *
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
 public class ChildAlertAddressOutDTO {
-
+	/*
+	 * une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette
+	 * adresse. La liste doit comprendre le prénom et le nom de famille de chaque
+	 * enfant, son âge et une liste des autres membres du foyer. S'il n'y a pas
+	 * d'enfant, cette url peut renvoyer une chaîne vide.
+	 */	
 	private String personFirstName;
 	private String personLastName;
 	private int kidAge = 0;
