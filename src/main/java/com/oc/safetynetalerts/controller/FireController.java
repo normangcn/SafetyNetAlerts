@@ -76,8 +76,11 @@ public class FireController {
 								
 								MedicalRecord medicalRecordForPeopleByStation = new MedicalRecord();
 								int age = 0;
-								for(MedicalRecord medicalRecordElement:allMedicalRecords) {
+								for(MedicalRecord medicalRecordElement : allMedicalRecords) {
 									medicalRecordForPeopleByStation.setFullName(StringUtils.concatNames(medicalRecordElement.getFirstName(), medicalRecordElement.getLastName()));
+									medicalRecordForPeopleByStation.setBirthdate(medicalRecordElement.getBirthdate());
+									medicalRecordForPeopleByStation.setAllergies(medicalRecordElement.getAllergies());
+									medicalRecordForPeopleByStation.setMedications(medicalRecordElement.getMedications());
 									if(medicalRecordForPeopleByStation.getFullName().equals(String.valueOf(peopleByStationListFeeder.getFullName()))){
 										List<MedicationAndAllergiesOnly> medicationAndAllergiesOnlys = new ArrayList<>();
 										MedicationAndAllergiesOnly medicationAndAllergiesOnly = new MedicationAndAllergiesOnly();		
