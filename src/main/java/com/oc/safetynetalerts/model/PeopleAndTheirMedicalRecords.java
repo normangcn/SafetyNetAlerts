@@ -3,96 +3,90 @@
  */
 package com.oc.safetynetalerts.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author gareth
  *
  */
 public class PeopleAndTheirMedicalRecords {
-	private  List<Person> person = new ArrayList<Person>();
-	private  List<MedicalRecord> medicalRecord = new ArrayList<MedicalRecord>();
-	 
-	 public PeopleAndTheirMedicalRecords () {		 
-	 }
-	 
-	public List<Person> getPerson() {
-		return person;
-	}
-
-	public void setPerson(List<Person> person) {
-		this.person = person;
-	}
-	public PeopleAndTheirMedicalRecords withPerson(List<Person> person) {
-		this.person = person;
-		return this;
-		}
-
-	public List<MedicalRecord> getMedicalRecord() {
-		return medicalRecord;
-	}
-
-	public void setMedicalRecord(List<MedicalRecord> medicalRecord) {
-		this.medicalRecord = medicalRecord;
-	}
-	public PeopleAndTheirMedicalRecords withMedications(List<MedicalRecord> medicalRecord) {
-		this.medicalRecord = medicalRecord;
-		return this;
-		}
+	private String fullName;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String city;
+	private String zip;
+	private String phone;
+	private String email;
+	private String birthdate;
+	private List<String> medications;
+	private List<String> allergies;
 	
-
-	/**
-	 * @param person
-	 * @param medicalRecord
-	 */
-	public PeopleAndTheirMedicalRecords(List<Person> person, List<MedicalRecord> medicalRecord) {
-		super();
-		this.person = person;
-		this.medicalRecord = medicalRecord;
+	public String getFullName() {
+		return fullName;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(medicalRecord, person);
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	
-	/**
-	 * @param index
-	 * @param element
-	 * @return
-	 * @see java.util.List#set(int, java.lang.Object)
-	 */
-	public Person set(int index, Person element) {
-		return person.set(index, element);
+	public String getFirstName() {
+		return firstName;
 	}
-	/**
-	 * @param index
-	 * @param element
-	 * @return
-	 * @see java.util.List#set(int, java.lang.Object)
-	 */
-	public MedicalRecord set(int index, MedicalRecord element) {
-		return medicalRecord.set(index, element);
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PeopleAndTheirMedicalRecords other = (PeopleAndTheirMedicalRecords) obj;
-		return Objects.equals(medicalRecord, other.medicalRecord) && Objects.equals(person, other.person);
+	public String getLastName() {
+		return lastName;
 	}
-	@Override
-	public String toString() {
-		return "PeopleAndTheirMedicalRecords [person=" + person + ", medicalRecord=" + medicalRecord + ", getPerson()="
-				+ getPerson() + ", getMedicalRecord()=" + getMedicalRecord() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+	public List<String> getMedications() {
+		return medications;
+	}
+	public void setMedications(List<String> medications) {
+		this.medications = medications;
+	}
+	public List<String> getAllergies() {
+		return allergies;
+	}
+	public void setAllergies(List<String> allergies) {
+		this.allergies = allergies;
+	}
 	
 }
