@@ -25,4 +25,12 @@ public class DateUtils {
 		LocalDate formattedDateToLocalDate = LocalDate.parse(dateAsString, formatter);
 		return formattedDateToLocalDate;		
 	}
+	public static boolean validateKids (int age) {
+		boolean isAKid = false;
+		
+		if(age < 18) {
+			isAKid = true;
+		}
+		return isAKid;
+	}
 }

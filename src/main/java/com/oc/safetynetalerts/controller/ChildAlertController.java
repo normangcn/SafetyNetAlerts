@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+import com.oc.safetynetalerts.service.MedicalRecordService;
 import com.oc.safetynetalerts.service.PeopleAndMedicalRecordsService;
 import com.oc.safetynetalerts.utils.DateUtils;
 
@@ -42,7 +43,7 @@ public class ChildAlertController {
 		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = new ArrayList<>();
 		List<PeopleAndTheirMedicalRecord> filteredByAddressPeopleAndtheirMedicalRecords = new ArrayList<>();
 		List<PeopleAndTheirMedicalRecord> kidsAndtheirMedicalRecords = new ArrayList<>();
-		
+		LocalDate birthDate = null;
 		
 		allPeopleAndtheirMedicalRecords = PeopleAndMedicalRecordsService.personListMergedWithCorrespondingMedicalRecord();
 		
@@ -51,8 +52,15 @@ public class ChildAlertController {
 				PeopleAndTheirMedicalRecord filteredByAddressPeopleAndtheirMedicalRecord = new PeopleAndTheirMedicalRecord();
 				filteredByAddressPeopleAndtheirMedicalRecord.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
 				filteredByAddressPeopleAndtheirMedicalRecord.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
-				LocalDate birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
+				birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
 				filteredByAddressPeopleAndtheirMedicalRecord.setAge(DateUtils.calculateAge(birthDate));
+					if(DateUtils.validateKids(filteredByAddressPeopleAndtheirMedicalRecord.getAge())) {
+						
+					}
+					else {
+						
+					}
+				
 				
 			}
 		}

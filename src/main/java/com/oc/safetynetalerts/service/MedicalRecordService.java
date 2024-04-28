@@ -71,12 +71,8 @@ public class MedicalRecordService {
 				}
 	}
 		return kidsCount;
-		
-		boolean validateKids () {
-			boolean isAKid;
-			return isAKid;
-		}
 	}
+	
 	public static int countAdults(List<LocalDate> birthDatesOnly) {
 		for (LocalDate dateElement : birthDatesOnly) {		
 			LocalDate birthDate = dateElement;
@@ -89,4 +85,5 @@ public class MedicalRecordService {
 		}
 	return adultsCount;
 	}
+
 }
