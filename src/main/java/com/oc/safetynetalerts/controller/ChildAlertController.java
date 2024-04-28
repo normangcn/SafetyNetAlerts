@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oc.safetynetalerts.model.MedicalRecord;
-import com.oc.safetynetalerts.model.Person;
-import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+import com.oc.safetynetalerts.service.PeopleAndMedicalRecordsService;
+import com.oc.safetynetalerts.utils.DateUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +37,23 @@ public class ChildAlertController {
 	 */
 	@GetMapping(value = "/{home_address}")
 	@ResponseBody
-	public ChildAlertAddressOutDTO childAlertAddress(@PathVariable("home_address") String address) {
-		ChildAlertAddressOutDTO responseDTO = new ChildAlertAddressOutDTO();
-		List<Person> allPeople = person;
-		List<MedicalRecord> allMedicalRecord = medicalRecords;
-		List<Person> filteredPeople = new ArrayList<>();
+	public List<ChildAlertAddressOutDTO> childAlertAddress(@PathVariable("home_address") String address) {
+		List<ChildAlertAddressOutDTO> responseDTO = new ArrayList<ChildAlertAddressOutDTO>();
+		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = new ArrayList<>();
+		List<PeopleAndTheirMedicalRecord> filteredByAddressPeopleAndtheirMedicalRecords = new ArrayList<>();
+		List<PeopleAndTheirMedicalRecord> kidsAndtheirMedicalRecords = new ArrayList<>();
 		
-		for(Person personElement : allPeople) {
-			if(personElement.getAddress().equals(String.valueOf(address))) {
-				filteredPeople.add(personElement);
+		
+		allPeopleAndtheirMedicalRecords = PeopleAndMedicalRecordsService.personListMergedWithCorrespondingMedicalRecord();
+		
+		for( PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement: allPeopleAndtheirMedicalRecords) {
+			if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(address))) {
+				PeopleAndTheirMedicalRecord filteredByAddressPeopleAndtheirMedicalRecord = new PeopleAndTheirMedicalRecord();
+				filteredByAddressPeopleAndtheirMedicalRecord.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
+				filteredByAddressPeopleAndtheirMedicalRecord.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
+				LocalDate birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
+				filteredByAddressPeopleAndtheirMedicalRecord.setAge(DateUtils.calculateAge(birthDate));
+				
 			}
 		}
 		

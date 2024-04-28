@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.oc.safetynetalerts.model.MedicalRecord;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecords;
+import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.utils.StringUtils;
 
@@ -19,12 +19,12 @@ import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
  *
  */
 public class PeopleAndMedicalRecordsService {
-public List<PeopleAndTheirMedicalRecords> personListMergedWithCorrespondingMedicalRecord(){
+public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondingMedicalRecord(){
 	List<Person> allPeoples = person;
 	List<MedicalRecord> allMedicalRecords = medicalRecords;
 	List<MedicalRecord> medicalRecordConcats = new ArrayList<>();
-	List<PeopleAndTheirMedicalRecords> mergedLists = new ArrayList<>();
-	PeopleAndTheirMedicalRecords mergedPersonAndMedicalRecord = new PeopleAndTheirMedicalRecords();
+	List<PeopleAndTheirMedicalRecord> mergedLists = new ArrayList<>();
+	PeopleAndTheirMedicalRecord mergedPersonAndMedicalRecord = new PeopleAndTheirMedicalRecord();
 	MedicalRecord medicalRecordConcat = new MedicalRecord();
 	
 	for(MedicalRecord medicalRecordElement : allMedicalRecords) {

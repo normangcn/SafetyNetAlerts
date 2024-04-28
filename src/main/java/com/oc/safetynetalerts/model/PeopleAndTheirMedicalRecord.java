@@ -9,7 +9,7 @@ import java.util.List;
  * @author gareth
  *
  */
-public class PeopleAndTheirMedicalRecords {
+public class PeopleAndTheirMedicalRecord {
 	private String fullName;
 	private String firstName;
 	private String lastName;
@@ -21,7 +21,14 @@ public class PeopleAndTheirMedicalRecords {
 	private String birthdate;
 	private List<String> medications;
 	private List<String> allergies;
+	private int age;
 	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 	public String getFullName() {
 		return fullName;
 	}
