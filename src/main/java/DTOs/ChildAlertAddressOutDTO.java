@@ -21,40 +21,34 @@ public class ChildAlertAddressOutDTO {
 	 * enfant, son âge et une liste des autres membres du foyer. S'il n'y a pas
 	 * d'enfant, cette url peut renvoyer une chaîne vide.
 	 */	
-	private String personFirstName;
-	private String personLastName;
-	private int kidAge = 0;
+	private String firstName;
+	private String lastName;
+	private int age = 0;
 	private List<FamilyMember> familyMembers = new ArrayList<>();
-
-	public String getPersonFirstName() {
-		return personFirstName;
+	public String getFirstName() {
+		return firstName;
 	}
-
-	public void setPersonFirstName(String personFirstName) {
-		this.personFirstName = personFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-
-	public String getPersonLastName() {
-		return personLastName;
+	public String getLastName() {
+		return lastName;
 	}
-
-	public void setPersonLastName(String personLastName) {
-		this.personLastName = personLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
-	public int getKidAge() {
-		return kidAge;
+	public int getAge() {
+		return age;
 	}
-
-	public void setKidAge(int kidAge) {
-		this.kidAge = kidAge;
+	public void setAge(int age) {
+		this.age = age;
 	}
-
 	public List<FamilyMember> getFamilyMembers() {
 		return familyMembers;
 	}
-
 	public void setFamilyMembers(List<FamilyMember> familyMembers) {
 		this.familyMembers = familyMembers;
 	}
+
+	
 }

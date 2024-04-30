@@ -25,9 +25,9 @@ public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondin
 	List<MedicalRecord> medicalRecordConcats = new ArrayList<>();
 	List<PeopleAndTheirMedicalRecord> mergedLists = new ArrayList<>();
 	PeopleAndTheirMedicalRecord mergedPersonAndMedicalRecord = new PeopleAndTheirMedicalRecord();
-	MedicalRecord medicalRecordConcat = new MedicalRecord();
 	
 	for(MedicalRecord medicalRecordElement : allMedicalRecords) {
+		MedicalRecord medicalRecordConcat = new MedicalRecord();
 		medicalRecordConcat.setFullName(StringUtils.concatNames(medicalRecordElement.getFirstName(), medicalRecordElement.getLastName()));
 		medicalRecordConcat.setAllergies(medicalRecordElement.getAllergies());
 		medicalRecordConcat.setBirthdate(medicalRecordElement.getBirthdate());
@@ -39,21 +39,22 @@ public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondin
 		
 	for(Person personElement : allPeoples) {
 		mergedPersonAndMedicalRecord.setFullName(StringUtils.concatNames(personElement.getFirstName(), personElement.getLastName()));
-		for(MedicalRecord medicalRecordElement: medicalRecordConcats) {
-			if(mergedPersonAndMedicalRecord.getFullName() == medicalRecordElement.getFullName()) {
-			mergedPersonAndMedicalRecord.setAddress(personElement.getAddress());
-			mergedPersonAndMedicalRecord.setCity(personElement.getCity());
-			mergedPersonAndMedicalRecord.setEmail(personElement.getEmail());
-			mergedPersonAndMedicalRecord.setFirstName(personElement.getFirstName());
-			mergedPersonAndMedicalRecord.setLastName(personElement.getLastName());
-			mergedPersonAndMedicalRecord.setPhone(personElement.getPhone());
-			mergedPersonAndMedicalRecord.setZip(personElement.getPhone());
-			mergedPersonAndMedicalRecord.setAllergies(medicalRecordElement.getAllergies());
-			mergedPersonAndMedicalRecord.setBirthdate(medicalRecordElement.getBirthdate());
-			mergedPersonAndMedicalRecord.setMedications(medicalRecordElement.getMedications());
-			}
-		}
-				
+		mergedPersonAndMedicalRecord.setAddress(personElement.getAddress());
+		mergedPersonAndMedicalRecord.setCity(personElement.getCity());
+		mergedPersonAndMedicalRecord.setEmail(personElement.getEmail());
+		mergedPersonAndMedicalRecord.setFirstName(personElement.getFirstName());
+		mergedPersonAndMedicalRecord.setLastName(personElement.getLastName());
+		mergedPersonAndMedicalRecord.setPhone(personElement.getPhone());
+		mergedPersonAndMedicalRecord.setZip(personElement.getPhone());
+		for(MedicalRecord medicalRecordElementSecondLoop: medicalRecordConcats) {
+			if(mergedPersonAndMedicalRecord.getFullName().equals(medicalRecordElementSecondLoop.getFullName())) {	
+			mergedPersonAndMedicalRecord.setAllergies(medicalRecordElementSecondLoop.getAllergies());
+			mergedPersonAndMedicalRecord.setBirthdate(medicalRecordElementSecondLoop.getBirthdate());
+			mergedPersonAndMedicalRecord.setMedications(medicalRecordElementSecondLoop.getMedications());
+			mergedLists.add(mergedPersonAndMedicalRecord);
+			}	
+	}
+			
 	}
 	return mergedLists;
 }

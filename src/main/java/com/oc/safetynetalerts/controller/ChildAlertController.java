@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
-import com.oc.safetynetalerts.service.MedicalRecordService;
 import com.oc.safetynetalerts.service.PeopleAndMedicalRecordsService;
 import com.oc.safetynetalerts.utils.DateUtils;
+
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import DTOs.ChildAlertAddressOutDTO;
+import DTOs.FamilyMember;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -40,12 +42,12 @@ public class ChildAlertController {
 	@ResponseBody
 	public List<ChildAlertAddressOutDTO> childAlertAddress(@PathVariable("home_address") String address) {
 		List<ChildAlertAddressOutDTO> responseDTO = new ArrayList<ChildAlertAddressOutDTO>();
-		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = new ArrayList<>();
-		List<PeopleAndTheirMedicalRecord> filteredByAddressPeopleAndtheirMedicalRecords = new ArrayList<>();
-		List<PeopleAndTheirMedicalRecord> kidsAndtheirMedicalRecords = new ArrayList<>();
-		LocalDate birthDate = null;
+		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = peopleAndtheirMedicalRecords;
 		
-		allPeopleAndtheirMedicalRecords = PeopleAndMedicalRecordsService.personListMergedWithCorrespondingMedicalRecord();
+		LocalDate birthDate = null;
+		List<FamilyMember> kidsFamilyMembers = new ArrayList<>();
+		FamilyMember kidFamilyMember = new FamilyMember();
+		
 		
 		for( PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement: allPeopleAndtheirMedicalRecords) {
 			if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(address))) {
@@ -55,18 +57,22 @@ public class ChildAlertController {
 				birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
 				filteredByAddressPeopleAndtheirMedicalRecord.setAge(DateUtils.calculateAge(birthDate));
 					if(DateUtils.validateKids(filteredByAddressPeopleAndtheirMedicalRecord.getAge())) {
-						
+						ChildAlertAddressOutDTO kidAndItsMedicalRecord= new ChildAlertAddressOutDTO();
+						kidAndItsMedicalRecord.setFirstName(filteredByAddressPeopleAndtheirMedicalRecord.getFirstName());
+						kidAndItsMedicalRecord.setLastName(filteredByAddressPeopleAndtheirMedicalRecord.getLastName());
+						kidAndItsMedicalRecord.setAge(filteredByAddressPeopleAndtheirMedicalRecord.getAge());
+						responseDTO.add(kidAndItsMedicalRecord);
 					}
 					else {
-						
+						kidFamilyMember.setFullName(filteredByAddressPeopleAndtheirMedicalRecord.getFullName());
+						kidsFamilyMembers.add(kidFamilyMember);
 					}
 				
 				
 			}
 		}
 		
-		return responseDTO;
-		
+		return responseDTO;	
 	}
 
 }

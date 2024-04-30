@@ -18,10 +18,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.MedicalRecord;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecords;
+import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.service.ObjectMapperService;
-import com.oc.safetynetalerts.utils.StringUtils;
+import com.oc.safetynetalerts.service.PeopleAndMedicalRecordsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,12 +90,13 @@ import lombok.extern.slf4j.Slf4j;
     	
     	return medicalRecordsFromJsonNode;
     }
-    public PeopleAndTheirMedicalRecords combinePeopleAndMedicalRecords(List<Person> person, List<MedicalRecord> medicalRecords){
-    	PeopleAndTheirMedicalRecords peopleAndTheirMedicalRecords = new PeopleAndTheirMedicalRecords();
-    	peopleAndTheirMedicalRecords.setPerson(person); 	
-    	peopleAndTheirMedicalRecords.setMedicalRecord(medicalRecords);	
-    	return peopleAndTheirMedicalRecords;
-    }
+	
+	public List<PeopleAndTheirMedicalRecord> combinePeopleAndMedicalRecords() {
+		List<PeopleAndTheirMedicalRecord> peopleAndTheirMedicalRecords = new ArrayList<PeopleAndTheirMedicalRecord>();
+		peopleAndTheirMedicalRecords = PeopleAndMedicalRecordsService.personListMergedWithCorrespondingMedicalRecord();
+		return peopleAndTheirMedicalRecords;
+	}
+
 	/*
 	 * public void convertJsonToJavaClass(URL inputJsonUrl, File
 	 * outputJavaClassDirectory, String packageName, String javaClassName) throws
