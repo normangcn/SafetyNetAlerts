@@ -24,7 +24,7 @@ public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondin
 	List<MedicalRecord> allMedicalRecords = medicalRecords;
 	List<MedicalRecord> medicalRecordConcats = new ArrayList<>();
 	List<PeopleAndTheirMedicalRecord> mergedLists = new ArrayList<>();
-	PeopleAndTheirMedicalRecord mergedPersonAndMedicalRecord = new PeopleAndTheirMedicalRecord();
+	
 	
 	for(MedicalRecord medicalRecordElement : allMedicalRecords) {
 		MedicalRecord medicalRecordConcat = new MedicalRecord();
@@ -38,6 +38,7 @@ public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondin
 	}
 		
 	for(Person personElement : allPeoples) {
+		PeopleAndTheirMedicalRecord mergedPersonAndMedicalRecord = new PeopleAndTheirMedicalRecord();
 		mergedPersonAndMedicalRecord.setFullName(StringUtils.concatNames(personElement.getFirstName(), personElement.getLastName()));
 		mergedPersonAndMedicalRecord.setAddress(personElement.getAddress());
 		mergedPersonAndMedicalRecord.setCity(personElement.getCity());
@@ -52,9 +53,9 @@ public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondin
 			mergedPersonAndMedicalRecord.setBirthdate(medicalRecordElementSecondLoop.getBirthdate());
 			mergedPersonAndMedicalRecord.setMedications(medicalRecordElementSecondLoop.getMedications());
 			mergedLists.add(mergedPersonAndMedicalRecord);
-			}	
+			}
 	}
-			
+
 	}
 	return mergedLists;
 }
