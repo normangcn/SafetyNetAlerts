@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,7 @@ import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 
 import DTOs.ChildAlertAddressOutDTO;
 import DTOs.FamilyMember;
+import DTOs.PersonInfoFirstNameAndLastNameOutDTO;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,13 +37,15 @@ public class PersonInfoController {
 	 * antécédents médicaux (médicaments, posologie, allergies) de chaque habitant.
 	 * Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
 	 */
-	@GetMapping(value = "/{first_name and last_name}")
+	@GetMapping(value="/personInfo")
 	@ResponseBody
-	public List<PersonInfoFirstNameAndLastNameOutDTO> personInfo(@RequestParam("first_name") String firstName @PathVariable("last_name")String lastName) {
-		List<ChildAlertAddressOutDTO> responseDTO = new ArrayList<ChildAlertAddressOutDTO>();
-		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = peopleAndtheirMedicalRecords;
-		
+	public  List<PersonInfoFirstNameAndLastNameOutDTO> personInfo(@RequestParam String firstName, @RequestParam String lastName) {
+		List<PersonInfoFirstNameAndLastNameOutDTO> responseDTO = new ArrayList<PersonInfoFirstNameAndLastNameOutDTO>();
+		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = peopleAndtheirMedicalRecords;		
 		LocalDate birthDate = null;
 		List<FamilyMember> kidsFamilyMembers = new ArrayList<>();
+		
+		
+		return responseDTO;
 	}
 }
