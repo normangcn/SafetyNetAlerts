@@ -13,49 +13,21 @@ import lombok.Data;
  */
 @Data
 public class FireAddressOutDTO {
-	private String personAddress;
-	private String personFullName;
-	private String personPhoneNumber;
-	private int stationNumber;
-	private int age;
-	private List <MedicalRecMedicationAndAllergies> medicalRecMedicationAndAllergies;
-	
-	public String getPersonAddress() {
-		return personAddress;
-	}
-	public void setPersonAddress(String personAddress) {
-		this.personAddress = personAddress;
-	}
-	public String getPersonFullName() {
-		return personFullName;
-	}
-	public void setPersonFullName(String personFullName) {
-		this.personFullName = personFullName;
-	}
-	public String getPersonPhoneNumber() {
-		return personPhoneNumber;
-	}
-	public void setPersonPhoneNumber(String personPhoneNumber) {
-		this.personPhoneNumber = personPhoneNumber;
-	}
-	public int getStationNumber() {
+	private String stationNumber;
+	private List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> people;/*La liste doit inclure le nom, le numéro de
+	 * téléphone, l'âge et les antécédents médicaux (médicaments, posologie et
+	 * allergies) de chaque personne.*/
+	public String getStationNumber() {
 		return stationNumber;
 	}
-	public void setStationNumber(int stationNumber) {
+	public void setStationNumber(String stationNumber) {
 		this.stationNumber = stationNumber;
 	}
-	public int getAge() {
-		return age;
+	public List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> getPeople() {
+		return people;
 	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public List<MedicalRecMedicationAndAllergies> getMedicalRecMedicationAndAllergies() {
-		return medicalRecMedicationAndAllergies;
-	}
-	public void setMedicalRecMedicationAndAllergies(
-			List<MedicalRecMedicationAndAllergies> medicalRecMedicationAndAllergies) {
-		this.medicalRecMedicationAndAllergies = medicalRecMedicationAndAllergies;
+	public void setPeople(List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> people) {
+		this.people = people;
 	}
 
 	

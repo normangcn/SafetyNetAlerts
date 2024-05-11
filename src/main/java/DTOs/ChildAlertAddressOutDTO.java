@@ -6,51 +6,49 @@ package DTOs;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 
 /**
  * @author gareth
  *
  */
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
 public class ChildAlertAddressOutDTO {
-
-	private String personFirstName;
-	private String personLastName;
-	private int kidAge = 0;
+	/*
+	 * une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette
+	 * adresse. La liste doit comprendre le prénom et le nom de famille de chaque
+	 * enfant, son âge et une liste des autres membres du foyer. S'il n'y a pas
+	 * d'enfant, cette url peut renvoyer une chaîne vide.
+	 */	
+	private String firstName;
+	private String lastName;
+	private int age = 0;
 	private List<FamilyMember> familyMembers = new ArrayList<>();
-
-	public String getPersonFirstName() {
-		return personFirstName;
+	public String getFirstName() {
+		return firstName;
 	}
-
-	public void setPersonFirstName(String personFirstName) {
-		this.personFirstName = personFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-
-	public String getPersonLastName() {
-		return personLastName;
+	public String getLastName() {
+		return lastName;
 	}
-
-	public void setPersonLastName(String personLastName) {
-		this.personLastName = personLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
-	public int getKidAge() {
-		return kidAge;
+	public int getAge() {
+		return age;
 	}
-
-	public void setKidAge(int kidAge) {
-		this.kidAge = kidAge;
+	public void setAge(int age) {
+		this.age = age;
 	}
-
 	public List<FamilyMember> getFamilyMembers() {
 		return familyMembers;
 	}
-
 	public void setFamilyMembers(List<FamilyMember> familyMembers) {
 		this.familyMembers = familyMembers;
 	}
+
+	
 }

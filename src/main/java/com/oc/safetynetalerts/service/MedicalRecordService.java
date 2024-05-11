@@ -72,6 +72,7 @@ public class MedicalRecordService {
 	}
 		return kidsCount;
 	}
+	
 	public static int countAdults(List<LocalDate> birthDatesOnly) {
 		for (LocalDate dateElement : birthDatesOnly) {		
 			LocalDate birthDate = dateElement;
@@ -84,4 +85,5 @@ public class MedicalRecordService {
 		}
 	return adultsCount;
 	}
+
 }
