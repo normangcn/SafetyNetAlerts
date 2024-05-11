@@ -33,4 +33,12 @@ public class DateUtils {
 		}
 		return isAKid;
 	}
+	public static boolean validateAdult (int age) {
+		boolean isAKid = false;
+		
+		if(age >= 18) {
+			isAKid = true;
+		}
+		return isAKid;
+	}
 }

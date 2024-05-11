@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
-import com.oc.safetynetalerts.service.PeopleAndMedicalRecordsService;
 import com.oc.safetynetalerts.utils.DateUtils;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
@@ -46,29 +45,37 @@ public class ChildAlertController {
 		
 		LocalDate birthDate = null;
 		List<FamilyMember> kidsFamilyMembers = new ArrayList<>();
-		FamilyMember kidFamilyMember = new FamilyMember();
 		
 		
-		for( PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement: allPeopleAndtheirMedicalRecords) {
-			if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(address))) {
+		
+		for( PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElementAdults: allPeopleAndtheirMedicalRecords) {
+			if(peopleAndTheirMedicalRecordElementAdults.getAddress().equals(String.valueOf(address))) {				
 				PeopleAndTheirMedicalRecord filteredByAddressPeopleAndtheirMedicalRecord = new PeopleAndTheirMedicalRecord();
-				filteredByAddressPeopleAndtheirMedicalRecord.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
-				filteredByAddressPeopleAndtheirMedicalRecord.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
-				birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
+				filteredByAddressPeopleAndtheirMedicalRecord.setFullName(peopleAndTheirMedicalRecordElementAdults.getFullName());
+				birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElementAdults.getBirthdate());
+				filteredByAddressPeopleAndtheirMedicalRecord.setAge(DateUtils.calculateAge(birthDate));
+					if(DateUtils.validateAdult(filteredByAddressPeopleAndtheirMedicalRecord.getAge())) {
+						FamilyMember kidFamilyMember = new FamilyMember();
+						kidFamilyMember.setFullName(filteredByAddressPeopleAndtheirMedicalRecord.getFullName());
+						kidsFamilyMembers.add(kidFamilyMember);										
+					}				
+			}
+		}
+		for( PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElementKids: allPeopleAndtheirMedicalRecords) {
+			if(peopleAndTheirMedicalRecordElementKids.getAddress().equals(String.valueOf(address))) {				
+				PeopleAndTheirMedicalRecord filteredByAddressPeopleAndtheirMedicalRecord = new PeopleAndTheirMedicalRecord();
+				filteredByAddressPeopleAndtheirMedicalRecord.setFirstName(peopleAndTheirMedicalRecordElementKids.getFirstName());
+				filteredByAddressPeopleAndtheirMedicalRecord.setLastName(peopleAndTheirMedicalRecordElementKids.getLastName());
+				birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElementKids.getBirthdate());
 				filteredByAddressPeopleAndtheirMedicalRecord.setAge(DateUtils.calculateAge(birthDate));
 					if(DateUtils.validateKids(filteredByAddressPeopleAndtheirMedicalRecord.getAge())) {
 						ChildAlertAddressOutDTO kidAndItsMedicalRecord= new ChildAlertAddressOutDTO();
 						kidAndItsMedicalRecord.setFirstName(filteredByAddressPeopleAndtheirMedicalRecord.getFirstName());
 						kidAndItsMedicalRecord.setLastName(filteredByAddressPeopleAndtheirMedicalRecord.getLastName());
 						kidAndItsMedicalRecord.setAge(filteredByAddressPeopleAndtheirMedicalRecord.getAge());
-						responseDTO.add(kidAndItsMedicalRecord);
-					}
-					else {
-						kidFamilyMember.setFullName(filteredByAddressPeopleAndtheirMedicalRecord.getFullName());
-						kidsFamilyMembers.add(kidFamilyMember);
-					}
-				
-				
+						kidAndItsMedicalRecord.setFamilyMembers(kidsFamilyMembers);
+						responseDTO.add(kidAndItsMedicalRecord);			
+					}					
 			}
 		}
 		
