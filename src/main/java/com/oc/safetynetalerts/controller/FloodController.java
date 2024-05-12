@@ -53,13 +53,16 @@ public class FloodController {
 			}
 		}
 		
-		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement : allPeopleAndTheirMedicalrecords) {
 			for(FireStation fireStationElementSecondLoop : fireStationAddresses) {
+				FloodStationsStationsOutDTO floodStationsStation = new FloodStationsStationsOutDTO();
+				floodStationsStation.setAddress(fireStationElementSecondLoop.getAddress());
+				for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement : allPeopleAndTheirMedicalrecords)
 				if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(fireStationElementSecondLoop.getAddress()))) {
 					
+				
 				}
 			}
-		}
+		
 		
 		return responseDTO;
 	}
