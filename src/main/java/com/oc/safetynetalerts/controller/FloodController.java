@@ -54,8 +54,10 @@ public class FloodController {
 		}
 		
 		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement : allPeopleAndTheirMedicalrecords) {
-			ICI//if(peopleAndTheirMedicalRecordElement.getAddress(.equals(String.valueOf(peopleAndTheirMedicalRecordElement)))) {
-				
+			for(FireStation fireStationElementSecondLoop : fireStationAddresses) {
+				if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(fireStationElementSecondLoop.getAddress()))) {
+					
+				}
 			}
 		}
 		
