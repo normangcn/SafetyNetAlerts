@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.model.FireStation;
+import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+
 import DTOs.FloodStationsStationsOutDTO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +42,23 @@ public class FloodController {
 	@ResponseBody
 	public List<FloodStationsStationsOutDTO> floodStation(@RequestParam List<String> station){
 		List<FloodStationsStationsOutDTO> responseDTO = new ArrayList<FloodStationsStationsOutDTO>();
+		List<FireStation> allFireStations = fireStation;
+		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalrecords = peopleAndtheirMedicalRecords;
+		List<FireStation> fireStationAddresses = new ArrayList<>();
+		for(FireStation fireStationElement : allFireStations) {
+			if(fireStationElement.getStation().equals(String.valueOf(station))) {
+				FireStation fireStationAddress = new FireStation();
+				fireStationAddress.setAddress(fireStationElement.getAddress());
+				fireStationAddresses.add(fireStationAddress);
+			}
+		}
+		
+		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement : allPeopleAndTheirMedicalrecords) {
+			ICI//if(peopleAndTheirMedicalRecordElement.getAddress(.equals(String.valueOf(peopleAndTheirMedicalRecordElement)))) {
+				
+			}
+		}
+		
 		return responseDTO;
 	}
 }
