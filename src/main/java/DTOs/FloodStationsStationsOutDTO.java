@@ -14,72 +14,22 @@ import lombok.Data;
  */
 @Data
 public class FloodStationsStationsOutDTO {
-
 	
-	private int stationNumberFirestation;
+	private String address;
+	List<Residents> residents;
 	
-	private String personAddress;
-	private String personPhoneNumber;
-	private String personFirstName;
-	private String personLastName;
-	private int age;
-	private List <String> medicalRecMedication;
-	private List <String> medicalRecAllergies;
-	
-	public String getPersonFirstName() {
-		return personFirstName;
+	public String getAddress() {
+		return address;
 	}
-	public void setPersonFirstName(String personFirstName) {
-		this.personFirstName = personFirstName;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public String getPersonLastName() {
-		return personLastName;
+	public List<Residents> getResidents() {
+		return residents;
 	}
-	public void setPersonLastName(String personLastName) {
-		this.personLastName = personLastName;
-	}
-	public String getPersonAddress() {
-		return personAddress;
-	}
-	public void setPersonAddress(String personAddress) {
-		this.personAddress = personAddress;
-	}
-	public String getPersonPhoneNumber() {
-		return personPhoneNumber;
-	}
-	public void setPersonPhoneNumber(String personPhoneNumber) {
-		this.personPhoneNumber = personPhoneNumber;
-	}
-	
-	public int getStationNumberFirestation() {
-		return stationNumberFirestation;
-	}
-	public void setStationNumberFirestation(int stationNumberFirestation) {
-		this.stationNumberFirestation = stationNumberFirestation;
-	}
-	
-
-	public List<String> getMedicalRecAllergies() {
-		return medicalRecAllergies;
-	}
-	public void setMedicalRecAllergies(List<String> medicalRecAllergies) {
-		this.medicalRecAllergies = medicalRecAllergies;
+	public void setResidents(List<Residents> residents) {
+		this.residents = residents;
 	}
 
-	public List <String> getMedicalRecMedication() {
-		return medicalRecMedication;
-	}
-
-	public void setMedicalRecMedication(List <String> medicalRecMedication) {
-		this.medicalRecMedication = medicalRecMedication;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
-	
 	
 }
