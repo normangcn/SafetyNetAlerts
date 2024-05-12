@@ -18,60 +18,42 @@ public class FloodStationsStationsOutDTO {
 	
 	private int stationNumberFirestation;
 	
-	private String personAddress;
-	private String personPhoneNumber;
-	private String personFirstName;
-	private String personLastName;
+	private String address;
+	private String phoneNumber;
+	private String firstName;
+	private String lastName;
 	private int age;
-	private List <String> medicalRecMedication;
-	private List <String> medicalRecAllergies;
-	
-	public String getPersonFirstName() {
-		return personFirstName;
-	}
-	public void setPersonFirstName(String personFirstName) {
-		this.personFirstName = personFirstName;
-	}
-	public String getPersonLastName() {
-		return personLastName;
-	}
-	public void setPersonLastName(String personLastName) {
-		this.personLastName = personLastName;
-	}
-	public String getPersonAddress() {
-		return personAddress;
-	}
-	public void setPersonAddress(String personAddress) {
-		this.personAddress = personAddress;
-	}
-	public String getPersonPhoneNumber() {
-		return personPhoneNumber;
-	}
-	public void setPersonPhoneNumber(String personPhoneNumber) {
-		this.personPhoneNumber = personPhoneNumber;
-	}
-	
+	private List <String> medications;
+	private List <String> allergies;
 	public int getStationNumberFirestation() {
 		return stationNumberFirestation;
 	}
 	public void setStationNumberFirestation(int stationNumberFirestation) {
 		this.stationNumberFirestation = stationNumberFirestation;
 	}
-	
-
-	public List<String> getMedicalRecAllergies() {
-		return medicalRecAllergies;
+	public String getAddress() {
+		return address;
 	}
-	public void setMedicalRecAllergies(List<String> medicalRecAllergies) {
-		this.medicalRecAllergies = medicalRecAllergies;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
-	public List <String> getMedicalRecMedication() {
-		return medicalRecMedication;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
-
-	public void setMedicalRecMedication(List <String> medicalRecMedication) {
-		this.medicalRecMedication = medicalRecMedication;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public int getAge() {
 		return age;
@@ -79,6 +61,20 @@ public class FloodStationsStationsOutDTO {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	public List<String> getMedications() {
+		return medications;
+	}
+	public void setMedications(List<String> medications) {
+		this.medications = medications;
+	}
+	public List<String> getAllergies() {
+		return allergies;
+	}
+	public void setAllergies(List<String> allergies) {
+		this.allergies = allergies;
+	}
+	
+	
 	
 	
 	

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
-import DTOs.ChildAlertAddressOutDTO;
-import DTOs.FamilyMember;
 import DTOs.PersonInfoFirstNameAndLastNameOutDTO;
 import lombok.extern.slf4j.Slf4j;
 
