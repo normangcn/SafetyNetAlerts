@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+import com.oc.safetynetalerts.utils.DateUtils;
 
 import DTOs.ChildAlertAddressOutDTO;
 import DTOs.FamilyMember;
@@ -37,13 +38,27 @@ public class PersonInfoController {
 	 * antécédents médicaux (médicaments, posologie, allergies) de chaque habitant.
 	 * Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
 	 */
-	@GetMapping(value="/personInfo")
+	@GetMapping()
 	@ResponseBody
 	public  List<PersonInfoFirstNameAndLastNameOutDTO> personInfo(@RequestParam String firstName, @RequestParam String lastName) {
 		List<PersonInfoFirstNameAndLastNameOutDTO> responseDTO = new ArrayList<PersonInfoFirstNameAndLastNameOutDTO>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = peopleAndtheirMedicalRecords;		
 		LocalDate birthDate = null;
-		List<FamilyMember> kidsFamilyMembers = new ArrayList<>();
+		
+		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement: allPeopleAndtheirMedicalRecords) {
+			if(peopleAndTheirMedicalRecordElement.getFirstName().equals(String.valueOf(firstName)) && peopleAndTheirMedicalRecordElement.getLastName().equals(String.valueOf(lastName))) {
+				PersonInfoFirstNameAndLastNameOutDTO filteredPerson = new PersonInfoFirstNameAndLastNameOutDTO();
+			filteredPerson.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
+			filteredPerson.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
+			filteredPerson.setAddress(lastName);
+			birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
+			filteredPerson.setAge(DateUtils.calculateAge(birthDate));
+			filteredPerson.setEmail(peopleAndTheirMedicalRecordElement.getEmail());
+			filteredPerson.setMedications(peopleAndTheirMedicalRecordElement.getMedications());
+			filteredPerson.setAllergies(peopleAndTheirMedicalRecordElement.getAllergies());
+			responseDTO.add(filteredPerson);
+			}
+		}
 		
 		
 		return responseDTO;
