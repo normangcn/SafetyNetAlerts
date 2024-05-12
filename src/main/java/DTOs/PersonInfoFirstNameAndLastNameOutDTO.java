@@ -13,51 +13,36 @@ import lombok.Data;
  */
 @Data
 public class PersonInfoFirstNameAndLastNameOutDTO {
-	private String personFirstName;
-	private String personLastName;
-	private String personAddress;
-	private String personEmail;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String email;
 	private int age;
-	private List <String> medicalRecMedication;
-	private List <String> medicalRecAllergies;
-	
-	public String getPersonFirstName() {
-		return personFirstName;
+	private List <String> medications;
+	private List <String> allergies;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setPersonFirstName(String personFirstName) {
-		this.personFirstName = personFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getPersonLastName() {
-		return personLastName;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setPersonLastName(String personLastName) {
-		this.personLastName = personLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-	public String getPersonAddress() {
-		return personAddress;
+	public String getAddress() {
+		return address;
 	}
-	public void setPersonAddress(String personAddress) {
-		this.personAddress = personAddress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	public String getPersonEmail() {
-		return personEmail;
+	public String getEmail() {
+		return email;
 	}
-	public void setPersonEmail(String personEmail) {
-		this.personEmail = personEmail;
-	}
-	
-
-	public List<String> getMedicalRecAllergies() {
-		return medicalRecAllergies;
-	}
-	public void setMedicalRecAllergies(List<String> medicalRecAllergies) {
-		this.medicalRecAllergies = medicalRecAllergies;
-	}
-	public List <String> getMedicalRecMedication() {
-		return medicalRecMedication;
-	}
-	public void setMedicalRecMedication(List <String> medicalRecMedication) {
-		this.medicalRecMedication = medicalRecMedication;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public int getAge() {
 		return age;
@@ -65,7 +50,18 @@ public class PersonInfoFirstNameAndLastNameOutDTO {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
+	public List<String> getMedications() {
+		return medications;
+	}
+	public void setMedications(List<String> medications) {
+		this.medications = medications;
+	}
+	public List<String> getAllergies() {
+		return allergies;
+	}
+	public void setAllergies(List<String> allergies) {
+		this.allergies = allergies;
+	}
 	
 	
 }
