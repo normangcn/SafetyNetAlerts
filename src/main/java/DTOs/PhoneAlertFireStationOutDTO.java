@@ -11,16 +11,10 @@ import lombok.Data;
  */
 
 @Data
-public class PhoneAlertFireStationInDTO {
-	private int stationNumber;
+public class PhoneAlertFireStationOutDTO {
 	private String personPhoneNumber;
 	
-	public int getStationNumber() {
-		return stationNumber;
-	}
-	public void setStationNumber(int stationNumber) {
-		this.stationNumber = stationNumber;
-	}
+
 	public String getPersonPhoneNumber() {
 		return personPhoneNumber;
 	}
