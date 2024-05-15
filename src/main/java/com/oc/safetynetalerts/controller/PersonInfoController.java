@@ -29,12 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class PersonInfoController {
-	/*
-	 * http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>
-	 * Cette url doit retourner le nom, l'adresse, l'âge, l'adresse mail et les
-	 * antécédents médicaux (médicaments, posologie, allergies) de chaque habitant.
-	 * Si plusieurs personnes portent le même nom, elles doivent toutes apparaître.
-	 */
+
 	@GetMapping()
 	@ResponseBody
 	public  List<PersonInfoFirstNameAndLastNameOutDTO> personInfo(@RequestParam String firstName, @RequestParam String lastName) {

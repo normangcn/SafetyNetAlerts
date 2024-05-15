@@ -19,8 +19,8 @@ public class FirestationStationNumberOutDTO {
 	
 	
 	private List<FirestationStationNumberPeople> people;
-	private int kidsCount;
-	private int adultsCount;
+	private int kids;
+	private int adults;
 	
 	
 	public List<FirestationStationNumberPeople> getPeople() {
@@ -37,17 +37,17 @@ public class FirestationStationNumberOutDTO {
         people.add(person);
     }
 
-	public int getKidsCount() {
-		return kidsCount;
+	public int getKids() {
+		return kids;
 	}
-	public void setKidsCount(int kidsCount) {
-		this.kidsCount = kidsCount;
+	public void setKids(int kids) {
+		this.kids = kids;
 	}
-	public int getAdultsCount() {
-		return adultsCount;
+	public int getAdults() {
+		return adults;
 	}
-	public void setAdultsCount(int adultsCount) {
-		this.adultsCount = adultsCount;
+	public void setAdults(int adults) {
+		this.adults = adults;
 	}
 }
 

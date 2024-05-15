@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 
-import DTOs.CommunityEmailCityOutDTO;
 import DTOs.PhoneAlertFireStationOutDTO;
 import lombok.extern.slf4j.Slf4j;
 

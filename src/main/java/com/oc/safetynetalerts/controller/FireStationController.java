@@ -3,8 +3,6 @@ package com.oc.safetynetalerts.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,18 +17,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.FireStation;
-import com.oc.safetynetalerts.model.MedicalRecord;
-import com.oc.safetynetalerts.model.Person;
-import com.oc.safetynetalerts.repository.JsonReaderRepository;
-import com.oc.safetynetalerts.service.MedicalRecordService;
+import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+import com.oc.safetynetalerts.utils.DateUtils;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
 
 import DTOs.FirestationStationNumberOutDTO;
 import DTOs.FirestationStationNumberPeople;
-import DTOs.PersonToFirestationStationNumberPeopleImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -41,69 +35,48 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class FireStationController {
-	/*
-	 * http://localhost:8080/firestation?stationNumber=<station_number> Cette url
-	 * doit retourner une liste des personnes couvertes par la caserne de pompiers
-	 * correspondante. Donc, si le numéro de station = 1, elle doit renvoyer les
-	 * habitants couverts par la station numéro 1. La liste doit inclure les
-	 * informations spécifiques suivantes : prénom, nom, adresse, numéro de
-	 * téléphone. De plus, elle doit fournir un décompte du nombre d'adultes et du
-	 * nombre d'enfants (tout individu âgé de 18 ans ou moins) dans la zone
-	 * desservie.
-	 */
-	JsonReaderRepository repository = new JsonReaderRepository();
-	private PersonToFirestationStationNumberPeopleImpl personToFirestationStationNumberOutDTOMapper;
-
 
 	@GetMapping(value = "/{station_number}")
 	@ResponseBody
 	public FirestationStationNumberOutDTO fireStationStationNumber(@PathVariable("station_number") int station) {
 		FirestationStationNumberOutDTO responseDTO = new FirestationStationNumberOutDTO();
-		List<FireStation> allFireStations = null;
+		List<FirestationStationNumberPeople> peopleAtAddresses = new ArrayList<>();
+		List<FireStation> allFireStations = fireStation;
 		List<FireStation> filteredFireStations = new ArrayList<>();
-		List<Person> allPeople = null;
-		List<Person> filteredPeople = new ArrayList<>();
-		List<MedicalRecord> allMedicalRecords = null;
-		List<MedicalRecord> filteredMedicalRecords = new ArrayList<>();
-		Set<String> filteredMedicalRecordsDatesOnly = null;
+		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirmedicalrecords = peopleAndtheirMedicalRecords;		
 		int kids = 0;
 		int adults = 0;
-		List<LocalDate> birthDatesOnly = null;
-		
 
-
-			allFireStations = fireStation;
-			allPeople = person;
-			allMedicalRecords = medicalRecords;
 
 			for (FireStation stationElement : allFireStations) {
 				if (stationElement.getStation().equals(String.valueOf(station))) {
 					filteredFireStations.add(stationElement);
 				}
 			}
-
+			
+			for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement : allPeopleAndTheirmedicalrecords) {
+				FirestationStationNumberPeople peopleAtAddress = new FirestationStationNumberPeople();
+				for(FireStation fireStationElement2 :filteredFireStations)
+				if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(fireStationElement2.getAddress()))) {
+					peopleAtAddress.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
+					peopleAtAddress.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
+					peopleAtAddress.setAddress(peopleAndTheirMedicalRecordElement.getAddress());
+					peopleAtAddress.setPhone(peopleAndTheirMedicalRecordElement.getPhone());
+					peopleAtAddresses.add(peopleAtAddress);
+					LocalDate birthdate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
+					int age = DateUtils.calculateAge(birthdate);
+					if(DateUtils.validateKids(age)) {
+						kids++;
+					}
+					else {
+						adults++;
+					}
+				}
+			}
 		
-		Set<String> fireStationsAddressesOnly = filteredFireStations.stream().map(FireStation::getAddress)
-				.collect(Collectors.toSet());
-		filteredPeople = allPeople.stream().filter(e -> fireStationsAddressesOnly.contains(e.getAddress()))
-				.collect(Collectors.toList());
-		Set<String> peopleFullNames = filteredPeople.stream().map(Person::getFullName)
-				.collect(Collectors.toSet());
-		filteredMedicalRecords = allMedicalRecords.stream().filter(e -> peopleFullNames.contains(e.getFullName()))
-				.collect(Collectors.toList());
-		
-		filteredMedicalRecordsDatesOnly = filteredMedicalRecords.stream().map(MedicalRecord::getBirthdate).collect(Collectors.toSet());
-		birthDatesOnly = MedicalRecordService.convertBithdateStringToLocalDate(filteredMedicalRecordsDatesOnly);
-		
-		kids = MedicalRecordService.countKids(birthDatesOnly);//Adding kids and adults counter at end of endpoint result
-		adults = MedicalRecordService.countAdults(birthDatesOnly);
-		List<FirestationStationNumberPeople> personToFirestationStationNumberList = new ArrayList<>();
-		
-		personToFirestationStationNumberOutDTOMapper = new PersonToFirestationStationNumberPeopleImpl();
-		personToFirestationStationNumberList = personToFirestationStationNumberOutDTOMapper.map(filteredPeople);
-		responseDTO.setPeople(personToFirestationStationNumberList);
-		responseDTO.setKidsCount(kids);
-		responseDTO.setAdultsCount(adults);
+		responseDTO.setPeople(peopleAtAddresses);
+		responseDTO.setKids(kids);
+		responseDTO.setAdults(adults);
 		
 		return responseDTO;
 	}

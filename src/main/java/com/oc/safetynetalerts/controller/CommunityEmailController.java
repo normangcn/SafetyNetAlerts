@@ -26,10 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class CommunityEmailController {
-	/*
-	 * http://localhost:8080/communityEmail?city=<city> Cette url doit retourner les
-	 * adresses mail de tous les habitants de la ville.
-	 */
+
 	@GetMapping(value = "/{city}")
 	@ResponseBody
 	public List<CommunityEmailCityOutDTO> communityEmail(@PathVariable String city ){
