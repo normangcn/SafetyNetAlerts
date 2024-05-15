@@ -19,10 +19,6 @@ public interface FireStationNumberOutDTOMapper {
 	
 	default FirestationStationNumberPeople map(List<Person> filteredPeople) {
 		FirestationStationNumberPeople firestationStationNumberPeople = new FirestationStationNumberPeople();
-		firestationStationNumberPeople.setFirstName(filteredPeople.getFirstName());
-		firestationStationNumberPeople.setLastName(filteredPeople.getLastName());
-		firestationStationNumberPeople.setAddress(filteredPeople.getAddress());
-		firestationStationNumberPeople.setPhone(filteredPeople.getPhone());
         return firestationStationNumberPeople;
     }
 

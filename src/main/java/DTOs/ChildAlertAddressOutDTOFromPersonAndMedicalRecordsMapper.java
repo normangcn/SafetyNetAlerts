@@ -16,8 +16,6 @@ public interface ChildAlertAddressOutDTOFromPersonAndMedicalRecordsMapper {
 	List<ChildAlertAddressOutDTO> personInDTOToChildAlertAddressInDTO (List<PersonInDTO> sourcePerson);
 	default ChildAlertAddressOutDTO map(PersonInDTO person) {
 		ChildAlertAddressOutDTO personInfoDTO = new ChildAlertAddressOutDTO();
-		personInfoDTO.setPersonFirstName(person.getFirstName());
-		personInfoDTO.setPersonLastName(person.getLastName());
         return personInfoDTO;
     }
 	List<ChildAlertAddressOutDTO> medicalRecordsInDTOToChildAlertAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);

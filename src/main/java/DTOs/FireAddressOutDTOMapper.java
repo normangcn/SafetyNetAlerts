@@ -26,17 +26,11 @@ public interface FireAddressOutDTOMapper {
 	List<FireAddressOutDTO> personInDTOToFireAddressInDTO (List<PersonInDTO> sourcePerson);
 	default FireAddressOutDTO map(PersonInDTO person) {
 		FireAddressOutDTO personInfoDTO = new FireAddressOutDTO();
-		personInfoDTO.setPersonFirstName(person.getFirstName());
-		personInfoDTO.setPersonLastName(person.getLastName());
-		personInfoDTO.setPersonAddress(person.getAddress());
-		personInfoDTO.setPersonPhoneNumber(person.getPhone());
         return personInfoDTO;
     }
 	List<FireAddressOutDTO> medicalRecordsInDTOToFireAddressInDTO (List<MedicalRecordsInDTO> sourceMedicalRecords);
 	default FireAddressOutDTO map(MedicalRecordsInDTO medicalRecords) {
 		FireAddressOutDTO medicalRecordsInfoDTO = new FireAddressOutDTO();
-		medicalRecordsInfoDTO.setMedicalRecMedication(medicalRecords.getMedications());
-		medicalRecordsInfoDTO.setMedicalRecAllergies(medicalRecords.getAllergies());
         return medicalRecordsInfoDTO;
     }
 }
