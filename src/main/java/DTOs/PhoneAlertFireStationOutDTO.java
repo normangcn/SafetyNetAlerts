@@ -12,13 +12,13 @@ import lombok.Data;
 
 @Data
 public class PhoneAlertFireStationOutDTO {
-	private String personPhoneNumber;
+	private String phone;
 	
 
-	public String getPersonPhoneNumber() {
-		return personPhoneNumber;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPersonPhoneNumber(String personPhoneNumber) {
-		this.personPhoneNumber = personPhoneNumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }
