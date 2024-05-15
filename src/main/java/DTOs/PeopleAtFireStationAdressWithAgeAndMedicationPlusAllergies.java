@@ -10,9 +10,7 @@ import java.util.List;
  *
  */
 public class PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies {
-	/*La liste doit inclure le nom, le numéro de
-	 * téléphone, l'âge et les antécédents médicaux (médicaments, posologie et
-	 * allergies) de chaque personne.*/
+
 	private String fullName;
 	private String phone;
 	private int age;

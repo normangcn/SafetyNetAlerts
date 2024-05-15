@@ -14,9 +14,7 @@ import lombok.Data;
 @Data
 public class FireAddressOutDTO {
 	private String stationNumber;
-	private List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> people;/*La liste doit inclure le nom, le numéro de
-	 * téléphone, l'âge et les antécédents médicaux (médicaments, posologie et
-	 * allergies) de chaque personne.*/
+	private List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> people;
 	public String getStationNumber() {
 		return stationNumber;
 	}
