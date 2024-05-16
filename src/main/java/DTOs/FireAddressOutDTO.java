@@ -15,6 +15,7 @@ import lombok.Data;
 public class FireAddressOutDTO {
 	private String stationNumber;
 	private List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> people;
+	
 	public String getStationNumber() {
 		return stationNumber;
 	}
