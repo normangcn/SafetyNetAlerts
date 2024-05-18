@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oc.safetynetalerts.unittests;
+package service;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,6 +25,7 @@ public class FireStationServiceUT {
 	//TODO move into integration tests
 	@Autowired
     private MockMvc mockMvc;
+	
 	@Test
 	@DisplayName("Should have 2 as station number and Eric Cadigan and the 3 Zemicks ")
 	public void listNameCheckUTForStation2givenStationNumber2_whenResultList_thenReturnCorrectResultList() throws Exception {
