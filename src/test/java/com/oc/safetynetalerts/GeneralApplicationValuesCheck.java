@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oc.safetynetalerts.unittests;
+package com.oc.safetynetalerts;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
