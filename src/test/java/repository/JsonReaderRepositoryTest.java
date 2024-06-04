@@ -1,19 +1,18 @@
 /**
  * 
  */
-package com.oc.safetynetalerts;
+package repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.oc.safetynetalerts.model.FireStation;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 /**
@@ -34,10 +33,11 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
 public class JsonReaderRepositoryTest{
 
     @Test
-    public void extractFireStationsDataFromJsonNodeTest() throws JsonParseException, JsonMappingException, IOException {
-	JsonReaderRepository newInstance = new JsonReaderRepository();
-	List<FireStation> testFSFromJson = newInstance.extractFireStationsDataFromJsonNode();
-	assertThat(testFSFromJson).isNotNull();
+    public void starterJsonFileReader() throws JsonParseException, JsonMappingException, IOException {
+	
+	JsonNode testJsonFileReader = JsonReaderRepository.starterJsonFileReader();
+	
+	assertThat(testJsonFileReader).isNotNull();
 	
     }
 }

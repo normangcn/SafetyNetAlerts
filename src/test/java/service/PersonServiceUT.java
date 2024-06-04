@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oc.safetynetalerts.unittests;
+package service;
 
 
 
