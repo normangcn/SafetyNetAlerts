@@ -42,7 +42,7 @@ public class PersonInfoController {
 				PersonInfoFirstNameAndLastNameOutDTO filteredPerson = new PersonInfoFirstNameAndLastNameOutDTO();
 			filteredPerson.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
 			filteredPerson.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
-			filteredPerson.setAddress(lastName);
+			filteredPerson.setAddress(peopleAndTheirMedicalRecordElement.getAddress());
 			birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
 			filteredPerson.setAge(DateUtils.calculateAge(birthDate));
 			filteredPerson.setEmail(peopleAndTheirMedicalRecordElement.getEmail());
