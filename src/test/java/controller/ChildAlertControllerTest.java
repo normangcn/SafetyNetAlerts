@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.io.IOException;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,10 +65,10 @@ public class ChildAlertControllerTest{
 	}
 	@Test
 	@DisplayName("Should have Roger in the list of children for the address 1509 Culver St")
-	public void childAlertAddressIT()throws Exception {
-		mockMvc.perform(get("http://localhost:8080/childAlert")).andExpect(status().isOk());
-		ResultActions resultActions = mockMvc.perform(get("/childAlert/1509 Culver St")).andExpect(content().string(containsString("Roger")));
-		System.out.println(resultActions);
+	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
+		
+		this.mockMvc.perform(get("/childAlert/1509 Culver St")).andExpect(content().string(containsString("Roger")));
+		
 	}
 
 }
