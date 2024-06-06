@@ -10,7 +10,6 @@ import static com.oc.safetynetalerts.repository.GlobalRepo.person;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -64,20 +62,9 @@ public class FireStationServiceIT {
 	}
 	@Test
 	@DisplayName("Should have 2 as station number and Eric Cadigan and the 3 Zemicks ")
-	public void listNameCheckUTForStation2givenStationNumber2_whenResultList_thenReturnCorrectResultList() throws Exception {
-		/*
-		 * ArrayList<String> expectedList = new ArrayList<String>();
-		 * expectedList.add("Sophia"); expectedList.add("Zemicks");
-		 * expectedList.add("892 Downing Ct"); expectedList.add("841-874-7878");
-		 * expectedList.add("kids: 1"); expectedList.add("adults: 2"); ArrayList<String>
-		 * actualList = new ArrayList<String>();
-		 */
+	void listNameCheckUTForStation2givenStationNumber2_whenResultList_thenReturnCorrectResultList() throws Exception {	
+		this.mockMvc.perform(get("/firestation/2")).andExpect(content().string(containsString("Zemicks")));
 		
-		mockMvc.perform(get("http://localhost:8080/firestation")).andExpect(status().isOk());
-		ResultActions resultActions = mockMvc.perform(get("/firestation/2")).andExpect(content().string(containsString("Zemicks")));
-		
-	    System.out.println(resultActions);
-		//Assert.assertEquals(expectedList, actualList); 
 	}
 		
 }
