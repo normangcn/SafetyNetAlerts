@@ -3,13 +3,8 @@
  */
 package service;
 
-import java.time.LocalDate;
-
-import org.junit.Assert;
-import org.junit.jupiter.api.Test;//import this. Not the basic Junit import as it prevents @DisplayName from working
+//import org.junit.jupiter.api.Test;//import this. Not the basic Junit import as it prevents @DisplayName from working
 import org.junit.jupiter.api.DisplayName;
-
-import com.oc.safetynetalerts.service.MedicalRecordService;
 
 /**
  * @author gareth

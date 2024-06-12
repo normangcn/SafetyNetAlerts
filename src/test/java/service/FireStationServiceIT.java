@@ -10,6 +10,7 @@ import static com.oc.safetynetalerts.repository.GlobalRepo.person;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 
@@ -63,7 +64,9 @@ public class FireStationServiceIT {
 	@Test
 	@DisplayName("Should have 2 as station number and Eric Cadigan and the 3 Zemicks ")
 	void listNameCheckUTForStation2givenStationNumber2_whenResultList_thenReturnCorrectResultList() throws Exception {	
-		this.mockMvc.perform(get("/firestation/2")).andExpect(content().string(containsString("Zemicks")));
+		this.mockMvc.perform(get("/firestation/2"))
+		.andExpect(content().string(containsString("Zemicks")))
+		.andExpect(status().isOk());
 		
 	}
 		
