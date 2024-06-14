@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oc.safetynetalerts.controller;
+package test.controller;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;

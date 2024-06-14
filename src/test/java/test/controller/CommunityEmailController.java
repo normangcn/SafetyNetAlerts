@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.oc.safetynetalerts.controller;
+package test.controller;
 
 import java.util.ArrayList;
 import java.util.List;
