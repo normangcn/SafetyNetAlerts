@@ -88,10 +88,10 @@ public class FireStationController {
 		return "Station added as:" + newFireStation;
 	}
 
-	@PutMapping(value = "/{station_number}")
+	@PutMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public String updateFireStation(@PathVariable int station_number, @RequestBody FireStation updateFireStation) {
-		return "Station " + station_number + " information updated.";
+	public String updateFireStation(@RequestParam String station_address, @RequestBody FireStation updateFireStation) {
+		return "Station at address " + station_address + " number updated.";
 	}
 
 	@DeleteMapping(value = "/{station_number}")
