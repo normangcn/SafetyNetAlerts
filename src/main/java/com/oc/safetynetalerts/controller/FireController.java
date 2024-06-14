@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.FireAddressOutDTO;
+import com.oc.safetynetalerts.DTOs.MedicationAndAllergiesOnly;
+import com.oc.safetynetalerts.DTOs.PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
-import DTOs.FireAddressOutDTO;
-import DTOs.MedicationAndAllergiesOnly;
-import DTOs.PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -33,9 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FireController {
 
-	@GetMapping(value = "/{station_address}")
+	@GetMapping()
 	@ResponseBody
-	public FireAddressOutDTO fireStationStationAddress(@PathVariable("station_address") String address) {
+	public FireAddressOutDTO fireStationStationAddress(@RequestParam String address) {
 		FireAddressOutDTO responseDTO = new FireAddressOutDTO();
 		List<FireStation> allFireStations = fireStation;
 		List<FireStation> filteredFireStations = new ArrayList<>();

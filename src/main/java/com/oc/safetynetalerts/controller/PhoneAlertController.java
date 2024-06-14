@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.PhoneAlertFireStationOutDTO;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 
-import DTOs.PhoneAlertFireStationOutDTO;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,16 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PhoneAlertController {
 
-	@GetMapping(value = "/{firestation_number}")
+	@GetMapping()
 	@ResponseBody
-	public  List<PhoneAlertFireStationOutDTO> phoneAlert(@PathVariable("firestation_number") String stationNumber) {
+	public  List<PhoneAlertFireStationOutDTO> phoneAlert(@RequestParam String firestation) {
 		List<PhoneAlertFireStationOutDTO> responseDTO = new ArrayList<PhoneAlertFireStationOutDTO>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalRecords = peopleAndtheirMedicalRecords;
 		List<FireStation> allFireStations = fireStation;
 		List<FireStation> filteredAddresses = new ArrayList<>();
 		
 		for(FireStation fireStationElement: allFireStations) {
-			if(fireStationElement.getStation().equals(String.valueOf(stationNumber))) {
+			if(fireStationElement.getStation().equals(String.valueOf(firestation))) {
 			FireStation filteredAddress = new FireStation();
 			filteredAddress.setAddress(fireStationElement.getAddress());
 			filteredAddresses.add(filteredAddress);

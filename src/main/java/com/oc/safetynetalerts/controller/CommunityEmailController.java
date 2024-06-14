@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.CommunityEmailCityOutDTO;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 
-import DTOs.CommunityEmailCityOutDTO;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommunityEmailController {
 
-	@GetMapping(value = "/{city}")
+	@GetMapping()
 	@ResponseBody
-	public List<CommunityEmailCityOutDTO> communityEmail(@PathVariable String city ){
+	public List<CommunityEmailCityOutDTO> communityEmail(@RequestParam String city ){
 		List<CommunityEmailCityOutDTO> responseDTO = new ArrayList<CommunityEmailCityOutDTO>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalRecords = peopleAndtheirMedicalRecords;
 		
