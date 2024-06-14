@@ -3,75 +3,67 @@
  */
 package test.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-import com.oc.safetynetalerts.DTOs.FloodStationsStationsOutDTO;
-import com.oc.safetynetalerts.DTOs.Residents;
-import com.oc.safetynetalerts.model.FireStation;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
-import com.oc.safetynetalerts.utils.DateUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.oc.safetynetalerts.SafetyNetAlertsApplication;
+import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author gareth
  *
  */
-@RequestMapping("/flood")
-@RestController
-@Slf4j
+@SpringBootTest(classes= SafetyNetAlertsApplication.class )
+@AutoConfigureMockMvc
 public class FloodController {
-
-	
-	@GetMapping("/stations")
-	@ResponseBody
-	public List<FloodStationsStationsOutDTO> floodStation(@RequestParam List<String> stations){
-		List<FloodStationsStationsOutDTO> responseDTO = new ArrayList<FloodStationsStationsOutDTO>();
-		List<FireStation> allFireStations = fireStation;
-		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalrecords = peopleAndtheirMedicalRecords;
-		List<FireStation> fireStationAddresses = new ArrayList<>();
-		for(FireStation fireStationElement : allFireStations) {
-			for(String stationElement:stations) {				
-			if(fireStationElement.getStation().equals(String.valueOf(stationElement))) {
-				FireStation fireStationAddress = new FireStation();
-				fireStationAddress.setAddress(fireStationElement.getAddress());
-				fireStationAddresses.add(fireStationAddress);
-			}
+	@Autowired
+    private MockMvc mockMvc;
+	@BeforeEach
+	public void setup() {
+		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository medicalRecordRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository fireStationRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
+		try {
+			medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
+			person = personRepoFromJson.extractPersonDataFromJsonNode();
+			fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
+			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		}
-			for(FireStation fireStationElementSecondLoop : fireStationAddresses) {
-				FloodStationsStationsOutDTO floodStationsStation = new FloodStationsStationsOutDTO();
-				List<Residents> residents = new ArrayList<>();
-				floodStationsStation.setAddress(fireStationElementSecondLoop.getAddress());
-				for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement : allPeopleAndTheirMedicalrecords) {
-					
-				if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(fireStationElementSecondLoop.getAddress()))) {	
-					LocalDate birthDate;
-					Residents resident = new Residents();
-					resident.setFullName(peopleAndTheirMedicalRecordElement.getFullName());
-					resident.setPhoneNumber(peopleAndTheirMedicalRecordElement.getPhone());
-					birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());				
-					resident.setAge(DateUtils.calculateAge(birthDate));
-					resident.setMedications(peopleAndTheirMedicalRecordElement.getMedications());
-					resident.setAllergies(peopleAndTheirMedicalRecordElement.getAllergies());
-					residents.add(resident);
-				}	
-				floodStationsStation.setResidents(residents);
-			}
-				responseDTO.add(floodStationsStation);
-			}
 		
-		return responseDTO;
+	}
+	@Test
+	@DisplayName("Should have Peter Duncan in the list of results for stations list 1 and 3")
+	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
+		
+		this.mockMvc.perform(get("/flood/stations?stations=1,3")).andExpect(content().string(containsString("Duncan")));
+		
 	}
 }

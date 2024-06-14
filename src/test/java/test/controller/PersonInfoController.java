@@ -3,56 +3,67 @@
  */
 package test.controller;
 
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-import com.oc.safetynetalerts.DTOs.PersonInfoFirstNameAndLastNameOutDTO;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
-import com.oc.safetynetalerts.utils.DateUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.oc.safetynetalerts.SafetyNetAlertsApplication;
+import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author gareth
  *
  */
-@RequestMapping("/personInfo")
-@RestController
-@Slf4j
+@SpringBootTest(classes= SafetyNetAlertsApplication.class )
+@AutoConfigureMockMvc
 public class PersonInfoController {
-
-	@GetMapping()
-	@ResponseBody
-	public  List<PersonInfoFirstNameAndLastNameOutDTO> personInfo(@RequestParam String firstName, @RequestParam String lastName) {
-		List<PersonInfoFirstNameAndLastNameOutDTO> responseDTO = new ArrayList<PersonInfoFirstNameAndLastNameOutDTO>();
-		List<PeopleAndTheirMedicalRecord> allPeopleAndtheirMedicalRecords = peopleAndtheirMedicalRecords;		
-		LocalDate birthDate = null;
-		
-		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement: allPeopleAndtheirMedicalRecords) {
-			if(peopleAndTheirMedicalRecordElement.getFirstName().equals(String.valueOf(firstName)) && peopleAndTheirMedicalRecordElement.getLastName().equals(String.valueOf(lastName))) {
-				PersonInfoFirstNameAndLastNameOutDTO filteredPerson = new PersonInfoFirstNameAndLastNameOutDTO();
-			filteredPerson.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
-			filteredPerson.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
-			filteredPerson.setAddress(peopleAndTheirMedicalRecordElement.getAddress());
-			birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
-			filteredPerson.setAge(DateUtils.calculateAge(birthDate));
-			filteredPerson.setEmail(peopleAndTheirMedicalRecordElement.getEmail());
-			filteredPerson.setMedications(peopleAndTheirMedicalRecordElement.getMedications());
-			filteredPerson.setAllergies(peopleAndTheirMedicalRecordElement.getAllergies());
-			responseDTO.add(filteredPerson);
-			}
+	@Autowired
+    private MockMvc mockMvc;
+	@BeforeEach
+	public void setup() {
+		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository medicalRecordRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository fireStationRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
+		try {
+			medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
+			person = personRepoFromJson.extractPersonDataFromJsonNode();
+			fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
+			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+	}
+	@Test
+	@DisplayName("Should have John Boyd's details, as a result for John Boyd")
+	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		return responseDTO;
+		this.mockMvc.perform(get("/personInfo?firstName=John&lastName=Boyd")).andExpect(content().string(containsString("John")));
+		
 	}
 }

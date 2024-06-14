@@ -64,7 +64,7 @@ public class FireStationServiceIT {
 	@Test
 	@DisplayName("Should have 2 as station number and Eric Cadigan and the 3 Zemicks ")
 	void listNameCheckUTForStation2givenStationNumber2_whenResultList_thenReturnCorrectResultList() throws Exception {	
-		this.mockMvc.perform(get("/firestation/2"))
+		this.mockMvc.perform(get("/firestation?stationNumber=2"))
 		.andExpect(content().string(containsString("Zemicks")))
 		.andExpect(status().isOk());
 		

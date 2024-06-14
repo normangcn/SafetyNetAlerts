@@ -4,75 +4,66 @@
 package test.controller;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-import com.oc.safetynetalerts.DTOs.FireAddressOutDTO;
-import com.oc.safetynetalerts.DTOs.MedicationAndAllergiesOnly;
-import com.oc.safetynetalerts.DTOs.PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies;
-import com.oc.safetynetalerts.model.FireStation;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
-import com.oc.safetynetalerts.utils.DateUtils;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.oc.safetynetalerts.SafetyNetAlertsApplication;
+import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author gareth
  *
  */
-@RequestMapping("/fire")
-@RestController
-@Slf4j
+@SpringBootTest(classes= SafetyNetAlertsApplication.class )
+@AutoConfigureMockMvc
 public class FireController {
-
-	@GetMapping(value = "/{station_address}")
-	@ResponseBody
-	public FireAddressOutDTO fireStationStationAddress(@PathVariable("station_address") String address) {
-		FireAddressOutDTO responseDTO = new FireAddressOutDTO();
-		List<FireStation> allFireStations = fireStation;
-		List<FireStation> filteredFireStations = new ArrayList<>();
-		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalrecords = peopleAndtheirMedicalRecords;
-		List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> filteredPeopleAndTheirMedicalrecords = new ArrayList<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies>();
+	@Autowired
+    private MockMvc mockMvc;
+	@BeforeEach
+	public void setup() {
+		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository medicalRecordRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository fireStationRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
+		try {
+			medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
+			person = personRepoFromJson.extractPersonDataFromJsonNode();
+			fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
+			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		for(FireStation fireStationElement : allFireStations) {
-			if(fireStationElement.getAddress().equals(String.valueOf(address))) {
-				FireStation filteredFireStation = new FireStation();
-				filteredFireStation.setAddress(fireStationElement.getAddress());
-				filteredFireStation.setStation(fireStationElement.getStation());
-				filteredFireStations.add(filteredFireStation);
-
-				responseDTO.setStationNumber(filteredFireStation.getStation());
-			}
-		}
-		for(FireStation fireStationElement2 : allFireStations) {
-		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordElement: allPeopleAndTheirMedicalrecords) {
-			if(peopleAndTheirMedicalRecordElement.getAddress().equals(String.valueOf(fireStationElement2.getAddress()))) {
-				PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies filteredPeopleAndTheirMedicalRecord = new PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies();
-				filteredPeopleAndTheirMedicalRecord.setFullName(peopleAndTheirMedicalRecordElement.getFullName());
-				filteredPeopleAndTheirMedicalRecord.setPhone(peopleAndTheirMedicalRecordElement.getPhone());
-				filteredPeopleAndTheirMedicalRecord.setAge(DateUtils.calculateAge(DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate())));
-				List<MedicationAndAllergiesOnly> medicationAndAllergies = new ArrayList<>();
-				MedicationAndAllergiesOnly medicationAndAllergy = new MedicationAndAllergiesOnly();
-				medicationAndAllergy.setMedications(peopleAndTheirMedicalRecordElement.getMedications());
-				medicationAndAllergy.setAllergies(peopleAndTheirMedicalRecordElement.getAllergies());
-				medicationAndAllergies.add(medicationAndAllergy);
-				filteredPeopleAndTheirMedicalRecord.setMedicationAndAllergies(medicationAndAllergies);
-				filteredPeopleAndTheirMedicalrecords.add(filteredPeopleAndTheirMedicalRecord);	
-			}
-		}
-		}
-		responseDTO.setPeople(filteredPeopleAndTheirMedicalrecords);
-		
-		return responseDTO;
 	}
+	@Test
+	@DisplayName("Should have Roger in the list of people for the address 1509 Culver St")
+	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-
+		this.mockMvc.perform(get("/fire?address=1509 Culver St")).andExpect(content().string(containsString("Roger")));
+		
+	}
 }

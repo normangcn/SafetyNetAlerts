@@ -3,44 +3,63 @@
  */
 package test.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-import com.oc.safetynetalerts.DTOs.CommunityEmailCityOutDTO;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.oc.safetynetalerts.SafetyNetAlertsApplication;
+import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import lombok.extern.slf4j.Slf4j;
+import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 
 /**
  * @author gareth
  *
  */
-@RequestMapping("/communityEmail")
-@RestController
-@Slf4j
+@SpringBootTest(classes= SafetyNetAlertsApplication.class )
+@AutoConfigureMockMvc
 public class CommunityEmailController {
-
-	@GetMapping(value = "/{city}")
-	@ResponseBody
-	public List<CommunityEmailCityOutDTO> communityEmail(@PathVariable String city ){
-		List<CommunityEmailCityOutDTO> responseDTO = new ArrayList<CommunityEmailCityOutDTO>();
-		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalRecords = peopleAndtheirMedicalRecords;
-		
-		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordsElement: allPeopleAndTheirMedicalRecords) {
-			if(peopleAndTheirMedicalRecordsElement.getCity().equals(String.valueOf(city))) {
-				CommunityEmailCityOutDTO peopleEmail = new CommunityEmailCityOutDTO();
-				peopleEmail.setEmail(peopleAndTheirMedicalRecordsElement.getEmail());
-				responseDTO.add(peopleEmail);
-			}
+	@Autowired
+    private MockMvc mockMvc;
+	@BeforeEach
+	public void setup() {
+		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
+		try {
+			person = personRepoFromJson.extractPersonDataFromJsonNode();
+			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return responseDTO;
+		
+	}
+	@Test
+	@DisplayName("Should have tenz@email.com for Culver")
+	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
+		
+		this.mockMvc.perform(get("/communityEmail?city=Culver")).andExpect(content().string(containsString("tenz@email.com")));
+		
 	}
 	
 }
