@@ -3,11 +3,11 @@ package com.oc.safetynetalerts.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -85,18 +85,31 @@ public class FireStationController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addFireStation(@RequestBody FireStation newFireStation) {
+		fireStation.add(newFireStation);
 		return "Station added as:" + newFireStation;
 	}
 
 	@PutMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public String updateFireStation(@RequestParam String station_address, @RequestBody FireStation updateFireStation) {
-		return "Station at address " + station_address + " number updated.";
+	public String updateFireStation(@RequestParam String address, @RequestBody FireStation updateFireStation) {
+	
+		for(FireStation fireStationElement:fireStation) {
+	        if(fireStationElement.getAddress().equals(address)) {
+	        	fireStationElement.setStation(updateFireStation.getStation());
+	        }
+	    }
+		 return "Station at address " + address + " station id updated.";
 	}
 
-	@DeleteMapping(value = "/{station_number}")
+	@DeleteMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteFireStation(@PathVariable("station_number") int station) {
+	public String deleteFireStation(@RequestParam String station, @RequestParam String address) {
+		List<FireStation> deleteFireStations = new ArrayList<>();
+		FireStation deleteFireStation = new FireStation();
+		deleteFireStation.setAddress(address);
+		deleteFireStation.setStation(station);
+		deleteFireStations.add(deleteFireStation);
+		fireStation.removeAll(deleteFireStations);
+		return "Station at address " + address + " deleted.";
 	}
-	
 }
