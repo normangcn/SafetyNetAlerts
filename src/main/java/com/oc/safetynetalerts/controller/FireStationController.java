@@ -3,7 +3,6 @@ package com.oc.safetynetalerts.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +23,7 @@ import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +41,7 @@ public class FireStationController {
 	public FirestationStationNumberOutDTO fireStationStationNumber(@RequestParam String stationNumber) {
 		FirestationStationNumberOutDTO responseDTO = new FirestationStationNumberOutDTO();
 		List<FirestationStationNumberPeople> peopleAtAddresses = new ArrayList<>();
-		List<FireStation> allFireStations = fireStation;
+		List<FireStation> allFireStations = fireStations;
 		List<FireStation> filteredFireStations = new ArrayList<>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirmedicalrecords = peopleAndtheirMedicalRecords;		
 		int kids = 0;
@@ -85,7 +84,7 @@ public class FireStationController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addFireStation(@RequestBody FireStation newFireStation) {
-		fireStation.add(newFireStation);
+		fireStations.add(newFireStation);
 		return "Station added as:" + newFireStation;
 	}
 
@@ -93,7 +92,7 @@ public class FireStationController {
 	@ResponseStatus(HttpStatus.OK)
 	public String updateFireStation(@RequestParam String address, @RequestBody FireStation updateFireStation) {
 	
-		for(FireStation fireStationElement:fireStation) {
+		for(FireStation fireStationElement:fireStations) {
 	        if(fireStationElement.getAddress().equals(address)) {
 	        	fireStationElement.setStation(updateFireStation.getStation());
 	        }
@@ -109,7 +108,7 @@ public class FireStationController {
 		deleteFireStation.setAddress(address);
 		deleteFireStation.setStation(station);
 		deleteFireStations.add(deleteFireStation);
-		fireStation.removeAll(deleteFireStations);
+		fireStations.removeAll(deleteFireStations);
 		return "Station at address " + address + " deleted.";
 	}
 }

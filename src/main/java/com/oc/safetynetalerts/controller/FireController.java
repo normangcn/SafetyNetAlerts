@@ -3,7 +3,7 @@
  */
 package com.oc.safetynetalerts.controller;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class FireController {
 	@ResponseBody
 	public FireAddressOutDTO fireStationStationAddress(@RequestParam String address) {
 		FireAddressOutDTO responseDTO = new FireAddressOutDTO();
-		List<FireStation> allFireStations = fireStation;
+		List<FireStation> allFireStations = fireStations;
 		List<FireStation> filteredFireStations = new ArrayList<>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalrecords = peopleAndtheirMedicalRecords;
 		List<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies> filteredPeopleAndTheirMedicalrecords = new ArrayList<PeopleAtFireStationAdressWithAgeAndMedicationPlusAllergies>();

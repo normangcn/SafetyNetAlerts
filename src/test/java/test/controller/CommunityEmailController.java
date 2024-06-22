@@ -20,7 +20,7 @@ import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -40,7 +40,7 @@ public class CommunityEmailController {
 		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
 		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
 		try {
-			person = personRepoFromJson.extractPersonDataFromJsonNode();
+			persons = personRepoFromJson.extractPersonDataFromJsonNode();
 			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block

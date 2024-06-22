@@ -1,8 +1,8 @@
 package com.oc.safetynetalerts;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 
 import java.io.IOException;
@@ -25,8 +25,8 @@ public class SafetyNetAlertsApplication {
 		JsonReaderRepository fireStationRepoFromJson = new JsonReaderRepository();
 		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
 		medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
-		person = personRepoFromJson.extractPersonDataFromJsonNode();
-		fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
+		persons = personRepoFromJson.extractPersonDataFromJsonNode();
+		fireStations = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
 		peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
 		
 	}

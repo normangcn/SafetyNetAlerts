@@ -4,7 +4,7 @@
 package com.oc.safetynetalerts.controller;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class PhoneAlertController {
 	public  List<PhoneAlertFireStationOutDTO> phoneAlert(@RequestParam String firestation) {
 		List<PhoneAlertFireStationOutDTO> responseDTO = new ArrayList<PhoneAlertFireStationOutDTO>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalRecords = peopleAndtheirMedicalRecords;
-		List<FireStation> allFireStations = fireStation;
+		List<FireStation> allFireStations = fireStations;
 		List<FireStation> filteredAddresses = new ArrayList<>();
 		
 		for(FireStation fireStationElement: allFireStations) {

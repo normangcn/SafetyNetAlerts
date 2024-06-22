@@ -3,11 +3,13 @@
  */
 package com.oc.safetynetalerts.controller;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,19 +33,36 @@ public class PersonController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addPerson(@RequestBody Person newPerson) {
-		person.add(newPerson);
+		persons.add(newPerson);
 		return "Person added as:" + newPerson;
 	}
 
 	@PutMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public String updatePerson(@RequestParam String personFirstName, @RequestParam String personLastName, @RequestBody Person updatePerson) {
-		
-		return "Station at address " + personFirstName +" " + personLastName + " station id updated.";
+	public String updatePerson(@RequestParam String firstName, @RequestParam String lastName, @RequestBody Person updatePerson) {
+		for(Person personElement:persons) {
+	        if(personElement.getFirstName().equals(firstName)&&personElement.getLastName().equals(lastName)) {
+	        	personElement.setAddress(updatePerson.getAddress());
+	        	personElement.setCity(updatePerson.getCity());
+	        	personElement.setZip(updatePerson.getZip());
+	        	personElement.setPhone(updatePerson.getPhone());
+	        	personElement.setEmail(updatePerson.getEmail());
+	        	
+	        }
+	    }
+		return "Record for " + firstName +" " + lastName + " updated.";
 	}
 
-	@DeleteMapping(value = "/{station_number}")
+	@DeleteMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public void deletePerson(@PathVariable("station_number") int station) {
+	public String deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
+		List<Person> deletePersons = new ArrayList<>();
+		Person deletePerson = new Person();
+		deletePerson.setFirstName(firstName);
+		deletePerson.setLastName(lastName);
+		deletePersons.add(deletePerson);
+		persons.removeAll(deletePersons);
+
+		return "Record for " + firstName + " " + lastName +" deleted.";
 	}
 }

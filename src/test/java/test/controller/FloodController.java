@@ -18,10 +18,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -44,8 +44,8 @@ public class FloodController {
 		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
 		try {
 			medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
-			person = personRepoFromJson.extractPersonDataFromJsonNode();
-			fireStation = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
+			persons = personRepoFromJson.extractPersonDataFromJsonNode();
+			fireStations = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
 			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
