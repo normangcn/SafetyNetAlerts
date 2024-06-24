@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.PersonInfoFirstNameAndLastNameOutDTO;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
-import DTOs.PersonInfoFirstNameAndLastNameOutDTO;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -42,7 +42,7 @@ public class PersonInfoController {
 				PersonInfoFirstNameAndLastNameOutDTO filteredPerson = new PersonInfoFirstNameAndLastNameOutDTO();
 			filteredPerson.setFirstName(peopleAndTheirMedicalRecordElement.getFirstName());
 			filteredPerson.setLastName(peopleAndTheirMedicalRecordElement.getLastName());
-			filteredPerson.setAddress(lastName);
+			filteredPerson.setAddress(peopleAndTheirMedicalRecordElement.getAddress());
 			birthDate = DateUtils.stringToLocalDateFormatter(peopleAndTheirMedicalRecordElement.getBirthdate());
 			filteredPerson.setAge(DateUtils.calculateAge(birthDate));
 			filteredPerson.setEmail(peopleAndTheirMedicalRecordElement.getEmail());

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.ChildAlertAddressOutDTO;
+import com.oc.safetynetalerts.DTOs.FamilyMember;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
@@ -18,8 +20,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTOs.ChildAlertAddressOutDTO;
-import DTOs.FamilyMember;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -7,24 +7,24 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.FirestationStationNumberOutDTO;
+import com.oc.safetynetalerts.DTOs.FirestationStationNumberPeople;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 
-import DTOs.FirestationStationNumberOutDTO;
-import DTOs.FirestationStationNumberPeople;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -36,12 +36,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FireStationController {
 
-	@GetMapping(value = "/{station_number}")
+	@GetMapping()
 	@ResponseBody
-	public FirestationStationNumberOutDTO fireStationStationNumber(@PathVariable("station_number") int station) {
+	public FirestationStationNumberOutDTO fireStationStationNumber(@RequestParam String stationNumber) {
 		FirestationStationNumberOutDTO responseDTO = new FirestationStationNumberOutDTO();
 		List<FirestationStationNumberPeople> peopleAtAddresses = new ArrayList<>();
-		List<FireStation> allFireStations = fireStation;
+		List<FireStation> allFireStations = fireStations;
 		List<FireStation> filteredFireStations = new ArrayList<>();
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirmedicalrecords = peopleAndtheirMedicalRecords;		
 		int kids = 0;
@@ -49,7 +49,7 @@ public class FireStationController {
 
 
 			for (FireStation stationElement : allFireStations) {
-				if (stationElement.getStation().equals(String.valueOf(station))) {
+				if (stationElement.getStation().equals(String.valueOf(stationNumber))) {
 					filteredFireStations.add(stationElement);
 				}
 			}
@@ -84,18 +84,31 @@ public class FireStationController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addFireStation(@RequestBody FireStation newFireStation) {
+		fireStations.add(newFireStation);
 		return "Station added as:" + newFireStation;
 	}
 
-	@PutMapping(value = "/{station_number}")
+	@PutMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public String updateFireStation(@PathVariable int station_number, @RequestBody FireStation updateFireStation) {
-		return "Station " + station_number + " information updated.";
+	public String updateFireStation(@RequestParam String address, @RequestBody FireStation updateFireStation) {
+	
+		for(FireStation fireStationElement:fireStations) {
+	        if(fireStationElement.getAddress().equals(address)) {
+	        	fireStationElement.setStation(updateFireStation.getStation());
+	        }
+	    }
+		 return "Station at address " + address + " station id updated.";
 	}
 
-	@DeleteMapping(value = "/{station_number}")
+	@DeleteMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteFireStation(@PathVariable("station_number") int station) {
+	public String deleteFireStation(@RequestParam String station, @RequestParam String address) {
+		List<FireStation> deleteFireStations = new ArrayList<>();
+		FireStation deleteFireStation = new FireStation();
+		deleteFireStation.setAddress(address);
+		deleteFireStation.setStation(station);
+		deleteFireStations.add(deleteFireStation);
+		fireStations.removeAll(deleteFireStations);
+		return "Station at address " + address + " deleted.";
 	}
-	
 }

@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oc.safetynetalerts.DTOs.FloodStationsStationsOutDTO;
+import com.oc.safetynetalerts.DTOs.Residents;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.utils.DateUtils;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStation;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 
-import DTOs.FloodStationsStationsOutDTO;
-import DTOs.Residents;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,7 +38,7 @@ public class FloodController {
 	@ResponseBody
 	public List<FloodStationsStationsOutDTO> floodStation(@RequestParam List<String> stations){
 		List<FloodStationsStationsOutDTO> responseDTO = new ArrayList<FloodStationsStationsOutDTO>();
-		List<FireStation> allFireStations = fireStation;
+		List<FireStation> allFireStations = fireStations;
 		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalrecords = peopleAndtheirMedicalRecords;
 		List<FireStation> fireStationAddresses = new ArrayList<>();
 		for(FireStation fireStationElement : allFireStations) {

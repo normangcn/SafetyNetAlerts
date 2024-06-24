@@ -17,8 +17,8 @@ import com.oc.safetynetalerts.model.Person;
  */
 public class GlobalRepo {
  public static List<MedicalRecord> medicalRecords = new ArrayList<>();
- public static List<Person> person = new ArrayList<>();
- public static List<FireStation> fireStation = new ArrayList<>();
+ public static List<Person> persons = new ArrayList<>();
+ public static List<FireStation> fireStations = new ArrayList<>();
  public static List<PeopleAndTheirMedicalRecord> peopleAndtheirMedicalRecords = new ArrayList<>();
  }
 
