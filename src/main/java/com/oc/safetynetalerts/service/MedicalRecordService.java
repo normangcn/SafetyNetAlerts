@@ -85,5 +85,6 @@ public class MedicalRecordService {
 		}
 	return adultsCount;
 	}
+	
 
 }

@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.DTOs.CommunityEmailCityOutDTO;
-import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
+import com.oc.safetynetalerts.service.CommunityEmailService;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -31,15 +30,8 @@ public class CommunityEmailController {
 	@ResponseBody
 	public List<CommunityEmailCityOutDTO> communityEmail(@RequestParam String city ){
 		List<CommunityEmailCityOutDTO> responseDTO = new ArrayList<CommunityEmailCityOutDTO>();
-		List<PeopleAndTheirMedicalRecord> allPeopleAndTheirMedicalRecords = peopleAndtheirMedicalRecords;
-		
-		for(PeopleAndTheirMedicalRecord peopleAndTheirMedicalRecordsElement: allPeopleAndTheirMedicalRecords) {
-			if(peopleAndTheirMedicalRecordsElement.getCity().equals(String.valueOf(city))) {
-				CommunityEmailCityOutDTO peopleEmail = new CommunityEmailCityOutDTO();
-				peopleEmail.setEmail(peopleAndTheirMedicalRecordsElement.getEmail());
-				responseDTO.add(peopleEmail);
-			}
-		}
+		CommunityEmailService communityEmailTreatment = new CommunityEmailService();
+		responseDTO= communityEmailTreatment.communityEmailService(city);
 		return responseDTO;
 	}
 	
