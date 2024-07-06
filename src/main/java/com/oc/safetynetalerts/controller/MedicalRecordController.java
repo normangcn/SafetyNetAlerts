@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.MedicalRecord;
+import com.oc.safetynetalerts.utils.JsonFileWriter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,10 +31,12 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class MedicalRecordController {
+	JsonFileWriter newEntryModification = new JsonFileWriter();
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addMedicalRecord(@RequestBody MedicalRecord newMedicalRecord) {
 		medicalRecords.add(newMedicalRecord);
+		newEntryModification.jsonFileWriter();
 		return "Person added as:" + newMedicalRecord;
 	}
 
@@ -47,17 +50,20 @@ public class MedicalRecordController {
 	        	medicalRecordElement.setAllergies(updateMedicalRecord.getAllergies());	        	
 	        }
 	    }
+		newEntryModification.jsonFileWriter();
 		return "Medical record for " + firstName +" " + lastName + " updated.";
 	}
 
 	@DeleteMapping()
 	@ResponseStatus(HttpStatus.OK)
-	public void deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName) {
+	public String deleteMedicalRecord(@RequestParam String firstName, @RequestParam String lastName) {
 		List<MedicalRecord> deleteMedicalRecords = new ArrayList<>();
 		MedicalRecord deleteMedicalRecord = new MedicalRecord();
 		deleteMedicalRecord.setFirstName(firstName);
 		deleteMedicalRecord.setLastName(lastName);
 		deleteMedicalRecords.add(deleteMedicalRecord);
 		medicalRecords.removeAll(deleteMedicalRecords);
+		newEntryModification.jsonFileWriter();
+		return "Medical record for " + firstName +" " + lastName + " deleted.";
 	}
 }

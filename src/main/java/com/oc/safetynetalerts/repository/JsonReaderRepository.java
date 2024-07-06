@@ -44,8 +44,7 @@ import lombok.extern.slf4j.Slf4j;
 	    e.printStackTrace();
 	}
 	return JsonFileContent;
-    }
-    
+    }   
     
     public List<Person> extractPersonDataFromJsonNode() throws JsonParseException, JsonMappingException,
     IOException {
@@ -57,8 +56,7 @@ import lombok.extern.slf4j.Slf4j;
     		Person personID = mapper.readValue(str,  Person.class);
     		personID.setId(UUID.randomUUID());
     		personFromJsonNode.add(mapper.readValue(str, Person.class));
-    	}
-    	
+    	}    	
     	return personFromJsonNode;
     }
     
@@ -86,8 +84,7 @@ import lombok.extern.slf4j.Slf4j;
     		MedicalRecord recordID = mapper.readValue(str, MedicalRecord.class);
     		recordID.setId(UUID.randomUUID());
     		medicalRecordsFromJsonNode.add(mapper.readValue(str, MedicalRecord.class));    		
-    	}
-    	
+    	}   	
     	return medicalRecordsFromJsonNode;
     }
 	
@@ -96,6 +93,5 @@ import lombok.extern.slf4j.Slf4j;
 		peopleAndTheirMedicalRecords = PeopleAndMedicalRecordsService.personListMergedWithCorrespondingMedicalRecord();
 		return peopleAndTheirMedicalRecords;
 	}
-
 	
 }

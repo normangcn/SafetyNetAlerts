@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oc.safetynetalerts.model.Person;
+import com.oc.safetynetalerts.utils.JsonFileWriter;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,10 +31,12 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class PersonController {
+	JsonFileWriter newEntryModification = new JsonFileWriter();
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addPerson(@RequestBody Person newPerson) {
 		persons.add(newPerson);
+		newEntryModification.jsonFileWriter();
 		return "Person added as:" + newPerson;
 	}
 
@@ -47,9 +50,9 @@ public class PersonController {
 	        	personElement.setZip(updatePerson.getZip());
 	        	personElement.setPhone(updatePerson.getPhone());
 	        	personElement.setEmail(updatePerson.getEmail());
-	        	
 	        }
 	    }
+		newEntryModification.jsonFileWriter();
 		return "Record for " + firstName +" " + lastName + " updated.";
 	}
 
@@ -62,7 +65,7 @@ public class PersonController {
 		deletePerson.setLastName(lastName);
 		deletePersons.add(deletePerson);
 		persons.removeAll(deletePersons);
-
+		newEntryModification.jsonFileWriter();
 		return "Record for " + firstName + " " + lastName +" deleted.";
 	}
 }

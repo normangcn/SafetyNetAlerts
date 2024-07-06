@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.oc.safetynetalerts.DTOs.FirestationStationNumberOutDTO;
 import com.oc.safetynetalerts.model.FireStation;
 import com.oc.safetynetalerts.service.FireStationService;
+import com.oc.safetynetalerts.utils.JsonFileWriter;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class FireStationController {
-
+	JsonFileWriter newEntryModification = new JsonFileWriter();
 	@GetMapping()
 	@ResponseBody
 	public FirestationStationNumberOutDTO fireStationStationNumber(@RequestParam String stationNumber) {
@@ -45,6 +46,7 @@ public class FireStationController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public String addFireStation(@RequestBody FireStation newFireStation) {
 		fireStations.add(newFireStation);
+		newEntryModification.jsonFileWriter();
 		return "Station added as:" + newFireStation;
 	}
 
@@ -55,6 +57,7 @@ public class FireStationController {
 		for(FireStation fireStationElement:fireStations) {
 	        if(fireStationElement.getAddress().equals(address)) {
 	        	fireStationElement.setStation(updateFireStation.getStation());
+	        	newEntryModification.jsonFileWriter();
 	        }
 	    }
 		 return "Station at address " + address + " station id updated.";
@@ -69,6 +72,7 @@ public class FireStationController {
 		deleteFireStation.setStation(station);
 		deleteFireStations.add(deleteFireStation);
 		fireStations.removeAll(deleteFireStations);
+		newEntryModification.jsonFileWriter();
 		return "Station at address " + address + " deleted.";
 	}
 }
