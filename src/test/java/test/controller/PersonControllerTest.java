@@ -13,8 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
-import com.oc.safetynetalerts.controller.FireStationController;
+import com.oc.safetynetalerts.controller.PersonController;
 import com.oc.safetynetalerts.model.FireStation;
+import com.oc.safetynetalerts.model.Person;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,12 +24,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SafetyNetAlertsApplication.class)
-public class FireStationControllerTest {
+public class PersonControllerTest {
 
 	@MockBean
-	FireStationController mockedController;
+	PersonController mockedController;
 	@MockBean
-	FireStation mockedModel;
+	Person mockedModel;
 	@Autowired
 	TestRestTemplate template;
 
@@ -39,14 +40,14 @@ public class FireStationControllerTest {
 
 	@Test
 	public void delete() {
-		String urlDelete = "/firestation?station=3&address=1509 Culver St";
+		String urlDelete = "/person?firstName=John&lastName=Boyd";
 		ResponseEntity<Void> response = template.exchange(urlDelete, HttpMethod.DELETE, null, void.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 	}
 
 	@Test
 	public void put() {
-		String urlPut = "/firestation?address=1509 Culver St";
+		String urlPut = "/person?firstName=John&lastName=Smith";
 		ResponseEntity<FireStation> response = template.exchange(urlPut, HttpMethod.PUT, new HttpEntity<>(mockedModel),
 				FireStation.class);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -54,7 +55,7 @@ public class FireStationControllerTest {
 
 	@Test
 	public void post() {
-		String urlPost = "/firestation";
+		String urlPost = "/person";
 		ResponseEntity<FireStation> response = template.exchange(urlPost, HttpMethod.POST,
 				new HttpEntity<>(mockedModel), FireStation.class);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());

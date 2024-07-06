@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author gareth
  *
  */
-@RequestMapping("/medicalrecords")
+@RequestMapping("/medicalrecord")
 @RestController
 @Slf4j
 public class MedicalRecordController {
