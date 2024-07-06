@@ -3,6 +3,7 @@
  */
 package test.service;
 
+
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
@@ -10,10 +11,11 @@ import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,8 +27,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 
 /**
  * @author gareth
@@ -34,10 +34,9 @@ import org.junit.jupiter.api.DisplayName;
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class FireStationServiceIT {
+public class ChildAlertService{
 	@Autowired
     private MockMvc mockMvc;
-	
 	@BeforeEach
 	public void setup() {
 		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
@@ -62,12 +61,11 @@ public class FireStationServiceIT {
 		
 	}
 	@Test
-	@DisplayName("Should have 2 as station number and Eric Cadigan and the 3 Zemicks ")
-	void listNameCheckUTForStation2givenStationNumber2_whenResultList_thenReturnCorrectResultList() throws Exception {	
-		this.mockMvc.perform(get("/firestation?stationNumber=2"))
-		.andExpect(content().string(containsString("Zemicks")))
-		.andExpect(status().isOk());
+	@DisplayName("Should have Roger in the list of children for the address 1509 Culver St")
+	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
+		
+		this.mockMvc.perform(get("/childAlert?address=1509 Culver St")).andExpect(content().string(containsString("Roger")));
 		
 	}
-		
+
 }

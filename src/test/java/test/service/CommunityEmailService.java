@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test.controller;
+package test.service;
 
 import java.io.IOException;
 
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class CommunityEmailController {
+public class CommunityEmailService {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach

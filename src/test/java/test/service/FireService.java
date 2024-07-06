@@ -1,8 +1,7 @@
 /**
  * 
  */
-package test.controller;
-
+package test.service;
 
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
@@ -34,7 +33,7 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class ChildAlertControllerIT{
+public class FireService {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
@@ -61,11 +60,10 @@ public class ChildAlertControllerIT{
 		
 	}
 	@Test
-	@DisplayName("Should have Roger in the list of children for the address 1509 Culver St")
+	@DisplayName("Should have Roger in the list of people for the address 1509 Culver St")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/childAlert/1509 Culver St")).andExpect(content().string(containsString("Roger")));
+		this.mockMvc.perform(get("/fire?address=1509 Culver St")).andExpect(content().string(containsString("Roger")));
 		
 	}
-
 }

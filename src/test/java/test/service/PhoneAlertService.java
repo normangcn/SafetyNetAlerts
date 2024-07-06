@@ -1,15 +1,15 @@
 /**
  * 
  */
-package test.controller;
+package test.service;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
-import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
 import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 
 import java.io.IOException;
 
@@ -26,14 +26,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
-
 /**
  * @author gareth
  *
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class FireController {
+public class PhoneAlertService {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
@@ -60,10 +59,10 @@ public class FireController {
 		
 	}
 	@Test
-	@DisplayName("Should have Roger in the list of people for the address 1509 Culver St")
+	@DisplayName("Should have 841-874-6741 in the list of phone numbers for station number 3")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/fire?address=1509 Culver St")).andExpect(content().string(containsString("Roger")));
+		this.mockMvc.perform(get("/phoneAlert?firestation=3")).andExpect(content().string(containsString("841-874-6741")));
 		
 	}
 }

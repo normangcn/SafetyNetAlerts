@@ -1,15 +1,7 @@
 /**
  * 
  */
-package test.controller;
-
-import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
-import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
+package test.service;
 
 import java.io.IOException;
 
@@ -26,13 +18,22 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+
 /**
  * @author gareth
  *
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class PhoneAlertController {
+public class FloodService {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
@@ -59,10 +60,10 @@ public class PhoneAlertController {
 		
 	}
 	@Test
-	@DisplayName("Should have 841-874-6741 in the list of phone numbers for station number 3")
+	@DisplayName("Should have Peter Duncan in the list of results for stations list 1 and 3")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/phoneAlert?firestation=3")).andExpect(content().string(containsString("841-874-6741")));
+		this.mockMvc.perform(get("/flood/stations?stations=1,3")).andExpect(content().string(containsString("Duncan")));
 		
 	}
 }
