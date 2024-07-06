@@ -3,6 +3,15 @@
  */
 package test.service;
 
+
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,14 +27,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
-import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
 
 /**
  * @author gareth
@@ -33,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class FloodService {
+public class ChildAlertServiceTest{
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
@@ -60,10 +61,11 @@ public class FloodService {
 		
 	}
 	@Test
-	@DisplayName("Should have Peter Duncan in the list of results for stations list 1 and 3")
+	@DisplayName("Should have Roger in the list of children for the address 1509 Culver St")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/flood/stations?stations=1,3")).andExpect(content().string(containsString("Duncan")));
+		this.mockMvc.perform(get("/childAlert?address=1509 Culver St")).andExpect(content().string(containsString("Roger")));
 		
 	}
+
 }

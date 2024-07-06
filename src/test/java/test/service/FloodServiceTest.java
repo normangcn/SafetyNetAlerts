@@ -3,14 +3,6 @@
  */
 package test.service;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
-import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +18,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 
 /**
  * @author gareth
@@ -33,7 +33,7 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class PersonInfoService {
+public class FloodServiceTest {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
@@ -60,10 +60,10 @@ public class PersonInfoService {
 		
 	}
 	@Test
-	@DisplayName("Should have John Boyd's details, as a result for John Boyd")
+	@DisplayName("Should have Peter Duncan in the list of results for stations list 1 and 3")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/personInfo?firstName=John&lastName=Boyd")).andExpect(content().string(containsString("John")));
+		this.mockMvc.perform(get("/flood/stations?stations=1,3")).andExpect(content().string(containsString("Duncan")));
 		
 	}
 }

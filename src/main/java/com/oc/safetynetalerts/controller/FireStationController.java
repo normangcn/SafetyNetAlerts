@@ -61,7 +61,7 @@ public class FireStationController {
 	}
 
 	@DeleteMapping()
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public String deleteFireStation(@RequestParam String station, @RequestParam String address) {
 		List<FireStation> deleteFireStations = new ArrayList<>();
 		FireStation deleteFireStation = new FireStation();

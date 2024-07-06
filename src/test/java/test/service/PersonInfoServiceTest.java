@@ -33,7 +33,7 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class FireService {
+public class PersonInfoServiceTest {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
@@ -60,10 +60,10 @@ public class FireService {
 		
 	}
 	@Test
-	@DisplayName("Should have Roger in the list of people for the address 1509 Culver St")
+	@DisplayName("Should have John Boyd's details, as a result for John Boyd")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/fire?address=1509 Culver St")).andExpect(content().string(containsString("Roger")));
+		this.mockMvc.perform(get("/personInfo?firstName=John&lastName=Boyd")).andExpect(content().string(containsString("John")));
 		
 	}
 }

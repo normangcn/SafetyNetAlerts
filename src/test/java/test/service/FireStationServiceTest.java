@@ -34,7 +34,7 @@ import org.junit.jupiter.api.DisplayName;
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class FireStationService {
+public class FireStationServiceTest {
 	@Autowired
     private MockMvc mockMvc;
 	

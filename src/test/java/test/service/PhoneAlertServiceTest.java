@@ -3,6 +3,14 @@
  */
 package test.service;
 
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
+import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
+
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,18 +21,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
-
-import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
 
 /**
  * @author gareth
@@ -32,15 +32,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
 @AutoConfigureMockMvc
-public class CommunityEmailService {
+public class PhoneAlertServiceTest {
 	@Autowired
     private MockMvc mockMvc;
 	@BeforeEach
 	public void setup() {
 		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository medicalRecordRepoFromJson = new JsonReaderRepository();
+		JsonReaderRepository fireStationRepoFromJson = new JsonReaderRepository();
 		JsonReaderRepository peopleAndMedicalRecords = new JsonReaderRepository();
 		try {
+			medicalRecords = medicalRecordRepoFromJson.extractMedicalRecordsDataFromJsonNode();
 			persons = personRepoFromJson.extractPersonDataFromJsonNode();
+			fireStations = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
 			peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
@@ -55,11 +59,10 @@ public class CommunityEmailService {
 		
 	}
 	@Test
-	@DisplayName("Should have tenz@email.com for Culver")
+	@DisplayName("Should have 841-874-6741 in the list of phone numbers for station number 3")
 	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {
 		
-		this.mockMvc.perform(get("/communityEmail?city=Culver")).andExpect(content().string(containsString("tenz@email.com")));
+		this.mockMvc.perform(get("/phoneAlert?firestation=3")).andExpect(content().string(containsString("841-874-6741")));
 		
 	}
-	
 }
