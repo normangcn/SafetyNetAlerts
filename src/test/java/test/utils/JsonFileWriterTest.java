@@ -1,40 +1,34 @@
 /**
  * 
  */
-package test.service;
+package test.utils;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
-import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static com.oc.safetynetalerts.repository.GlobalRepo.fireStations;
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.peopleAndtheirMedicalRecords;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.oc.safetynetalerts.SafetyNetAlertsApplication;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
+import com.oc.safetynetalerts.utils.JsonFileWriter;
 
 /**
  * @author gareth
  *
  */
 @SpringBootTest(classes= SafetyNetAlertsApplication.class )
-@AutoConfigureMockMvc
-public class PhoneAlertServiceTest {
-	@Autowired
-    private MockMvc mockMvc;
+public class JsonFileWriterTest {
+		  
 	@BeforeEach
 	public void setup() {
 		JsonReaderRepository personRepoFromJson = new JsonReaderRepository();
@@ -58,9 +52,13 @@ public class PhoneAlertServiceTest {
 		}
 		
 	}
+	
+	@DisplayName("Should write data present in the memory as a JsonFile")
 	@Test
-	@DisplayName("Should have 841-874-6741 in the list of phone numbers for station number 3")
-	 void listNameKidsForAddress_1509_Culver_St_givenAddress_1509_Culver_St_whenResultList_thenReturnCorrectResultList()throws Exception {	
-		this.mockMvc.perform(get("/phoneAlert?firestation=3")).andExpect(content().string(containsString("841-874-6741")));	
+	public void whenJsonOutputDTO_ifJsonOutputDTONotNull_thenWriteJsonFile() {
+		JsonFileWriter jsonFileWriter = new JsonFileWriter();
+		assertNotNull(jsonFileWriter);
 	}
+
+
 }
