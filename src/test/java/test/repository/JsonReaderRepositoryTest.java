@@ -19,16 +19,6 @@ import com.oc.safetynetalerts.repository.JsonReaderRepository;
  * @author NORMAN Gareth
  *
  */
-/* @RunWith(SpringRunner.class) */
-/*
- * @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK,classes =
- * Application.class)
- * 
- * @AutoConfigureMockMvc
- * 
- * @TestPropertySource(locations =
- * "classpath:application-integrationtest.properties")
- */
 @SpringBootTest
 public class JsonReaderRepositoryTest{
 

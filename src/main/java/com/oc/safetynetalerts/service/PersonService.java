@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.oc.safetynetalerts.model.KidsAndAdultsAtAddress;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.repository.JsonReaderRepository;
 import com.oc.safetynetalerts.utils.StringUtils;
@@ -44,9 +43,5 @@ public class PersonService {
 		}
 		return allPeople;
 	}
-	public List<KidsAndAdultsAtAddress> kidsAndAdultsListAtAddress(){
-		
-		return null;
-		
-	}
+
 }

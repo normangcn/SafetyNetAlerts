@@ -282,5 +282,15 @@ public Object personRecordConcatNames() {
 	
 	return personRecordNameConcat;
 }
+//Copy constructor
+public Person(Person other) {
+    this.firstName = other.firstName;
+    this.lastName = other.lastName;
+    this.address = other.address;
+    this.city = other.city;
+    this.zip = other.zip;
+    this.phone = other.phone;
+    this.email = other.email;
+}
 }
  
