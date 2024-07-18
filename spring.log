@@ -1,0 +1,7 @@
+2024-07-18T22:52:59.959+08:00  INFO 8996 --- [SafetyNetAlerts] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2024-07-18T22:53:00.861+08:00  INFO 8996 --- [SafetyNetAlerts] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 33563 (http) with context path ''
+2024-07-18T22:53:33.695+08:00  INFO 9148 --- [SafetyNetAlerts] [main] c.o.s.SafetyNetAlertsApplication         : Starting SafetyNetAlertsApplication using Java 17.0.6 with PID 9148 (/home/gareth/Programming/Learning/SafetyNetAlerts/target/classes started by gareth in /home/gareth/Programming/Learning/SafetyNetAlerts)
+2024-07-18T22:53:33.697+08:00  INFO 9148 --- [SafetyNetAlerts] [main] c.o.s.SafetyNetAlertsApplication         : No active profile set, falling back to 1 default profile: "default"
+2024-07-18T22:53:34.269+08:00  INFO 9148 --- [SafetyNetAlerts] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-18T22:53:34.776+08:00  INFO 9148 --- [SafetyNetAlerts] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-07-18T22:53:34.785+08:00  INFO 9148 --- [SafetyNetAlerts] [main] c.o.s.SafetyNetAlertsApplication         : Started SafetyNetAlertsApplication in 1.277 seconds (process running for 1.575)
