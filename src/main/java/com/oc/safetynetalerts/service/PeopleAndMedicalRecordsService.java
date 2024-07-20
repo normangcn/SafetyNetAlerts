@@ -11,7 +11,7 @@ import com.oc.safetynetalerts.model.PeopleAndTheirMedicalRecord;
 import com.oc.safetynetalerts.model.Person;
 import com.oc.safetynetalerts.utils.StringUtils;
 
-import static com.oc.safetynetalerts.repository.GlobalRepo.person;
+import static com.oc.safetynetalerts.repository.GlobalRepo.persons;
 import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
 
 /**
@@ -20,7 +20,7 @@ import static com.oc.safetynetalerts.repository.GlobalRepo.medicalRecords;
  */
 public class PeopleAndMedicalRecordsService {
 public static List<PeopleAndTheirMedicalRecord> personListMergedWithCorrespondingMedicalRecord(){
-	List<Person> allPeoples = person;
+	List<Person> allPeoples = persons;
 	List<MedicalRecord> allMedicalRecords = medicalRecords;
 	List<MedicalRecord> medicalRecordConcats = new ArrayList<>();
 	List<PeopleAndTheirMedicalRecord> mergedLists = new ArrayList<>();
