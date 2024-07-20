@@ -28,6 +28,6 @@ public class SafetyNetAlertsApplication {
 		persons = personRepoFromJson.extractPersonDataFromJsonNode();
 		fireStations = fireStationRepoFromJson.extractFireStationsDataFromJsonNode();
 		peopleAndtheirMedicalRecords = peopleAndMedicalRecords.combinePeopleAndMedicalRecords();
-		
+		System.out.println("Welcome!");
 	}
 }
